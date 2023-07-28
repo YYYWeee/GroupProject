@@ -20,8 +20,10 @@ class User(db.Model, UserMixin):
     created_at =db.Column(db.Date,nullable=False)
     updated_at =db.Column(db.Date,nullable=False)
 
-    pins = db.relationship("Pin",back_populates="user")
-    comments = db.relationship("Comment",back_populates="user")
+    pins = db.relationship("Pin",back_populates="user", cascade="all, delete-orphan")
+    comments = db.relationship("Comment",back_populates="user", cascade="all, delete-orphan")
+
+    board_users = db.relationship('BoardUser',back_populates='users')
 
     @property
     def password(self):
