@@ -48,5 +48,5 @@ def delete_board(id):
         return {'errors': ['No board found']}
     else:
         db.session.delete(board)
-        db.sessin.commit()
+        db.session.commit()
         return {"Response": "Successfully deleted board"}
