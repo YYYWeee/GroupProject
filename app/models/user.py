@@ -1,6 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
+from sqlalchemy.sql import func
 
 
 class User(db.Model, UserMixin):
@@ -13,17 +15,22 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    photo_url =db.Column(db.String,nullable=True)
-    first_name =db.Column(db.String, nullable=False)
-    last_name =db.Column(db.String, nullable=True)
+    photo_url = db.Column(db.String, nullable=True)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=True)
     about = db.Column(db.String, nullable=True)
-    created_at =db.Column(db.Date,nullable=False)
-    updated_at =db.Column(db.Date,nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True),
+                           server_default=func.now())
+    updated_at = db.Column(db.DateTime(timezone=True),
+                           server_default=func.now(), onupdate=func.now())
 
-    pins = db.relationship("Pin",back_populates="user", cascade="all, delete-orphan")
-    comments = db.relationship("Comment",back_populates="user", cascade="all, delete-orphan")
+    pins = db.relationship("Pin", back_populates="user",
+                           cascade="all, delete-orphan")
+    comments = db.relationship(
+        "Comment", back_populates="user", cascade="all, delete-orphan")
 
-    board_users = db.relationship('BoardUser',back_populates='users')
+    board_users = db.relationship('BoardUser', back_populates='users')
+    favorite = db.relationship('Favorite', back_populates='users')
 
     @property
     def password(self):
@@ -41,7 +48,7 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'photo_url':self.photo_url,
+            'photo_url': self.photo_url,
             'first_name': self.first_name,
             'last_name': self.last_name,
             'about': self.about
