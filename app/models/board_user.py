@@ -16,7 +16,7 @@ class BoardUser(db.Model):
         add_prefix_for_prod("users.id")), nullable=False)
     board_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("boards.id")), nullable=False)
-    role = db.Column(db.Enum(*role_types), nullable=False)
+    role = db.Column(db.Enum(*role_types), nullable=False,name='role_types')
     created_at = db.Column(db.DateTime(timezone=True),
                            server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True),
