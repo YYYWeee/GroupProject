@@ -5,11 +5,11 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password')
+        username='Demo', email='demo@aa.io', password='password', photo_url='https://cdn.discordapp.com/attachments/1134270927769698500/1134701025694056549/IMG_2454.jpg', first_name='Demo', last_name='Lition', about='this is demo user')
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
+        username='marnie', email='marnie@aa.io', password='password', photo_url='https://cdn.discordapp.com/attachments/1134270927769698500/1134701025694056549/IMG_2454.jpg', first_name='Marnie', last_name='Green', about='heelllo world')
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        username='bobbie', email='bobbie@aa.io', password='password', photo_url='https://cdn.discordapp.com/attachments/1134270927769698500/1134701025694056549/IMG_2454.jpg', first_name='Bobbie', last_name='Brown', about='nice to see you')
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -25,8 +25,9 @@ def seed_users():
 # it will reset the primary keys for you as well.
 def undo_users():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
-        
+
     db.session.commit()
