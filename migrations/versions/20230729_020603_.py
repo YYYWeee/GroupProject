@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 93324899762a
+Revision ID: d9c28b6c8bae
 Revises:
-Create Date: 2023-07-28 21:11:33.296582
+Create Date: 2023-07-29 02:06:03.138321
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '93324899762a'
+revision = 'd9c28b6c8bae'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -74,8 +74,8 @@ def upgrade():
                     )
     op.create_table('board_users',
                     sa.Column('id', sa.Integer(), nullable=False),
-                    sa.Column('board_id', sa.Integer(), nullable=False),
                     sa.Column('user_id', sa.Integer(), nullable=False),
+                    sa.Column('board_id', sa.Integer(), nullable=False),
                     sa.Column('role', sa.Enum(
                         'owner', 'collaborator'), nullable=False),
                     sa.Column('created_at', sa.DateTime(timezone=True),
@@ -101,8 +101,8 @@ def upgrade():
                     )
     op.create_table('favorites',
                     sa.Column('id', sa.Integer(), nullable=False),
-                    sa.Column('board_id', sa.Integer(), nullable=False),
                     sa.Column('user_id', sa.Integer(), nullable=False),
+                    sa.Column('board_id', sa.Integer(), nullable=False),
                     sa.Column('pin_id', sa.Integer(), nullable=False),
                     sa.Column('created_at', sa.DateTime(timezone=True),
                               server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
@@ -129,8 +129,6 @@ def upgrade():
         op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE favorites SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE pin_boards SET SCHEMA {SCHEMA};")
-
-    # ### end Alembic commands ###qqqqqqqqq
 
 
 def downgrade():

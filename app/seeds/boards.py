@@ -6,7 +6,7 @@ def seed_boards():
     boards = [{"owner_id": 1, "name": 'Floof',
                "description": 'Board dedicated to the cutest floofballs of all time: Samoyeds!', "is_secret": False},
               {"owner_id": 2, "name": 'Home decor idea',
-               "description": 'Our Stylist\'s Guide to Bookshelf Styling', "is_secret": False},
+               "description": 'Our Stylist\'s Guide to Bookshelf Styling', "is_secret": True},
               {"owner_id": 3, "name": 'Check out these amazing ideas',
                "description": 'Creating a Productive Home Office', "is_secret": False},
               {"owner_id": 2, "name": '40+ Beautiful Small Kitchen',
