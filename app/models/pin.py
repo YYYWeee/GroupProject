@@ -1,9 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 from sqlalchemy.sql import func
-
-pin_boards = db.Table('pin_boards',  db.Model.metadata,
-                      db.Column('boards.id'), db.Column('pins.id'))
+from .pin_board import pin_boards
 
 
 class Pin(db.Model):

@@ -10,10 +10,10 @@ class Favorite(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    board_id = db.Column(db.Integer, db.ForeignKey(
-        add_prefix_for_prod("boards.id")), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("users.id")), nullable=False)
+    board_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod("boards.id")), nullable=False)
     pin_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("pins.id")), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True),
