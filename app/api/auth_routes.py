@@ -33,6 +33,7 @@ def login():
     """
     Logs a user in
     """
+    print("in login backend")
     form = LoginForm()
     # Get the csrf_token from the request cookie and put it into the
     # form manually to validate_on_submit can be used
@@ -65,7 +66,8 @@ def sign_up():
         user = User(
             username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password'],
+            first_name=form.data['username']
         )
         db.session.add(user)
         db.session.commit()
