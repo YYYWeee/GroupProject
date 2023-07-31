@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
-import { authenticate } from "./store/session";
+import React, {useState, useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {Route, Switch} from "react-router-dom";
+import {authenticate} from "./store/session";
 
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
@@ -10,6 +10,7 @@ import LandingPage from "./components/LandingPage";
 import PinsList from "./components/Pins/PinsList/PinsList";
 import SinglePinDetails from "./components/Pins/SinglePinDetails/SinglePinDetails";
 import CreatePin from "./components/Pins/CreatePin/CreatePin";
+import CurrentUser from "./components/CurrentUser/CurrentUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,9 @@ function App() {
             </Route>
             <Route exact path="/:username/board-builder">
               <CreatePin />
+            </Route>
+            <Route exact path="/:username">
+              <CurrentUser />
             </Route>
           </Switch>
         )}

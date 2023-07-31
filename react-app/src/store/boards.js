@@ -30,7 +30,7 @@ export const fetchOneBoardThunk = (boardId) => async (dispatch) => {
   const res = await fetch(`/api/boards/${boardId}`);
   if (res.ok) {
     const board = await res.json();
-    dispatch(loadOneBoard(boards));
+    dispatch(loadOneBoard(board));
   } else {
     const errors = await res.json();
     return errors;
@@ -48,6 +48,8 @@ const boardsReducer = (state = initialState, action) => {
         boardsState.allBoards[board.id] = board;
       });
       return boardsState;
+    default:
+      return state;
   }
 };
 
