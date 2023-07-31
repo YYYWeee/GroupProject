@@ -11,7 +11,8 @@ import PinsList from "./components/Pins/PinsList/PinsList";
 import SinglePinDetails from "./components/Pins/SinglePinDetails/SinglePinDetails";
 import CreatePin from "./components/Pins/CreatePin/CreatePin";
 import CurrentUser from "./components/CurrentUser/CurrentUser";
-import SingleBoardDetails from "./components/Board/SingleBoardDetails/SingleBoardDetails";
+import SingleBoardDetails from "./components/Boards/SingleBoardDetails/SingleBoardDetails";
+import CreateBoardModal from "./components/Boards/CreateBoard/CreateBoardModal";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,9 @@ function App() {
             </Route>
             <Route exact path="/:username">
               <CurrentUser />
+            </Route>
+            <Route exact path="/:username/board/new">
+              <CreateBoardModal />
             </Route>
           </Switch>
         )}

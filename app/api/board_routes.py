@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify,request
 from flask_login import login_required, current_user
 from app.models import Board, BoardUser, db
+from app.forms.board_form import BoardForm
 
 board_routes = Blueprint('board', __name__)
 
@@ -27,6 +28,24 @@ def get_all_boards():
         .all()
     response = [board.to_dict() for board in all_boards]
     return response
+
+@board_routes.route('/new',methods=['POST'])
+def create_board():
+    form = BoardForm
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_board = BoardForm(
+            owner_id = current_user.id,
+            name = form.data['name'],
+            is_secret = form.data['is_secret']
+        )
+        db.session.add(new_board)
+        db.session.commit()
+        response = new_board.to_dict()
+        return response
+    if form.errors:
+        return form.errors
+
 
 
 @board_routes.route('/<int:id>')
