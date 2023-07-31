@@ -4,6 +4,7 @@ import session from "./session";
 import pinsReducer from "./pins";
 import commentsReducer from "./comments";
 
+
 const rootReducer = combineReducers({
   session,
   pins: pinsReducer,

@@ -1,6 +1,7 @@
 /** Action Type Constants: */
 export const LOAD_ALL_PINS = "pins/LOAD_ALL_PINS";
 export const LOAD_ONE_PIN = "pins/LOAD_ONE_PIN";
+export const ADD_PIN = 'pins/ADD_PIN';
 
 /**  Action Creators: */
 export const loadAllPinsAction = (pins) => ({
@@ -12,6 +13,13 @@ export const loadOnePinAction = (pin) => ({
   type: LOAD_ONE_PIN,
   pin,
 });
+
+export const addPin = (pin) => {
+  return {
+      type: ADD_PIN,
+      payload: pin,
+  }
+}
 
 /** Thunk Action Creators: */
 export const fetchAllPinsThunk = () => async (dispatch) => {
@@ -38,6 +46,24 @@ export const fetchOnePinThunk = (pinId) => async (dispatch) => {
   }
 };
 
+export const createNewPinThunk = (pin) => async (dispatch) => {
+  const response = await fetch(`/api/pin-builder`, {
+    method: "POST",
+    body: pin
+  });
+  console.log("RESPONSE FROM SERVER", response)
+
+  if (response.ok) {
+    const { newPin } = await response.json();
+    console.log("NEW PIN DATA", newPin);
+    // dispatch(addPin(newPin));
+    dispatch(loadOnePinAction(newPin))
+  } else {
+    console.log("There was an error making your pin!")
+  }
+
+}
+
 /** Pins Reducer: */
 const initialState = { allPins: [], singlePin: {} };
 
@@ -55,9 +81,34 @@ const pinsReducer = (state = initialState, action) => {
       };
     case LOAD_ONE_PIN:
       return { ...state, singlePin: { ...action.pin } };
+
     default:
       return state;
   }
 };
 
 export default pinsReducer;
+
+
+
+
+
+
+
+
+
+//Reducer
+// const initialState = { allPins: [], pin: {} };
+// const pinReducer = (state = initialState, action) => {
+//   let newState;
+//   switch (action.type) {
+//     case ADD_PIN:
+//       newState = { ...state };
+//       newState.allPins[action.pin.id] = action.pin;
+//       return newState;
+
+//     default:
+//       return state;
+
+//   }
+// }

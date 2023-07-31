@@ -10,6 +10,7 @@ import LandingPage from "./components/LandingPage";
 import PinsList from "./components/Pins/PinsList/PinsList";
 import SinglePinDetails from "./components/Pins/SinglePinDetails/SinglePinDetails";
 import CreatePin from "./components/Pins/CreatePin/CreatePin";
+import PostPinForm from "./components/PostPinForm"
 
 function App() {
   const dispatch = useDispatch();
@@ -40,12 +41,12 @@ function App() {
               <SinglePinDetails />
             </Route>
             <Route exact path="/pin-builder">
-              <CreatePin />
+              <PostPinForm />
             </Route>
             <Route exact path="/:username/board-builder">
               <CreatePin />
             </Route>
-          </Switch>
+        </Switch>
         )}
       </div>
     </>
