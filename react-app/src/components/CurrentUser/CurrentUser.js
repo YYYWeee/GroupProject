@@ -23,7 +23,7 @@ export default function CurrentUser() {
   if (!currentUser) return null;
 
   return (
-    <div>
+    <div className="curr-user-wrap">
       <div className="user-info">
         <img className="user-pp" src={currentUser.photo_url} />
 
@@ -35,14 +35,25 @@ export default function CurrentUser() {
         </div>
         <div className="my-username">@{currentUser.username}</div>
         <div className="user-buttons">
-          <button className="share-btn">Share</button>
-          <button className="edit-btn">Edit Profile</button>
+          <button
+            className="share-btn"
+            onClick={() => alert("Feature Coming Soon...")}
+          >
+            Share
+          </button>
+          <button
+            className="edit-btn"
+            onClick={() => alert("Feature Coming Soon...")}
+          >
+            Edit Profile
+          </button>
         </div>
       </div>
-
-      {boards.map((board) => (
-        <BoardCard key={board.id} board={board} currentUser={currentUser} />
-      ))}
+      <div className="board-card">
+        {boards.map((board) => (
+          <BoardCard key={board.id} board={board} currentUser={currentUser} />
+        ))}
+      </div>
     </div>
   );
 }
