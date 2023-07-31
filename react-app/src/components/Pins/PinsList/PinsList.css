@@ -1,0 +1,10 @@
+.pin-list-container {
+  padding-top: 80px;
+}
+
+.pin-card-img {
+  max-width: 650px;
+  width: 640px;
+  border-radius: 8px;
+  cursor: pointer;
+}

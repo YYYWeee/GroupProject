@@ -1,0 +1,5 @@
+.comment-single {
+  display: flex;
+  flex-direction: row;
+  word-wrap: break-word;
+}
