@@ -56,6 +56,7 @@ function PostPinForm() {
 
     if (image == null){
       setNoPicture(true)
+
       return
     }
 
