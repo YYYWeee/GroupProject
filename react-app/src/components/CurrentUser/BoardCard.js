@@ -7,7 +7,7 @@ export default function BoardCard({board, currentUser}) {
 
   return (
     <div className="board-card-wrap">
-      <Link to={`/${currentUser.username}/${board.id}`}>
+      <Link to={`/${currentUser.username}/board/${board.id}`}>
         <img
           className="need-cover-pic"
           src="https://wallpaperaccess.com/full/1933166.jpg"

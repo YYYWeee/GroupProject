@@ -11,6 +11,7 @@ import PinsList from "./components/Pins/PinsList/PinsList";
 import SinglePinDetails from "./components/Pins/SinglePinDetails/SinglePinDetails";
 import CreatePin from "./components/Pins/CreatePin/CreatePin";
 import CurrentUser from "./components/CurrentUser/CurrentUser";
+import SingleBoardDetails from "./components/Board/SingleBoardDetails/SingleBoardDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,9 @@ function App() {
             </Route>
             <Route exact path="/:username/board-builder">
               <CreatePin />
+            </Route>
+            <Route exact path="/:username/board/:boardId">
+              <SingleBoardDetails />
             </Route>
             <Route exact path="/:username">
               <CurrentUser />

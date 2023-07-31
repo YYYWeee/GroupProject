@@ -48,6 +48,10 @@ const boardsReducer = (state = initialState, action) => {
         boardsState.allBoards[board.id] = board;
       });
       return boardsState;
+    case LOAD_ONE_BOARD:
+      const newState = {...state};
+      newState.singleBoard = action.board;
+      return newState;
     default:
       return state;
   }
