@@ -1,14 +1,17 @@
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, useHistory, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 
 import "./SinglePinDetails.css";
 import { fetchOnePinThunk } from "../../../store/pins";
-import CommentCard from "./CommentCard";
+import CommentList from "./CommentsList";
+import CreateComment from "./CreateComment";
 
 function SinglePinDetails() {
   const { pinId } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const ulRef = useRef();
   const sessionUser = useSelector((state) => state.session.user);
   const targetPin = useSelector((state) =>
@@ -17,12 +20,11 @@ function SinglePinDetails() {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
   };
-
-  const closeMenu = () => setShowMenu(false);
 
   const profileArrowDirection = showMenu ? "up" : "down";
   const ulClassName = "create-dropdown" + (showMenu ? "" : " hidden");
@@ -32,6 +34,11 @@ function SinglePinDetails() {
   if (linkHostname?.startsWith("www.")) {
     linkHostname = linkHostname.slice(4);
   }
+
+  const handleClickUser = async (e) => {
+    history.push(`/${sessionUser?.username}`);
+    window.scrollTo(0, 0);
+  };
 
   useEffect(() => {
     dispatch(fetchOnePinThunk(pinId)).then(setIsLoaded(true));
@@ -59,10 +66,10 @@ function SinglePinDetails() {
       <main className="single-pin-upper-container">
         <div className="for-you-container">
           <NavLink exact to="/pins" className="for-you">
-            <span className="left-arrow">
-              <i className={"fa-solid fa-arrow-left arrow"}></i>
+            <span>
+              <i className={"fa-solid fa-arrow-left arrow left-arrow"}></i>
             </span>
-            <span className="for-you"> For you</span>
+            {sessionUser && <span className="for-you"> For you</span>}
           </NavLink>
         </div>
         <div className="pin-main-container">
@@ -74,6 +81,12 @@ function SinglePinDetails() {
               alt="No pin preview"
               className="pin-img"
             ></img>
+            <div className="img-link-container cursor">
+              <i className="fa-solid fa-arrow-up-right-from-square"></i>
+              <a href={targetPin?.link} className="img-link">
+                {linkHostname}
+              </a>
+            </div>
           </div>
           <div className="pin-right-container">
             <div className="btns-boards">
@@ -100,10 +113,14 @@ function SinglePinDetails() {
               </div>
             </div>
             <div className="pin-content-container">
-              <div className="hostname">
-                <a href={targetPin?.link}>{linkHostname}</a>
+              <a href={targetPin?.link} className="hostname">
+                {linkHostname}
+              </a>
+              <div className="pin-title-container">
+                <a className="pin-title" href={targetPin?.link}>
+                  {targetPin?.title}
+                </a>
               </div>
-              <h1 className="pin-title">{targetPin?.title}</h1>
               <p className="pin-description">{targetPin?.description}</p>
               <div className="pin-creator-container">
                 <div className="pin-creator-left">
@@ -114,63 +131,32 @@ function SinglePinDetails() {
                         : "no preview img"
                     }
                     alt="No creator preview"
-                    className="creator-img"
+                    className="creator-img cursor"
+                    onClick={handleClickUser}
                   ></img>
-                  <div>
-                    {targetPin?.creator?.first_name}{" "}
-                    {targetPin?.creator?.last_name}
+                  <div className="pin-creator-middle">
+                    <p onClick={handleClickUser} style={{ cursor: "pointer" }}>
+                      {targetPin?.creator?.first_name}{" "}
+                      {targetPin?.creator?.last_name}
+                    </p>
+                    <p>16k followers</p>
                   </div>
                 </div>
-                <div className="follow-btn">
-                  <button>Follow</button>
-                </div>
-              </div>
-              <div className="comments-list-container">
-                <div className="comment-title-container">
-                  <div>Comments</div>
-                  {targetPin?.comments?.length > 0 ? (
-                    targetPin?.comments?.map((comment) => (
-                      <CommentCard key={comment.id} comment={comment} />
-                    ))
-                  ) : (
-                    <div>
-                      No comments yet. Add one to start the conversation.
-                    </div>
+                <div>
+                  {sessionUser && (
+                    <button className="follow-btn cursor">Follow</button>
                   )}
                 </div>
               </div>
+              {targetPin && <CommentList targetPin={targetPin} />}
             </div>
-            <div className="comments-container">
-              <div className="comment-stats-container">
-                <div>
-                  {targetPin?.comments?.length}{" "}
-                  {targetPin?.comments?.length === 1 ? "Comment" : "Comments"}
-                </div>
-                <div>
-                  <i className="fa-regular fa-heart"></i>
-                </div>
-              </div>
-              <div className="session-user-img">
-                <img
-                  src={
-                    sessionUser.photo_url
-                      ? sessionUser.photo_url
-                      : "no preview img"
-                  }
-                  alt="No creator preview"
-                  className="commenter-img"
-                ></img>
-              </div>
-              <div>add a comment field</div>
-            </div>
+            {sessionUser && <CreateComment targetPin={targetPin} />}
           </div>
         </div>
       </main>
       <div className="more-like-this">More like this</div>
       <div className="more-like-this">More like this</div>
-
       <div className="more-like-this">More like this</div>
-
       <div className="more-like-this">More like this</div>
     </section>
   );

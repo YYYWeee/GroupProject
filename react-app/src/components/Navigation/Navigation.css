@@ -113,10 +113,15 @@ nav {
   display: flex;
   align-items: center;
   gap: 8px;
+  border: 4px solid transparent;
 }
 
 .nav-search:hover {
   background-color: #d3d3d3;
+}
+
+.nav-search:focus-within {
+  border-color: #75bfff !important;
 }
 
 .fas.fa-search {
@@ -130,10 +135,15 @@ nav {
   outline: None;
   align-self: stretch;
   border: none;
+  cursor: pointer;
 }
 
 .search-input:hover {
   background-color: #d3d3d3;
+}
+
+.search-input:focus {
+  cursor: text;
 }
 
 .header-right-container {

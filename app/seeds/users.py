@@ -7,7 +7,7 @@ def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password', photo_url='https://img.freepik.com/free-photo/bacon-burger_1339-1384.jpg', first_name='Demo', last_name='Lition', about='this is demo user')
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', photo_url='https://upload.wikimedia.org/wikipedia/commons/7/74/A-Cat.jpg', first_name='Marnie', last_name='Green', about='heelllo world')
+        username='marnie', email='marnie@aa.io', password='password', photo_url='https://upload.wikimedia.org/wikipedia/commons/7/74/A-Cat.jpg', first_name='Elegant Wedding Invites | wedding stationery, wedding colors', last_name='', about='heelllo world')
     bobbie = User(
         username='bobbie', email='bobbie@aa.io', password='password', photo_url='https://repairit.wondershare.com/article-banner/photo-repair-banner-pic-1.png', first_name='Bobbie', last_name='Brown', about='nice to see you')
     rachel = User(

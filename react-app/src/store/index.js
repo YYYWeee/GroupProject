@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
 import pinsReducer from "./pins";
+import commentsReducer from "./comments";
 
 const rootReducer = combineReducers({
   session,
   pins: pinsReducer,
+  comments: commentsReducer,
 });
 
 let enhancer;
