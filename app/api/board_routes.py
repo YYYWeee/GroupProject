@@ -31,17 +31,18 @@ def get_all_boards():
 
 @board_routes.route('/new',methods=['POST'])
 def create_board():
-    form = BoardForm
+    form = BoardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        new_board = BoardForm(
+        new_board = Board(
             owner_id = current_user.id,
             name = form.data['name'],
             is_secret = form.data['is_secret']
         )
         db.session.add(new_board)
         db.session.commit()
-        response = new_board.to_dict()
+        created_board = Board.query.order_by(Board.id.desc()).first()
+        response = created_board.to_dict()
         return response
     if form.errors:
         return form.errors

@@ -1,17 +1,30 @@
-import React, { useState,useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState,useEffect} from "react";
+import { useDispatch,useSelector  } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useModal } from "../../context/Modal";
+import { useModal } from "../../../context/Modal";
+
 import { fetchCreateBoardThunk } from "../../../store/boards";
 
 
-export default function CreateBoardModal() {
-  const despatch = useDispatch();
+export default function CreateBoard() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [name,setName] = useState('');
   const [is_secret,setIs_secert] = useState(false);
-  const [errors,setErrors] = useState({})
-  const currentUser = useSelector((state) => state.session.user)
+  const [errors,setErrors] = useState({});
+  const {closeModal} = useModal()
+  const currentUser = useSelector((state) => state.session.user);
+
+  useEffect(()=>{
+    let errors = {};
+    if(name.length === 0) {
+      errors.name = "Don't forget to name your board!"
+    }
+    if(name.length > 50){
+      errors.name = "Please enter no more than 50 characters."
+    }
+    setErrors(errors);
+  },[name])
   
   const validationErrors = () =>{
     let errors = {};
@@ -21,6 +34,7 @@ export default function CreateBoardModal() {
     if(name.length > 50){
       errors.name = "Please enter no more than 50 characters."
     }
+    return errors
   }
 
   const handleSubmit = async (e) =>{
@@ -35,7 +49,7 @@ export default function CreateBoardModal() {
 
     const newBoard = {name,is_secret}
     const data = await dispatch(fetchCreateBoardThunk(newBoard));
-    history.push(`/${currentUser.username}/board/${newBoard.boardId}`)
+    history.push(`/${currentUser.username}/board/${data.id}`)
   }
 
 
