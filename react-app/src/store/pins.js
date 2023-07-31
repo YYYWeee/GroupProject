@@ -1,7 +1,9 @@
 /** Action Type Constants: */
 export const LOAD_ALL_PINS = "pins/LOAD_ALL_PINS";
 export const LOAD_ONE_PIN = "pins/LOAD_ONE_PIN";
-export const ADD_PIN = "pins/ADD_PIN";
+export const ADD_PIN = 'pins/ADD_PIN';
+export const UPDATE_PIN = "pin/update"
+export const DELETE_PIN = "pin/delete";
 
 /**  Action Creators: */
 export const loadAllPinsAction = (pins) => ({
@@ -20,6 +22,13 @@ export const addPin = (pin) => {
     pin,
   };
 };
+
+export const deletePin = (pinId)=> ({
+  type: DELETE_PIN,
+  pinId,
+});
+
+
 
 /** Thunk Action Creators: */
 export const fetchAllPinsThunk = () => async (dispatch) => {
@@ -63,6 +72,42 @@ export const createNewPinThunk = (pin) => async (dispatch) => {
   }
 };
 
+export const updatePinThunk = (updatePin, id) => async (dispatch) => {
+  // console.log('in thunk',updatePin)
+  // console.log('in thunk',id)
+
+  const response = await fetch(`/api/pins/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatePin),
+    // body: JSON.stringify({
+    //   title: updatePin.title,
+    //   description: updatePin.description,
+    //   link: updatePin.link,
+    //   alt_text: updatePin.altText,
+    //   note_to_self:updatePin.note,
+    //   allow_comment:updatePin.allow_comment
+    // }),
+  })
+  let updatedPin = await response.json();
+  console.log('updated Pin', updatedPin)
+  dispatch(loadOnePinAction(updatedPin));  //now
+  return updatedPin;
+}
+
+export const deletePinThunk = (pinId) => async (dispatch) => {
+  const response = await fetch(`/api/pins/${pinId}`, {
+    method: "delete",
+  });
+  if (response.ok) {
+    const { id: deletedPinId } = await response.json();
+    dispatch(deletePin(pinId));
+    return deletedPinId;
+  }
+}
+
 /** Pins Reducer: */
 const initialState = { allPins: {}, singlePin: {} };
 
@@ -80,12 +125,13 @@ const pinsReducer = (state = initialState, action) => {
       };
     case LOAD_ONE_PIN:
       return { ...state, singlePin: { ...action.pin } };
-    // case ADD_PIN:
-    //   const newState = { ...state };
-    //   newState.allPins[action.pin.id] = action.pin;
-    //   newState.singlePin = action.pin;
-    //   return newState;
 
+    case DELETE_PIN:
+      console.log('in the reducer',action)
+      console.log('in the reducer',action.pinId)
+      const newState = { ...state };
+      delete newState[action.pinId];
+      return newState;
     default:
       return state;
   }

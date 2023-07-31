@@ -1,15 +1,10 @@
-from datetime import datetime
-from random import randint
-from flask import Blueprint, jsonify, request, redirect, url_for
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from .AWS_helpers import upload_file_to_s3, get_unique_filename
 from .auth_routes import validation_errors_to_error_messages
 
 from app.models import db, Pin, Comment, User, Board, BoardUser
 from app.forms.comment_form import CommentForm
-from app.forms.edit_comment_form import EditCommentForm
-from ..forms.pin_post_forms import PinForm
-
 
 pin_routes = Blueprint('pins', __name__)
 
@@ -20,7 +15,7 @@ def get_all_pins():
     """
     Query for all pins and returns them in a list of pin dictionaries
     """
-    pins = Pin.query.all()
+    pins = Pin.query.order_by(Pin.created_at.desc()).all()
     return {"pins": [pin.to_dict() for pin in pins]}
 
 
@@ -51,6 +46,7 @@ def get_one_pin(pinId):
     #     comments_list.append(comment_dict)
     # response["comments"] = sorted(
     #     comments_list, key=lambda x: x["updated_at"], reverse=True)
+    return response
 
 
 @pin_routes.route('', methods=["POST"])

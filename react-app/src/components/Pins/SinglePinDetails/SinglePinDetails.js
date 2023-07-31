@@ -84,7 +84,8 @@ function SinglePinDetails() {
   }, [dispatch, pinId]);
 
   return showUpdateForm === true ? (
-    <EditPin pin={targetPin} />
+    <EditPin pin={targetPin}
+    setShowUpdateForm2={setShowUpdateForm} />
   ) : (
     <section className="single-pin-container">
       <main className="single-pin-upper-container">

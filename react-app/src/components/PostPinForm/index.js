@@ -101,7 +101,8 @@ function PostPinForm() {
               onClick={() => uploadInput.current.click()} >
 
               <input className="uploadButton" id="image" type="file"
-                accept="image/*"
+                // accept="image/*"
+                accept="image/png, image/jpeg, image/jpg, image/gif"
                 // onChange={(e) => setImage(e.target.files[0])}
                 onChange={handlePhoto}
                 ref={uploadInput}
