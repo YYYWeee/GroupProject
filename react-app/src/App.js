@@ -11,7 +11,7 @@ import PinsList from "./components/Pins/PinsList/PinsList";
 import SinglePinDetails from "./components/Pins/SinglePinDetails/SinglePinDetails";
 import CreatePin from "./components/Pins/CreatePin/CreatePin";
 import CurrentUser from "./components/CurrentUser/CurrentUser";
-import SingleBoardDetails from "./components/Board/SingleBoardDetails/SingleBoardDetails";
+import SingleBoardDetails from "./components/Boards/SingleBoardDetails/SingleBoardDetails";
 
 function App() {
   const dispatch = useDispatch();
