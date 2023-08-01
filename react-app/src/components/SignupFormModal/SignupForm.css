@@ -1,0 +1,67 @@
+.sign-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30rem;
+  padding: 1rem;
+}
+
+.the-errors {
+  color: red;
+}
+
+.sign-label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.4rem;
+}
+
+#modal-content {
+  border-radius: 25px;
+}
+
+.continue-btn {
+  margin-top: 2rem;
+  border-radius: 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  width: 11rem;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.welcome-sign {
+  font-size: 30px;
+  margin-bottom: 1rem;
+}
+
+.new-ideas {
+  margin-bottom: 0.4rem;
+}
+
+.sign-input {
+  border: lightgray 2px solid;
+  border-radius: 10px;
+  width: 13rem;
+  height: 2rem;
+}
+
+.sign-input:focus {
+  outline: 2px solid lightskyblue;
+}
+
+.sign-input:hover {
+  border-color: darkgray;
+}
+
+.sign-err {
+  color: red;
+}

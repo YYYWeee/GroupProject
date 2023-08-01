@@ -25,7 +25,14 @@ export default function CurrentUser() {
   return (
     <div className="curr-user-wrap">
       <div className="user-info">
-        <img className="user-pp" src={currentUser.photo_url} />
+        <img
+          className="user-pp"
+          src={
+            currentUser.photo_url
+              ? currentUser.photo_url
+              : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+          }
+        />
 
         <div className="user-name">
           <div className="u-firstname">{currentUser.first_name}</div>

@@ -11,7 +11,7 @@ const removeUser = () => ({
   type: REMOVE_USER,
 });
 
-const initialState = { user: null };
+const initialState = {user: null};
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch("/api/auth/", {
@@ -68,24 +68,30 @@ export const logout = () => async (dispatch) => {
   }
 };
 
-export const signUp = (username, email, password) => async (dispatch) => {
+export const signUp = (user) => async (dispatch) => {
+  const {email, username, first_name, last_name, password} = user;
+  console.log("i am in signup thunk");
   const response = await fetch("/api/auth/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      username,
       email,
+      username,
+      first_name,
+      last_name,
       password,
     }),
   });
 
   if (response.ok) {
+    console.log("I signed up!");
     const data = await response.json();
     dispatch(setUser(data));
     return null;
   } else if (response.status < 500) {
+    console.log("booo");
     const data = await response.json();
     if (data.errors) {
       return data.errors;
@@ -98,9 +104,9 @@ export const signUp = (username, email, password) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
-      return { user: action.payload };
+      return {user: action.payload};
     case REMOVE_USER:
-      return { user: null };
+      return {user: null};
     default:
       return state;
   }
