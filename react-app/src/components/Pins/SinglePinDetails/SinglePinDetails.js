@@ -6,6 +6,8 @@ import "./SinglePinDetails.css";
 import { fetchOnePinThunk } from "../../../store/pins";
 import CommentList from "./CommentsList";
 import CreateComment from "./CreateComment";
+import EditPin from "../EditPin"
+
 
 function SinglePinDetails() {
   const { pinId } = useParams();
@@ -20,6 +22,7 @@ function SinglePinDetails() {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
 
   const openMenu = () => {
     if (showMenu) return;
@@ -37,6 +40,9 @@ function SinglePinDetails() {
   const handleClickUser = async (e) => {
     history.push(`/${sessionUser?.username}`);
     window.scrollTo(0, 0);
+  };
+  const handleUpdate = (pin) => {
+    setShowUpdateForm(true);
   };
 
   useEffect(() => {
@@ -58,15 +64,15 @@ function SinglePinDetails() {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  return isLoaded === false ? (
-    <h1>Loading in progress</h1>
+  return showUpdateForm === true ? (
+    <EditPin pin={targetPin} />
   ) : (
     <section className="single-pin-container">
       <main className="single-pin-upper-container">
         <div className="for-you-container">
           <NavLink exact to="/pins" className="for-you">
             <span>
-              <i className={"fa-solid fa-arrow-left arrow left-arrow"}></i>
+              <i className={"fa-solid fa-arrow-left arrow left-arrow "}></i>
             </span>
             {sessionUser && <span className="for-you"> For you</span>}
           </NavLink>
@@ -114,6 +120,12 @@ function SinglePinDetails() {
               </div>
             </div>
             <div className="pin-content-container">
+              <div className="operation">
+                {sessionUser && targetPin.owner_id === sessionUser.id &&
+                (<button className="update-btn" onClick={() => handleUpdate(targetPin)}>
+                  <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                </button>)}
+              </div>
               <a href={targetPin?.link} className="hostname">
                 {linkHostname}
               </a>
@@ -160,6 +172,8 @@ function SinglePinDetails() {
       <div className="more-like-this">More like this</div>
       <div className="more-like-this">More like this</div>
     </section>
+
+
   );
 }
 
