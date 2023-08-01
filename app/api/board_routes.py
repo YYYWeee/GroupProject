@@ -54,20 +54,20 @@ def create_board():
     if form.errors:
         return form.errors
     
-@board_routes.route('/<int:id>',methods=['GET','PUT','DELETE'])
+@board_routes.route('/<int:id>',methods=['GET'])
 @login_required
-def handle_board(id):
-    
-    
+def get_board(id):
     if request.method == 'GET':
         board = Board.query.get(id)
         if not board:
             return {'errors': ['No board found']}
         response = board.to_dict()
         return response
+        
     
-    
-    elif request.method == 'PUT':
+@board_routes.route('/<int:id>',methods=['PUT'])
+@login_required
+def update_board(id):
         form = BoardForm()
         form['csrf_token'].data = request.cookies['csrf_token']
         target_board = Board.query.get(id)
@@ -93,28 +93,6 @@ def handle_board(id):
             return form.errors
         
 
-    elif request.method == 'DELETE':
-        board = Board.query.get(id)
-        if not board:
-            return {'errors': ['No board found']}
-        else:
-            db.session.delete(board)
-            db.session.commit()
-            return {"Response": "Successfully deleted board"}
-
-
-
-    
-
-        
-        
-
-
-
-
-# @board_routes.route('/<int:id>')
-# # @login_required do we want it to be logged in required
-# def get_single_board(id):
     
 
 # delete a board

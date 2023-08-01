@@ -1,3 +1,4 @@
+import "./CreateBoard.css";
 import React, { useState,useEffect} from "react";
 import { useDispatch,useSelector  } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -52,23 +53,31 @@ export default function CreateBoard() {
 
 
   return (
-    <div>
-      <h1>Create Board</h1>
+    <div className="form-page">
+      <div className="form-container-create-board">
+      <p className="create-board-title">Create Board</p>
       <form onSubmit={handleSubmit}>
-        <label>
-          Name
-           {errors.name && <div className="errors">{errors.name}</div>}
-          <input type = 'text' value = {name} onChange = {e=>setName(e.target.value)}>
+        <label id="create-board-name-label">
+          <p>Name</p> 
+          <input type = 'text' value = {name} onChange = {e=>setName(e.target.value)} placeholder="Like:'Place to Go' or 'Recipes to Make">
           </input>
+          {errors.name && <div className="errors"><i class="fa-solid fa-triangle-exclamation"></i>{errors.name}</div>}
         </label>
-        <label>
-          Keep this board secret
-          <p>So only you and collaborators can see it.</p>
-          <input type = 'checkbox' checked = {is_secret} onChange = {e=>setIs_secert(e.target.value)}>
+        <label id="create-board-secret-label">
+        <input type = 'checkbox' checked = {is_secret} onChange = {e=>setIs_secert(e.target.checked)}>
+          
+          
           </input>
+          <div><p>Keep this board secret</p>
+          <p>So only you and collaborators can see it.</p></div>
+          
         </label>
-        <button type='submit' disabled={!!Object.keys(errors).length}>Create</button>
+        <div id='create-board-submit-button-container'><button type='submit' disabled={!!Object.keys(errors).length} id="create-board-submit-button">Create</button></div>
+        
       </form>
+
+      </div>
+      
     </div>
   );
 }
