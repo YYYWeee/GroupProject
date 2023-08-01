@@ -65,7 +65,7 @@ export default function SingleBoardDetails() {
               <OpenModalButton
                 buttonText="Edit Board"
                 onItemClick={closeMenu}
-                modalComponent={<EditBoard />}
+                modalComponent={<EditBoard board={singleBoard}/>}
               />
               <OpenModalButton
                 buttonText="Delete Board"

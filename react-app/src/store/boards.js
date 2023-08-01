@@ -5,6 +5,8 @@ const LOAD_ONE_BOARD = "boards/LOAD_ONE_BOARD";
 
 const RECEIVE_BOARD = 'board/RECEIVE_BOARD'
 
+const EDIT_BOARD = 'board/EDIT_BOARD'
+
 const DELETE_BOARD = "boards/DELETE_BOARD";
 
 /**  Action Creators: */
@@ -20,6 +22,12 @@ export const loadOneBoard = (board) => ({
 
 export const receiveBoard = (board) => ({
   type:RECEIVE_BOARD,
+  board
+
+})
+
+export const editBoard = (board) => ({
+  type:EDIT_BOARD,
   board
 
 })
@@ -70,6 +78,24 @@ export const fetchCreateBoardThunk = (board) => async(dispatch)=>{
   }
 }
 
+export const fetchEditBoardThunk = (board) => async (dispatch) =>{
+  const res = await fetch(`/api/boards/${board.id}`,{
+    method:'PUT',
+    headers:{
+      'Content-Type': 'application/json'
+  },
+  body:JSON.stringify(board)
+  })
+  if(res.ok){
+    const data = await res.json();
+    dispatch(editBoard(data));
+    return data;
+  }else{
+    const data = await res.json();
+    throw data;
+  }
+}
+
 export const fetchDeleteBoardThunk = (boardId) => async (dispatch) => {
   const res = await fetch(`/api/boards/${boardId}`, {
     method: "DELETE",
@@ -102,6 +128,9 @@ const boardsReducer = (state = initialState, action) => {
       return newState;
     }
     case RECEIVE_BOARD:{
+      return {...state,singleBoard:{...action.board}}
+    }
+    case EDIT_BOARD:{
       return {...state,singleBoard:{...action.board}}
     }
     case DELETE_BOARD: {

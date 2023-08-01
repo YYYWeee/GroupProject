@@ -1,7 +1,6 @@
 import React, { useState,useEffect} from "react";
 import { useDispatch,useSelector  } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useModal } from "../../../context/Modal";
 
 import { fetchCreateBoardThunk } from "../../../store/boards";
 
@@ -12,7 +11,6 @@ export default function CreateBoard() {
   const [name,setName] = useState('');
   const [is_secret,setIs_secert] = useState(false);
   const [errors,setErrors] = useState({});
-  const {closeModal} = useModal()
   const currentUser = useSelector((state) => state.session.user);
 
   useEffect(()=>{
@@ -59,6 +57,7 @@ export default function CreateBoard() {
       <form onSubmit={handleSubmit}>
         <label>
           Name
+           {errors.name && <div className="errors">{errors.name}</div>}
           <input type = 'text' value = {name} onChange = {e=>setName(e.target.value)}>
           </input>
         </label>
