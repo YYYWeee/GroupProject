@@ -10,7 +10,10 @@ import LandingPage from "./components/LandingPage";
 import PinsList from "./components/Pins/PinsList/PinsList";
 import SinglePinDetails from "./components/Pins/SinglePinDetails/SinglePinDetails";
 import CreatePin from "./components/Pins/CreatePin/CreatePin";
-import PostPinForm from "./components/PostPinForm"
+import PostPinForm from "./components/PostPinForm";
+import CurrentUser from "./components/CurrentUser/CurrentUser";
+import SingleBoardDetails from "./components/Boards/SingleBoardDetails/SingleBoardDetails";
+import CreateBoard from "./components/Boards/CreateBoard/CreateBoard";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,9 +47,15 @@ function App() {
               <PostPinForm />
             </Route>
             <Route exact path="/:username/board-builder">
-              <CreatePin />
+              <CreateBoard />
             </Route>
-        </Switch>
+            <Route exact path="/:username/board/:boardId">
+              <SingleBoardDetails />
+            </Route>
+            <Route exact path="/:username">
+              <CurrentUser />
+            </Route>
+          </Switch>
         )}
       </div>
     </>

@@ -22,10 +22,10 @@ class Board(db.Model):
     updated_at = db.Column(db.DateTime(timezone=True),
                            server_default=func.now(), onupdate=func.now())
 
-    board_users = db.relationship('BoardUser', back_populates='boards')
+    board_users = db.relationship('BoardUser', back_populates='boards',cascade="all, delete-orphan")
     pins = db.relationship("Pin", secondary=pin_boards,
                            back_populates='boards')
-    favorite = db.relationship('Favorite', back_populates='board')
+    favorite = db.relationship('Favorite', back_populates='board', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
