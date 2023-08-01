@@ -46,5 +46,7 @@ class Pin(db.Model):
             'link': self.link,
             'note_to_self': self.note_to_self,
             'allow_comment': self.allow_comment,
-            'show_shopping_recommendations': self.show_shopping_recommendations
+            'show_shopping_recommendations': self.show_shopping_recommendations,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }

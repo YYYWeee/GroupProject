@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import Pin, Comment, db
 from datetime import datetime
 from app.forms.comment_form import CommentForm
+from app.forms.edit_comment_form import EditCommentForm
 
 pin_routes = Blueprint('pins', __name__)
 
@@ -13,7 +14,7 @@ def get_all_pins():
     """
     Query for all pins and returns them in a list of pin dictionaries
     """
-    pins = Pin.query.order_by(Pin.created_at.desc()).all()
+    pins = Pin.query.all()
     return {"pins": [pin.to_dict() for pin in pins]}
 
 
@@ -65,6 +66,31 @@ def add_comment_to_pin(pinId):
         response = new_comment.to_dict()
         response["commenter"] = {
             "photo_url": new_comment.user.photo_url, "first_name": new_comment.user.first_name}
+        return response
+    if form.errors:
+        print(form.errors)
+        return form.errors
+
+# Update pin
+@pin_routes.route('/pin/<int:pinId>', methods=['POST'])
+@login_required
+def edit_pin(pinId):
+    form = EditCommentForm()
+    print("in update route", form.data)
+    form['csrf_token'].data = request.cookies['csrf_token']
+    target_pin = Pin.query.get(id)
+    if form.validate_on_submit():
+        print("we pass validation")
+        target_pin.title = form.data['title']
+        target_pin.description = form.data['description']
+        target_pin.alt_text = form.data['alt_text']
+        target_pin.link = form.data['link']
+        target_pin.note_to_self = form.data['note_to_self']
+        target_pin.allow_comment = form.data['allow_comment']
+        target_pin.show_shopping_recommendations = form.data['show_shopping_recommendations']
+
+        db.session.commit()
+        response = target_pin.to_dict()
         return response
     if form.errors:
         print(form.errors)

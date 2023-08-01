@@ -1,0 +1,35 @@
+.hidden {
+  display: none;
+}
+
+.b-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.b-name-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.dots-btn {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  font-weight: 900;
+  padding-bottom: 0.5rem;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.b-title {
+  font-size: 25px;
+  font-weight: 600;
+  margin-right: 5px;
+}

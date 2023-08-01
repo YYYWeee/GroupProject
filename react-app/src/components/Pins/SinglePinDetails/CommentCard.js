@@ -1,4 +1,5 @@
 import { calculatedTimePassed } from "../../../utils/helper-functions";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -9,6 +10,10 @@ function CommentCard({ comment }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const [showEditCommentForm, setShowEditCommentForm] = useState(false);
+  const handleToggle = () => {
+    setShowEditCommentForm((prev) => !prev);
+  };
 
   const handleClickUser = async (e) => {
     history.push(`/${sessionUser?.username}`);
@@ -43,7 +48,9 @@ function CommentCard({ comment }) {
           <div className="comment-stat-i reply">Reply</div>
           <i className="fa-regular fa-heart"></i>
           {sessionUser?.id === comment.user_id && (
-            <div className="comment-stat-i reply cursor">Edit</div>
+            <div className="comment-stat-i reply cursor" onClick={handleToggle}>
+              Edit
+            </div>
           )}
           {sessionUser?.id === comment.user_id && (
             <div
@@ -57,8 +64,12 @@ function CommentCard({ comment }) {
           )}
           {/* <i className="fa-solid fa-ellipsis"></i> */}
         </div>
-        {sessionUser?.id === comment.user_id && (
-          <EditComment pin_id={comment.pin_id} comment={comment} />
+
+        {showEditCommentForm && sessionUser?.id === comment.user_id && (
+          <EditComment
+            comment={comment}
+            setShowEditCommentFormO={setShowEditCommentForm}
+          />
         )}
       </div>
     </div>
