@@ -1,55 +1,54 @@
 .s1 {
-  grid-row-end: span 180;
+  grid-row-end: span 188;
   background-color: #d17711;
 }
 
 .s2 {
-  grid-row-end: span 240;
+  grid-row-end: span 250;
   background-color: #5b2677;
 }
 
 .s3 {
-  grid-row-end: span 300;
+  grid-row-end: span 313;
   background-color: #133a5e;
 }
 
 .s4 {
-  grid-row-end: span 360;
+  grid-row-end: span 375;
   background-color: #cc0000;
 }
 
 .s5 {
-  grid-row-end: span 427;
+  grid-row-end: span 445;
   background-color: #d17711;
 }
 
 .s6 {
-  grid-row-end: span 439;
+  grid-row-end: span 458;
   background-color: #0074e8;
 }
 
 .s7 {
-  grid-row-end: span 480;
+  grid-row-end: span 500;
   background-color: #de2c62;
 }
 
 .s8 {
-  grid-row-end: span 552;
+  grid-row-end: span 575;
   background-color: #11a69c;
 }
 
 .pin-container {
   padding-top: 0px;
-  /* padding-left: 16px; */
-
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 240px);
+  grid-template-columns: repeat(auto-fill, 250px);
   grid-auto-rows: 1px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .card-container {
@@ -95,6 +94,7 @@
   cursor: pointer;
   object-fit: cover;
   resize: none;
+  border-radius: 16px;
 
   visibility: hidden;
   /* opacity: 0;

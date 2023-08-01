@@ -88,73 +88,73 @@ function CreateComment({ targetPin }) {
               <div className={ulClassName} ref={ulRef}>
                 <div className="emoji-list">
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😃")}
                   >
                     😃
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😄")}
                   >
                     😄
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😁")}
                   >
                     😁
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😆")}
                   >
                     😆
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😅")}
                   >
                     😅
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("🤣")}
                   >
                     🤣
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😂")}
                   >
                     😂
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😛")}
                   >
                     😛
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😍")}
                   >
                     😍
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("🤧")}
                   >
                     🤧
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("💋")}
                   >
                     💋
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("👌")}
                   >
                     👌

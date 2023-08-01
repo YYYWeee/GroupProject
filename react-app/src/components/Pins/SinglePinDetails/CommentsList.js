@@ -45,7 +45,7 @@ function CommentList({ targetPin }) {
         <div className="comment-title-container">
           <div className="what-do-you-think1">Comments</div>
         </div>
-        <div>No comments yet. Add one to start the conversation.</div>
+        <div className="no-comments">No comments yet. Add one to start the conversation.</div>
       </div>
     );
   } else {

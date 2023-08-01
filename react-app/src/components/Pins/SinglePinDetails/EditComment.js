@@ -59,79 +59,79 @@ function EditComment({ comment, setShowEditCommentFormO }) {
                 onChange={(e) => setUpdatedMessage(e.target.value)}
                 required
               ></textarea>
-              <div className="smile-emoji cursor" onClick={openMenu}>
+              <div className="smile-emoji cursor smile" onClick={openMenu}>
                 😀
               </div>
               <div className={ulClassName} ref={ulRef}>
                 <div className="emoji-list">
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😃")}
                   >
                     😃
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😄")}
                   >
                     😄
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😁")}
                   >
                     😁
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😆")}
                   >
                     😆
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😅")}
                   >
                     😅
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("🤣")}
                   >
                     🤣
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😂")}
                   >
                     😂
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😛")}
                   >
                     😛
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("😍")}
                   >
                     😍
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("🤧")}
                   >
                     🤧
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("💋")}
                   >
                     💋
                   </div>
                   <div
-                    className="cursor"
+                    className="cursor smile1"
                     onClick={() => handleEmojiClick("👌")}
                   >
                     👌
