@@ -8,7 +8,7 @@ function CreateComment({ targetPin }) {
   const [message, setMessage] = useState("");
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  const ulClassName = "create-dropdown" + (showMenu ? "" : " hidden");
+  const ulClassName = "create-dropdown1" + (showMenu ? "" : " hidden");
 
   const reactionContainer = (
     <div>
@@ -67,21 +67,22 @@ function CreateComment({ targetPin }) {
             className="this-commenter-img"
           ></img>
           <form onSubmit={handleSubmitComment} className="comment-form">
-            <div>
-              <input
-                className={`comment-input input-length`}
+            <div className={`comment-input-box`}>
+              <textarea
+                className={`textarea-comment`}
                 placeholder="Add a comment"
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-              ></input>
+                required
+              ></textarea>
               {!message || message === "" ? (
                 <div className="smile cursor" onClick={openMenu}>
                   😀
                 </div>
               ) : (
-                <button type="submit">
-                  <i className="fa-solid fa-paper-plane comment-btn cursor"></i>
+                <button type="submit" className="comment-btn cursor">
+                  <i className="fa-solid fa-paper-plane"></i>
                 </button>
               )}
               <div className={ulClassName} ref={ulRef}>

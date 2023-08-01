@@ -25,7 +25,6 @@ function SinglePinDetails() {
     if (showMenu) return;
     setShowMenu(true);
   };
-
   const profileArrowDirection = showMenu ? "up" : "down";
   const ulClassName = "create-dropdown" + (showMenu ? "" : " hidden");
 
@@ -81,12 +80,14 @@ function SinglePinDetails() {
               alt="No pin preview"
               className="pin-img"
             ></img>
-            <div className="img-link-container cursor">
-              <i className="fa-solid fa-arrow-up-right-from-square"></i>
-              <a href={targetPin?.link} className="img-link">
-                {linkHostname}
-              </a>
-            </div>
+            {targetPin?.link && (
+              <div className="img-link-container cursor">
+                <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                <a href={targetPin?.link} className="img-link">
+                  {linkHostname}
+                </a>
+              </div>
+            )}
           </div>
           <div className="pin-right-container">
             <div className="btns-boards">

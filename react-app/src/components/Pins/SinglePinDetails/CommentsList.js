@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  fetchAllCommentsThunk,
-  deleteCommentThunk,
-} from "../../../store/comments";
+import { fetchAllCommentsThunk } from "../../../store/comments";
 
 import CommentCard from "./CommentCard";
 
@@ -16,16 +13,17 @@ function CommentList({ targetPin }) {
     // if (!targetPin.comments) return state.comments;
     // return targetPin.comments;
   });
-  const [showEditCommentForm, setShowEditCommentForm] = useState(false);
-  const [editCommentId, setEditCommentId] = useState(null);
+
+  const [showComments, setShowComments] = useState(true);
+  const commentArrowDirection = showComments ? "down" : "right";
+
+  const handleToggle = () => {
+    setShowComments((prev) => !prev);
+  };
 
   comments?.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-  console.log(comments);
   useEffect(() => {
-    console.log("targetPin.id", typeof targetPin.id);
     if (targetPin.id) dispatch(fetchAllCommentsThunk(targetPin.id));
-    setShowEditCommentForm(false);
-    setEditCommentId(null);
   }, [dispatch, targetPin]);
 
   if (!comments) {
@@ -55,15 +53,21 @@ function CommentList({ targetPin }) {
       <div className="comments-list-container">
         <div className="comment-title-container">
           <div className="what-do-you-think">
-            {comments?.length} {comments?.length === 1 ? "Comment" : "Comments"}
+            {comments?.length}{" "}
+            {comments?.length === 1 ? "Comment " : "Comments  "}
+            <i
+              className={`fa-solid fa-chevron-${commentArrowDirection} arrow cursor comment-arrow`}
+              onClick={handleToggle}
+            ></i>
           </div>
-
-          <div className="all-comments">
-            {comments.length > 0 &&
-              comments.map((comment) => (
-                <CommentCard key={comment?.id} comment={comment} />
-              ))}
-          </div>
+          {showComments && (
+            <div className={`all-comments`}>
+              {comments.length > 0 &&
+                comments.map((comment) => (
+                  <CommentCard key={comment?.id} comment={comment} />
+                ))}
+            </div>
+          )}
         </div>
       </div>
     );
