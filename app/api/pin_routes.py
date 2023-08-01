@@ -13,7 +13,7 @@ def get_all_pins():
     """
     Query for all pins and returns them in a list of pin dictionaries
     """
-    pins = Pin.query.order_by(Pin.created_at.desc()).all()
+    pins = Pin.query.all()
     return {"pins": [pin.to_dict() for pin in pins]}
 
 

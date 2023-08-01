@@ -1,10 +1,130 @@
-.pin-list-container {
-  padding-top: 80px;
+.s1 {
+  grid-row-end: span 180;
+  background-color: #d17711;
 }
 
+.s2 {
+  grid-row-end: span 240;
+  background-color: #5b2677;
+}
+
+.s3 {
+  grid-row-end: span 300;
+  background-color: #133a5e;
+}
+
+.s4 {
+  grid-row-end: span 360;
+  background-color: #cc0000;
+}
+
+.s5 {
+  grid-row-end: span 427;
+  background-color: #d17711;
+}
+
+.s6 {
+  grid-row-end: span 439;
+  background-color: #0074e8;
+}
+
+.s7 {
+  grid-row-end: span 480;
+  background-color: #de2c62;
+}
+
+.s8 {
+  grid-row-end: span 552;
+  background-color: #11a69c;
+}
+
+.pin-container {
+  padding-top: 0px;
+  /* padding-left: 16px; */
+
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 240px);
+  grid-auto-rows: 1px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: center;
+}
+
+.card-container {
+  /* margin: 15px 10px; */
+  margin-bottom: 16px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 16px;
+}
+
+/* Keyframes for the fade-in */
+/* @-webkit-keyframes pin-card-img {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes pin-card-img {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pin-card-img {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+} */
+
 .pin-card-img {
-  max-width: 650px;
-  width: 640px;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
+  border: none;
   cursor: pointer;
+  object-fit: cover;
+  resize: none;
+
+  visibility: hidden;
+  /* opacity: 0;
+  -webkit-animation: pin-card-img ease-in 1;
+  -moz-animation: pin-card-img ease-in 1;
+  animation: pin-card-img ease-in 1;
+
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  animation-duration: 1s; */
+}
+
+/* .pin-card-img.one {
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+} */
+
+/* Define the animation */
+@keyframes showWithDelay {
+  to {
+    visibility: visible; /* Show the element at the end of the animation */
+  }
+}
+
+/* Apply the animation */
+.pin-card-img {
+  animation: showWithDelay 0.3s ease 0.05s forwards;
 }
