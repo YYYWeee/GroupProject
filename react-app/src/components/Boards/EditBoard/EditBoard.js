@@ -2,7 +2,7 @@ import "./EditBoard.css";
 import React, { useState,useEffect} from "react";
 import { useDispatch,useSelector  } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { fetchEditBoardThunk } from "../../../store/boards";
+import { fetchEditBoardThunk,fetchOneBoardThunk } from "../../../store/boards";
 import { useModal } from "../../../context/Modal";
 import { fetchAllUsersThunk } from "../../../store/session";
 import InviteCollaborator from "../InviteCollaboratorsModal/InviteCollaboratorsModal";
@@ -51,13 +51,16 @@ export default function EditBoard({board}) {
     }
     return errors
   }
+
   const handleCollaboratorDataFromModal = (data) =>{
+    console.log('handleCollaboratorDataFromModal is called',data);
     setIsCollaboratorModalOpen(false)
     setCollaborators(data.map(item=>item.id))
   }
 
 
   const handleSubmit = async (e) =>{
+  
     
     e.preventDefault();
     let newErrors = validationErrors();
@@ -67,10 +70,11 @@ export default function EditBoard({board}) {
     }
     setErrors({});
     
-    console.log('modify col',collaborators)
+    console.log('modify coll',collaborators)
 
     const updateBoard = {...board,name,is_secret,description,collaborators}
     const data = await dispatch(fetchEditBoardThunk(updateBoard));
+    dispatch(fetchOneBoardThunk(board.id))
     closeModal();
     history.push(`/${currentUser.username}/board/${data.id}`);
   }

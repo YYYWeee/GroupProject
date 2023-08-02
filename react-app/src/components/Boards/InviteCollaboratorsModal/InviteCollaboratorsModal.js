@@ -10,9 +10,11 @@ export default function InviteCollaborator({board,onClose,isOpen}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [collaborators,setCollaborators] = useState(board.collaborators? board.collaborators : []);
+    const initialInvitedUsers = board.collaborators? board.collaborators.reduce((acc, user) => {acc[user.id] = true; return acc;}, {}): {};
+    const [InvitedUsers,setInvitedUsers] = useState(initialInvitedUsers)
     const { closeModal } = useModal();
     const allUsers = useSelector(state => state.session.allUsers?.users);
-    console.log('co',collaborators)
+    const otherUsers = allUsers.filter(allUser=>allUser.id !== board.owner_id)
     
 
 
@@ -30,6 +32,7 @@ export default function InviteCollaborator({board,onClose,isOpen}) {
     const handleAddCollaborator = (user) =>{
         if(!collaborators.some(col => col.id ===user.id)){
             setCollaborators([...collaborators,user]);
+            setInvitedUsers({...InvitedUsers,[user.id]:true})
 
         }
     }
@@ -43,13 +46,13 @@ export default function InviteCollaborator({board,onClose,isOpen}) {
     return(
         <div id="collaborators-modal-container">
         <ol id="collaborators-list">
-        {allUsers.map((user)=>(
+        {otherUsers.map((user)=>(
             <li key={user.id} className='single-user-container'>
                 <div className="collaborator-user-image-container">
                 <img src = {user.photo_url?user.photo_url:'https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg'} alt={user.username} className="collaborator-user-image"/>
                 </div>
                 <p>{user.username}</p>
-                <button type='button' onClick = {()=>handleAddCollaborator(user)}>Invite</button>
+                <button type='button' onClick = {()=>handleAddCollaborator(user)} disabled={InvitedUsers[user.id]}>Invite</button>
                
             </li>
 
