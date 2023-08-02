@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30rem;
+  width: 27rem;
   padding: 1rem;
 }
 
@@ -29,19 +29,25 @@
 }
 
 .continue-btn {
-  margin-top: 2rem;
+  margin-top: 1rem;
   border-radius: 20px;
-  background-color: red;
+  background-color: rgb(225, 22, 22);
   color: white;
   border: none;
   width: 11rem;
   padding: 10px;
   cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.continue-btn:hover {
+  filter: brightness(90%);
 }
 
 .welcome-sign {
   font-size: 30px;
   margin-bottom: 1rem;
+  margin-top: 10px;
 }
 
 .new-ideas {

@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 import {useModal} from "../../context/Modal";
 import {signUp} from "../../store/session";
 import "./SignupForm.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -41,11 +43,6 @@ function SignupFormModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setDidSubmit(true);
-    console.log("email", email);
-    console.log("username", username);
-    console.log("firstName", firstName);
-    console.log("lastName", lastName);
-    console.log("errors", Object.values(formErr));
 
     if (password === confirmPassword) {
       setFormErr({});
@@ -63,6 +60,7 @@ function SignupFormModal() {
         setErrors(data);
       } else {
         closeModal();
+        history.push("/pins");
       }
     } else {
       setErrors([
