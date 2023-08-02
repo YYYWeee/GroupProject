@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, db, Board, BoardUser
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -42,7 +42,7 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
-        print('user.to_dict()!!!!!!!!',user.to_dict()['id'])
+        print('user.to_dict()!!!!!!!!', user.to_dict()['id'])
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
@@ -71,7 +71,27 @@ def sign_up():
             first_name=form.data['username']
         )
         db.session.add(user)
+        created_user = User.query.filter(
+            User.email == form.data['email']).first()
+
+        # when user sign up, create a default board named "All pins"
+        board = Board(
+            owner_id=created_user.id,
+            name="All pins",
+            is_secret=False,
+            is_default=True
+        )
+        db.session.add(board)
+
+        created_board = Board.query.order_by(Board.id.desc()).first()
+        new_board_user = BoardUser(
+            user_id=created_board.owner_id,
+            board_id=created_board.id,
+            role='owner'
+        )
+        db.session.add(new_board_user)
         db.session.commit()
+
         login_user(user)
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

@@ -10,6 +10,9 @@ import CreateComment from "./CreateComment";
 import EditPin from "../EditPin";
 import SaveToBoardCard from "./SaveToBoardCard";
 import { fetchAllBoardsThunk } from "../../../store/boards";
+import OpenModalButton from "../../OpenModalButton";
+import LoginFormModal from "../../LoginFormModal";
+import { useModal } from "../../../context/Modal";
 
 function SinglePinDetails() {
   const { pinId } = useParams();
@@ -25,6 +28,7 @@ function SinglePinDetails() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const { closeModal } = useModal();
 
   const openMenu = (e) => {
     e.stopPropagation();
@@ -84,8 +88,7 @@ function SinglePinDetails() {
   }, [dispatch, pinId]);
 
   return showUpdateForm === true ? (
-    <EditPin pin={targetPin}
-    setShowUpdateForm2={setShowUpdateForm} />
+    <EditPin pin={targetPin} setShowUpdateForm2={setShowUpdateForm} />
   ) : (
     <section className="single-pin-container">
       <main className="single-pin-upper-container">
@@ -183,12 +186,16 @@ function SinglePinDetails() {
                 )}
 
                 {!sessionUser && (
-                  <button
-                    className="save cursor"
-                    // onClick={handleAddPinToBoard}
-                  >
-                    Save
-                  </button>
+                  <div className="btns-boards">
+                    <a href={targetPin?.link} className="save2 cursor">
+                      Visit
+                    </a>
+                    <OpenModalButton
+                      buttonText="Save"
+                      onItemClick={closeModal}
+                      modalComponent={<LoginFormModal />}
+                    />
+                  </div>
                 )}
               </div>
               <a href={targetPin?.link} className="hostname">

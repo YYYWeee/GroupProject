@@ -1,18 +1,16 @@
 """empty message
 
-Revision ID: c7b853dbb3a1
-Revises:
-Create Date: 2023-07-29 12:36:58.730406
+Revision ID: 408c9d8a0e43
+Revises: 
+Create Date: 2023-08-02 11:35:58.489480
 
 """
 from alembic import op
 import sqlalchemy as sa
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
+
 
 # revision identifiers, used by Alembic.
-revision = 'c7b853dbb3a1'
+revision = '408c9d8a0e43'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -41,6 +39,7 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
     sa.Column('is_secret', sa.Boolean(), nullable=False),
+    sa.Column('is_default', sa.Boolean(), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
@@ -104,14 +103,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('board_id', 'pin_id')
     )
     # ### end Alembic commands ###
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE boards SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE pins SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE board_users SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE favorites SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE pin_boards SET SCHEMA {SCHEMA};")
 
 
 def downgrade():

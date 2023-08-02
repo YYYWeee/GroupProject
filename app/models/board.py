@@ -19,6 +19,7 @@ class Board(db.Model):
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=True)
     is_secret = db.Column(db.Boolean, nullable=False, default=False)
+    is_default = db.Column(db.Boolean, nullable=False, default=False)
     created_at = db.Column(db.DateTime(timezone=True),
                            server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True),
@@ -37,12 +38,14 @@ class Board(db.Model):
             'owner_id': self.owner_id,
             'name': self.name,
             'description': self.description,
-            'is_secret': self.is_secret
+            'is_secret': self.is_secret,
+            'is_default': self.is_default
         }
 
     def to_dict_simple(self):
         return {
             'id': self.id,
             'name': self.name,
+            'is_default': self.is_default,
             'previewImgUrl': random.choice(self.pins).image_url if self.pins else ""
         }

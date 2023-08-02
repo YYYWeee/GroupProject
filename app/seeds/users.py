@@ -5,22 +5,19 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='demo', email='demo@aa.io', password='password', photo_url='https://img.freepik.com/free-photo/bacon-burger_1339-1384.jpg', first_name='Demo', last_name='Lition', about='this is demo user')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', photo_url='https://upload.wikimedia.org/wikipedia/commons/7/74/A-Cat.jpg', first_name='Elegant Wedding Invites | wedding stationery, wedding colors', last_name='', about='heelllo world')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', photo_url='https://repairit.wondershare.com/article-banner/photo-repair-banner-pic-1.png', first_name='Bobbie', last_name='Brown', about='nice to see you')
-    rachel = User(
-        username='rachel', email='rachel@aa.io', password='password', photo_url='https://staticg.sportskeeda.com/editor/2021/12/82829-16389776187798-1920.jpg', first_name='Rachel', last_name='Green', about='I am a friends character')
+        username='Demo', email='demo@aa.io', password='password',  first_name='Demo', last_name='Lition', about='I am\' demo user. Welcome to my profile!', photo_url='https://img.freepik.com/free-photo/bacon-burger_1339-1384.jpg')
     ross = User(
-        username='ross', email='ross@aa.io', password='password', photo_url='https://i.pinimg.com/564x/b0/a5/a8/b0a5a8192234f926ab55d382c8573681.jpg', first_name='Ross', last_name='Geller', about='Rachel my love')
+        username='Ross', email='user2@aa.io', password='password', first_name='Ross', last_name='Geller', about='I love everything about science, dinosaurs, comic books, sports and keyboard music.', photo_url='https://i.pinimg.com/564x/b0/a5/a8/b0a5a8192234f926ab55d382c8573681.jpg')
+    rachel = User(
+        username='Rachel', email='user3@aa.io', password='password', first_name='Rachel', last_name='Green', about='I am Rachel. I am talking about women\'s fashion here and there. Discover modern casual, classy, comfy, outfit ideas for summer, spring, fall, and winter.', photo_url='https://www.tvguide.com/a/img/hub/2018/11/01/f1282706-5733-45d1-a1ea-602bf54ebf0a/friendsrachel1.png')
+    joey = User(
+        username='Joey', email='user4@aa.io', password='password', first_name='Joey', last_name='Tribbiani', about='Living life frugally with DIY, budgeting, freezer meals..', photo_url='https://upload.wikimedia.org/wikipedia/en/d/da/Matt_LeBlanc_as_Joey_Tribbiani.jpg')
+    monica = User(
+        username='TheCozyCook', email='user5@aa.io', password='password', first_name='The Cozy Cook -Easy Dinner Recipes, Chicken, Pasta, Soup, + more!', last_name='', about='Hi, I\'m Monica Geller! My mission is to help busy home cooks create delicious recipes that are budget-friendly and easy to follow.', photo_url='https://www.looper.com/img/gallery/every-love-interest-of-friends-monica-geller-ranked/intro-1668012545.webp')
+    phoebe = User(
+        username='HomeTalk', email='user6@aa.io', password='password', first_name='Home Talk & Decor | Creativity | Life', last_name='', about='🌴DIY crafts YouTuber ☀️Resin art & resin crafts maker 🌴Flip-flop wearer 🐈Stops for stuff at curb for furniture makeovers ☀️Loves pinning DIY home decor ideas', photo_url='https://imgix.bustle.com/rehost/2016/9/13/c9e38185-9873-4dd9-82eb-6d873280415e.png')
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
-    db.session.add(rachel)
-    db.session.add(ross)
-
+    db.session.add(demo, ross, rachel, joey, monica, phoebe)
     db.session.commit()
 
 

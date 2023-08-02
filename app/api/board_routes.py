@@ -47,6 +47,7 @@ def get_board(id):
 
 
 @board_routes.route('/new', methods=['POST'])
+@login_required
 def create_board():
     form = BoardForm()
     form['csrf_token'].data = request.cookies['csrf_token']

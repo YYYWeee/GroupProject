@@ -91,6 +91,8 @@ export const signUp = (username, email, password) => async (dispatch) => {
       return data.errors;
     }
   } else {
+    const data = await response.json();
+    console.log(data.errors);
     return ["An error occurred. Please try again."];
   }
 };
