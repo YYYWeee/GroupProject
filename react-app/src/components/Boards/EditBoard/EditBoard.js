@@ -1,3 +1,4 @@
+import "./EditBoard.css";
 import React, { useState,useEffect} from "react";
 import { useDispatch,useSelector  } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -62,34 +63,43 @@ export default function EditBoard({board}) {
   }
 
   return (
-    <div>
-    <h1>Edit Board</h1>
+    <div id="edit-board-modal-outer-container" className="modal-container">
+       <div className="form-container-edit-board">
+    <p className="edit-board-title">Edit your Board</p>
     <form onSubmit={handleSubmit}>
-      <label>
-        Name
-         {errors.name && <div className="errors">{errors.name}</div>}
-        <input type = 'text' value = {name} onChange = {e=>setName(e.target.value)}>
+      <label id="edit-board-name-label">
+        <p>Name</p>
+         
+        <input type = 'text' value = {name} onChange = {e=>setName(e.target.value)} placeholder="Like:'Place to Go' or 'Recipes to Make">
         </input>
+        {errors.name && <div className="errors">{errors.name}</div>}
       </label>
-      <label>
-        Keep this board secret
-        <p>So only you and collaborators can see it.</p>
-        <input type = 'checkbox' checked = {is_secret} onChange = {e=>setIs_secert(e.target.value)}>
-        </input>
-      </label>
-      <label>
-        Description
+      <label id='edit-board-description-label'>
+        <p>Description</p>
         {errors.description && <div className="errors">{errors.description}</div>}
-        <input type = 'textarea' value = {description} onChange = {e=>setDescription(e.target.value)}>
-        </input>
+        <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="What's your board about?"></textarea>
       </label>
-      <label>
-        Collaborators
+      <label id="edit-board-secret-label">
+        <input type = 'checkbox' checked = {is_secret} onChange = {e=>setIs_secert(e.target.checked)}>
+          
+          
+          </input>
+          <div><p>Keep this board secret</p>
+          <p>So only you and collaborators can see it.</p></div>
+          
+        </label>
+      
+      <label id="edit-board-collaborator-label">
+        <p>Collaborators</p>
         <input type = 'text' value = {collaborators} onChange = {e=>setCollaborators(e.target.value)}>
         </input>
       </label>
-      <button type='submit' disabled={!!Object.keys(errors).length}>Create</button>
+      
+        <div id='edit-board-submit-button-container'><button type='submit' disabled={!!Object.keys(errors).length} id="edit-board-submit-button">Done</button></div>
     </form>
   </div>
+
+    </div>
+   
   );
 }
