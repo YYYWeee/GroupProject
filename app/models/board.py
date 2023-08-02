@@ -4,6 +4,8 @@ from sqlalchemy.sql import func
 
 from .pin import pin_boards
 
+import random
+
 
 class Board(db.Model):
     __tablename__ = 'boards'
@@ -22,10 +24,12 @@ class Board(db.Model):
     updated_at = db.Column(db.DateTime(timezone=True),
                            server_default=func.now(), onupdate=func.now())
 
-    board_users = db.relationship('BoardUser', back_populates='boards',cascade="all, delete-orphan")
+    board_users = db.relationship(
+        'BoardUser', back_populates='boards', cascade="all, delete-orphan")
     pins = db.relationship("Pin", secondary=pin_boards,
                            back_populates='boards')
-    favorite = db.relationship('Favorite', back_populates='board', cascade="all, delete-orphan")
+    favorite = db.relationship(
+        'Favorite', back_populates='board', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
@@ -33,5 +37,12 @@ class Board(db.Model):
             'owner_id': self.owner_id,
             'name': self.name,
             'description': self.description,
-            'is_secret': self.is_secret,
+            'is_secret': self.is_secret
+        }
+
+    def to_dict_simple(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'previewImgUrl': random.choice(self.pins).image_url if self.pins else ""
         }

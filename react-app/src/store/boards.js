@@ -3,9 +3,9 @@ const LOAD_ALL_BOARDS = "boards/LOAD_ALL_BOARDS";
 
 const LOAD_ONE_BOARD = "boards/LOAD_ONE_BOARD";
 
-const RECEIVE_BOARD = 'board/RECEIVE_BOARD'
+const RECEIVE_BOARD = "board/RECEIVE_BOARD";
 
-const EDIT_BOARD = 'board/EDIT_BOARD'
+const EDIT_BOARD = "board/EDIT_BOARD";
 
 const DELETE_BOARD = "boards/DELETE_BOARD";
 
@@ -21,16 +21,14 @@ export const loadOneBoard = (board) => ({
 });
 
 export const receiveBoard = (board) => ({
-  type:RECEIVE_BOARD,
-  board
-
-})
+  type: RECEIVE_BOARD,
+  board,
+});
 
 export const editBoard = (board) => ({
-  type:EDIT_BOARD,
-  board
-
-})
+  type: EDIT_BOARD,
+  board,
+});
 
 export const deleteBoard = (boardId) => ({
   type: DELETE_BOARD,
@@ -60,41 +58,41 @@ export const fetchOneBoardThunk = (boardId) => async (dispatch) => {
   }
 };
 
-export const fetchCreateBoardThunk = (board) => async(dispatch)=>{
-  const res = await fetch(`/api/boards/new`,{
-    method:'POST',
-    headers:{
-        'Content-Type': 'application/json'
+export const fetchCreateBoardThunk = (board) => async (dispatch) => {
+  const res = await fetch(`/api/boards/new`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    body:JSON.stringify(board)
-  })
-  if(res.ok){
+    body: JSON.stringify(board),
+  });
+  if (res.ok) {
     const data = await res.json();
     dispatch(receiveBoard(data));
     return data;
-  }else{
+  } else {
     const data = await res.json();
     throw data;
   }
-}
+};
 
-export const fetchEditBoardThunk = (board) => async (dispatch) =>{
-  const res = await fetch(`/api/boards/${board.id}`,{
-    method:'PUT',
-    headers:{
-      'Content-Type': 'application/json'
-  },
-  body:JSON.stringify(board)
-  })
-  if(res.ok){
+export const fetchEditBoardThunk = (board) => async (dispatch) => {
+  const res = await fetch(`/api/boards/${board.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(board),
+  });
+  if (res.ok) {
     const data = await res.json();
     dispatch(editBoard(data));
     return data;
-  }else{
+  } else {
     const data = await res.json();
     throw data;
   }
-}
+};
 
 export const fetchDeleteBoardThunk = (boardId) => async (dispatch) => {
   const res = await fetch(`/api/boards/${boardId}`, {
@@ -109,35 +107,51 @@ export const fetchDeleteBoardThunk = (boardId) => async (dispatch) => {
   }
 };
 
+export const addPinToBoardThunk = (pinId, boardId) => async (dispatch) => {
+  const response = await fetch(`/api/boards/${boardId}/pins`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(pinId),
+  });
+  if (response.ok) {
+    // dispatch(createCommentAction(comment));
+    // return response;
+  } else {
+    const errors = await response.json();
+    return errors;
+  }
+};
 
 /** Boards Reducer: */
-const initialState = {allBoards: {}, singleBoard: {}};
+const initialState = { allBoards: {}, singleBoard: {} };
 
 const boardsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_ALL_BOARDS: {
-      const boardsState = {allBoards: {}, singleBoard: {}};
+      const boardsState = { allBoards: {}, singleBoard: {} };
       action.boards.forEach((board) => {
         boardsState.allBoards[board.id] = board;
       });
       return boardsState;
     }
     case LOAD_ONE_BOARD: {
-      const newState = {...state};
+      const newState = { ...state };
       newState.singleBoard = action.board;
       return newState;
     }
-    case RECEIVE_BOARD:{
-      return {...state,singleBoard:{...action.board}}
+    case RECEIVE_BOARD: {
+      return { ...state, singleBoard: { ...action.board } };
     }
-    case EDIT_BOARD:{
-      return {...state,singleBoard:{...action.board}}
+    case EDIT_BOARD: {
+      return { ...state, singleBoard: { ...action.board } };
     }
     case DELETE_BOARD: {
       const newState = {
         ...state,
-        allBoards: {...state.allBoards},
-        singleBoard: {...state.singleBoard},
+        allBoards: { ...state.allBoards },
+        singleBoard: { ...state.singleBoard },
       };
       delete newState.allBoards[action.boardId];
       delete newState.singleBoard[action.boardId];

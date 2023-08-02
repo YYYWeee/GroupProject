@@ -11,12 +11,12 @@ const loadAllCommentsAction = (comments, pinId) => ({
   pinId,
 });
 
-export const createCommentAction = (comment) => ({
+const createCommentAction = (comment) => ({
   type: CREATE_COMMENT,
   comment,
 });
 
-export const updateCommentAction = (comment) => ({
+const updateCommentAction = (comment) => ({
   type: UPDATE_COMMENT,
   comment,
 });

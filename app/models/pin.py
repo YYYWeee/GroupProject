@@ -36,7 +36,7 @@ class Pin(db.Model):
         "Board", secondary=pin_boards, back_populates='pins')
 
     def to_dict(self):
-        return {
+        pin_dict = {
             'id': self.id,
             'owner_id': self.owner_id,
             'image_url': self.image_url,
@@ -50,3 +50,5 @@ class Pin(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
+        pin_dict["creator"] = self.user.to_dict()
+        return pin_dict

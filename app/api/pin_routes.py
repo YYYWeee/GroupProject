@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from .AWS_helpers import upload_file_to_s3, get_unique_filename
 from .auth_routes import validation_errors_to_error_messages
 
-from app.models import db, Pin, Comment, User
+from app.models import db, Pin, Comment, User, Board, BoardUser
 from app.forms.comment_form import CommentForm
 from app.forms.edit_comment_form import EditCommentForm
 from ..forms.pin_post_forms import PinForm
@@ -31,8 +31,18 @@ def get_one_pin(pinId):
     Query for all pins and returns them in a list of pin dictionaries
     """
     pin = Pin.query.get(pinId)
+    if not pin:
+        return jsonify({"message": "Pin not found"}), 404
     response = pin.to_dict()
-    response["creator"] = pin.user.to_dict()
+    if current_user.is_authenticated:
+        all_boards = Board.query \
+            .join(BoardUser) \
+            .filter(BoardUser.user_id == current_user.id, BoardUser.role.in_(['owner', 'collaborator'])) \
+            .all()
+        sessionUserBoards = [board.to_dict_simple() for board in all_boards]
+        response["sessionUserBoards"] = sessionUserBoards
+    return response
+    # response["creator"] = pin.user.to_dict()
     # comments_list = []
     # for comment in pin.comments:
     #     comment_dict = comment.to_dict()
@@ -41,7 +51,6 @@ def get_one_pin(pinId):
     #     comments_list.append(comment_dict)
     # response["comments"] = sorted(
     #     comments_list, key=lambda x: x["updated_at"], reverse=True)
-    return response
 
 
 @pin_routes.route('', methods=["POST"])
@@ -77,6 +86,9 @@ def new_pin():
 
 @pin_routes.route('/<int:pinId>/comments')
 def get_pin_comments_by_pinId(pinId):
+    pin = Pin.query.get(pinId)
+    if not pin:
+        return jsonify({"message": "Pin not found"}), 404
     comments = Comment.query.join(Pin).filter(Pin.id == pinId)
     comments_list = []
     for comment in comments:
@@ -90,6 +102,9 @@ def get_pin_comments_by_pinId(pinId):
 @pin_routes.route('/<int:pinId>/comments', methods=['POST'])
 @login_required
 def add_comment_to_pin(pinId):
+    pin = Pin.query.get(pinId)
+    if not pin:
+        return jsonify({"message": "Pin not found"}), 404
     form = CommentForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
@@ -106,7 +121,20 @@ def add_comment_to_pin(pinId):
         return response
     if form.errors:
         print(form.errors)
+        # both works
         return form.errors
+# form.errors returns:
+# {
+#     "message": [
+#         "This field is required."
+#     ]
+# }
+        # return {"errors": validation_errors_to_error_messages(form.errors)}
+# {
+#     "errors": [
+#         "message : This field is required."
+#     ]
+# }
 
 # Update pin
 

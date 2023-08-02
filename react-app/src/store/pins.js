@@ -64,7 +64,7 @@ export const createNewPinThunk = (pin) => async (dispatch) => {
 };
 
 /** Pins Reducer: */
-const initialState = { allPins: [], singlePin: {} };
+const initialState = { allPins: {}, singlePin: {} };
 
 const pinsReducer = (state = initialState, action) => {
   switch (action.type) {
