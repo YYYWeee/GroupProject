@@ -9,6 +9,7 @@ from app.models import db, Pin, Comment, User
 from app.forms.comment_form import CommentForm
 from app.forms.edit_comment_form import EditCommentForm
 from ..forms.pin_post_forms import PinForm
+from ..forms.pin_update_forms import EditPinForm
 
 
 pin_routes = Blueprint('pins', __name__)
@@ -43,7 +44,7 @@ def get_one_pin(pinId):
     #     comments_list, key=lambda x: x["updated_at"], reverse=True)
     return response
 
-
+# Create a new pin
 @pin_routes.route('', methods=["POST"])
 @login_required
 def new_pin():
@@ -66,7 +67,7 @@ def new_pin():
             alt_text=form.data['alt_text'],
             link=form.data['link']
         )
-        print('new pin@@@@@@@@@@@@@@@@@@@@', new_pin.to_dict())
+        # print('new pin@@@@@@@@@@@@@@@@@@@@', new_pin.to_dict())
         db.session.add(new_pin)
         db.session.commit()
         # return {"new Pin": new_pin.to_dict()}
@@ -74,6 +75,41 @@ def new_pin():
     print(form.errors)
     return {"errors": validation_errors_to_error_messages(form.errors)}
 
+
+# Update pin
+@pin_routes.route('/<int:pinId>', methods=["PUT"])
+@login_required
+def edit_pin(pinId):
+    form = EditPinForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    print("in update route", form.data)
+    target_pin = Pin.query.get(pinId)
+
+    if form.validate_on_submit():
+        print("we pass validation")
+        target_pin.title = form.data['title']
+        target_pin.description = form.data['description']
+        target_pin.alt_text = form.data['alt_text']
+        target_pin.link = form.data['link']
+        # target_pin.note_to_self = form.data['note_to_self']
+        target_pin.allow_comment = form.data['allow_comment']
+        # target_pin.show_shopping_recommendations = form.data['show_shopping_recommendations']
+
+        db.session.commit()
+        response = target_pin.to_dict()
+        return response
+    if form.errors:
+        print(form.errors)
+        return form.errors
+
+# Delete pin
+@pin_routes.route('/<int:pinId>', methods=["DELETE"])
+@login_required
+def delete_pin(pinId):
+    targetPin = Pin.query.get(pinId)
+    db.session.delete(targetPin)
+    db.session.commit()
+    return {"id": targetPin.id}
 
 @pin_routes.route('/<int:pinId>/comments')
 def get_pin_comments_by_pinId(pinId):
@@ -103,33 +139,6 @@ def add_comment_to_pin(pinId):
         response = new_comment.to_dict()
         response["commenter"] = {
             "photo_url": new_comment.user.photo_url, "first_name": new_comment.user.first_name}
-        return response
-    if form.errors:
-        print(form.errors)
-        return form.errors
-
-# Update pin
-
-
-@pin_routes.route('/pin/<int:pinId>', methods=['PUT'])
-@login_required
-def edit_pin(pinId):
-    form = EditCommentForm()
-    print("in update route", form.data)
-    form['csrf_token'].data = request.cookies['csrf_token']
-    target_pin = Pin.query.get(id)
-    if form.validate_on_submit():
-        print("we pass validation")
-        target_pin.title = form.data['title']
-        target_pin.description = form.data['description']
-        target_pin.alt_text = form.data['alt_text']
-        target_pin.link = form.data['link']
-        target_pin.note_to_self = form.data['note_to_self']
-        target_pin.allow_comment = form.data['allow_comment']
-        target_pin.show_shopping_recommendations = form.data['show_shopping_recommendations']
-
-        db.session.commit()
-        response = target_pin.to_dict()
         return response
     if form.errors:
         print(form.errors)
