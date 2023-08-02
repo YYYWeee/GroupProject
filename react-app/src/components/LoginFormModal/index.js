@@ -3,6 +3,8 @@ import {login} from "../../store/session";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {useModal} from "../../context/Modal";
+import OpenModalButton from "../OpenModalButton";
+import SignupFormModal from "../SignupFormModal";
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -14,17 +16,18 @@ function LoginFormModal() {
   const [errors, setErrors] = useState([]);
   const [formErr, setFormErr] = useState({});
   const [didSubmit, setDidSubmit] = useState(false);
+  const [visible1, setVisible1] = useState(false);
   const {closeModal} = useModal();
 
   useEffect(() => {
     const errorsObj = {};
 
-    if (!email) errorsObj.email = "Email is required";
+    if (!email) errorsObj.logEmail = "Email is required";
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
-      errorsObj.email = "Please enter a valid email address";
+      errorsObj.logEmail = "Please enter a valid email address";
     }
     setFormErr(errorsObj);
   }, [email]);
@@ -32,14 +35,20 @@ function LoginFormModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setDidSubmit(true);
-    const data = await dispatch(login({email, password}));
-    if (data) {
-      setErrors(data);
-      return null;
-    } else {
-      closeModal();
-      history.push("/pins");
-      return null;
+    if (Object.keys(formErr).length === 0) {
+      const data = await dispatch(login({email, password}));
+      if (data) {
+        const flattenedData = {};
+        data.forEach((item) => {
+          const [key, value] = item.split(" : ");
+          flattenedData[key.trim()] = value.trim();
+        });
+        setFormErr(flattenedData);
+      } else {
+        closeModal();
+        history.push("/pins");
+        return null;
+      }
     }
   };
 
@@ -65,13 +74,20 @@ function LoginFormModal() {
     <div className="log-wrap">
       <div className="welcome-sign">Welcome to PinThis</div>
       <form className="log-form" onSubmit={handleSubmit}>
-        <ul>
+        {/* <ul>
           {errors?.map((error, idx) => (
             <li className="sign-err" key={idx}>
               {error}
             </li>
           ))}
-        </ul>
+        </ul> */}
+        <div className="on-pinthis">
+          <div className="not-on">Not on PinThis yet?</div>
+          <OpenModalButton
+            buttonText="Sign Up"
+            modalComponent={<SignupFormModal />}
+          />
+        </div>
         <label className="sign-label">
           Email
           <input
@@ -81,17 +97,28 @@ function LoginFormModal() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
+        {didSubmit && formErr.logEmail && (
+          <p className="sign-err">{formErr.logEmail}</p>
+        )}
         {didSubmit && formErr.email && (
           <p className="sign-err">{formErr.email}</p>
         )}
+
         <label className="sign-label">
           Password
           <input
             className="sign-input"
-            type="password"
+            type={visible1 ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <div onClick={() => setVisible1(!visible1)} className="pwicon">
+            {visible1 ? (
+              <i className="fa-regular fa-eye"></i>
+            ) : (
+              <i className="fa-regular fa-eye-slash"></i>
+            )}
+          </div>
         </label>
         {didSubmit && formErr.password && (
           <p className="sign-err">{formErr.password}</p>

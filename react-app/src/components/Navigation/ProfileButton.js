@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React, {useState, useEffect, useRef} from "react";
+import {useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 
-import { logout } from "../../store/session";
+import {logout} from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
-function ProfileButton({ user }) {
+function ProfileButton({user}) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -66,7 +66,7 @@ function ProfileButton({ user }) {
                 className="commenter-img"
               ></img>
             ) : (
-              <i className="fas fa-user-circle" />
+              <img className="fas fa-user-circle" />
             )}
           </button>
           <button onClick={openUserMenu} className="menu-arrow cursor">
@@ -79,7 +79,11 @@ function ProfileButton({ user }) {
             <div className="current">Currently in</div>
             <div className="profile-user-card cursor" onClick={handleClickUser}>
               <img
-                src={user.photo_url ? user.photo_url : "no preview img"}
+                src={
+                  user.photo_url
+                    ? user.photo_url
+                    : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+                }
                 alt="No creator preview"
                 className="user-menu-img"
               ></img>

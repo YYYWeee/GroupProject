@@ -30,3 +30,26 @@
 .demo-btn:hover {
   filter: brightness(95%);
 }
+
+.on-pinthis {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.on-pinthis > button {
+  background-color: transparent;
+  border: none;
+  margin-left: 4px;
+  padding: 0;
+}
+
+.on-pinthis > button:hover {
+  background-color: transparent;
+  border: none;
+}
+
+.not-on {
+  margin-right: 0;
+}

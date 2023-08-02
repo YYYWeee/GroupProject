@@ -22,6 +22,7 @@
   flex-direction: column;
   margin-top: 0.4rem;
   color: rgb(52, 50, 50);
+  position: relative;
 }
 
 #modal-content {
@@ -72,4 +73,12 @@
 
 .sign-err {
   color: red;
+}
+
+.pwicon {
+  position: absolute;
+  top: 65%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  cursor: pointer;
 }

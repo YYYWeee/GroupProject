@@ -3,7 +3,10 @@ import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {useModal} from "../../context/Modal";
 import {signUp} from "../../store/session";
+import OpenModalButton from "../OpenModalButton";
+
 import "./SignupForm.css";
+import LoginFormModal from "../LoginFormModal";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -17,6 +20,8 @@ function SignupFormModal() {
   const [errors, setErrors] = useState([]);
   const [formErr, setFormErr] = useState({});
   const [didSubmit, setDidSubmit] = useState(false);
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
   const {closeModal} = useModal();
 
   useEffect(() => {
@@ -56,16 +61,26 @@ function SignupFormModal() {
         })
       );
       if (data) {
-        console.log("data", data);
-        setErrors(data);
+        const flattenedData = {};
+        data.forEach((item) => {
+          const [key, value] = item.split(" : ");
+          flattenedData[key.trim()] = value.trim();
+        });
+        setFormErr(flattenedData);
       } else {
         closeModal();
         history.push("/pins");
       }
     } else {
-      setErrors([
-        "Confirm Password field must be the same as the Password field",
-      ]);
+      const errorsObj = {
+        confirmPassword: "Confirm Password and Password must be the same",
+      };
+
+      setFormErr(errorsObj);
+
+      // setErrors([
+      //   "Confirm Password field must be the same as the Password field",
+      // ]);
     }
   };
   const disabled = password.length < 6 ? true : null;
@@ -75,14 +90,15 @@ function SignupFormModal() {
       <h1 className="welcome-sign">Welcome to PinThis</h1>
       <div className="new-ideas">Find new ideas to try</div>
       <form className="sign-form" onSubmit={handleSubmit}>
-        <ul>
+        {/* <ul>
           {didSubmit &&
             errors.map((error, idx) => (
               <li className="the-errors" key={idx}>
                 {error}
               </li>
             ))}
-        </ul>
+        </ul> */}
+
         <label className="sign-label">
           Email
           <input
@@ -136,28 +152,52 @@ function SignupFormModal() {
           Password
           <input
             className="sign-input"
-            type="password"
+            type={visible1 ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <div onClick={() => setVisible1(!visible1)} className="pwicon">
+            {visible1 ? (
+              <i className="fa-regular fa-eye"></i>
+            ) : (
+              <i className="fa-regular fa-eye-slash"></i>
+            )}
+          </div>
         </label>
         {didSubmit && formErr.password && (
           <p className="sign-err">{formErr.password}</p>
+        )}
+        {didSubmit && formErr.confirmPassword && (
+          <p className="sign-err">{formErr.confirmPassword}</p>
         )}
         <label className="sign-label">
           Confirm Password
           <input
             className="sign-input"
-            type="password"
+            type={visible2 ? "text" : "password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+          <div onClick={() => setVisible2(!visible2)} className="pwicon">
+            {visible2 ? (
+              <i className="fa-regular fa-eye"></i>
+            ) : (
+              <i className="fa-regular fa-eye-slash"></i>
+            )}
+          </div>
         </label>
         <button className="continue-btn" disabled={disabled} type="submit">
           Continue
         </button>
+        <div className="on-pinthis">
+          <div className="not-on">Already a member? </div>
+          <OpenModalButton
+            buttonText="Log in"
+            modalComponent={<LoginFormModal />}
+          />
+        </div>
       </form>
     </div>
   );
