@@ -4,6 +4,9 @@ import { useDispatch,useSelector  } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { fetchEditBoardThunk } from "../../../store/boards";
 import { useModal } from "../../../context/Modal";
+import { fetchAllUsersThunk } from "../../../store/session";
+import InviteCollaborator from "../InviteCollaboratorsModal/InviteCollaboratorsModal";
+import OpenModalButton from "../../OpenModalButton";
 
 
 export default function EditBoard({board}) {
@@ -12,11 +15,14 @@ export default function EditBoard({board}) {
   const [name,setName] = useState(board.name);
   const [is_secret,setIs_secert] = useState(board.is_secret);
   const [description,setDescription] = useState(board.description?board.description : '');
-  const [collaborators,setCollaborators] = useState(board.collaborators? board.collaborators : '');
+  const [collaborators,setCollaborators] = useState(board.collaborators? board.collaborators : []);//board doesn't have a collaborator column. must find a way to get collaborators.
   const [errors,setErrors] = useState({});
+  const [isCollaboratorModalOpen,setIsCollaboratorModalOpen] = useState(false);
   const { closeModal } = useModal();
 
   const currentUser = useSelector((state) => state.session.user);
+  
+ 
 
   useEffect(()=>{
     let errors = {};
@@ -45,6 +51,11 @@ export default function EditBoard({board}) {
     }
     return errors
   }
+  const handleCollaboratorDataFromModal = (data) =>{
+    setIsCollaboratorModalOpen(false)
+    setCollaborators(data.map(item=>item.id))
+  }
+
 
   const handleSubmit = async (e) =>{
     
@@ -55,12 +66,16 @@ export default function EditBoard({board}) {
       return;
     }
     setErrors({});
+    
+    console.log('modify col',collaborators)
 
     const updateBoard = {...board,name,is_secret,description,collaborators}
     const data = await dispatch(fetchEditBoardThunk(updateBoard));
     closeModal();
     history.push(`/${currentUser.username}/board/${data.id}`);
   }
+
+  
 
   return (
     <div id="edit-board-modal-outer-container" className="modal-container">
@@ -91,8 +106,19 @@ export default function EditBoard({board}) {
       
       <label id="edit-board-collaborator-label">
         <p>Collaborators</p>
-        <input type = 'text' value = {collaborators} onChange = {e=>setCollaborators(e.target.value)}>
-        </input>
+        {/* <OpenModalButton
+                buttonText="+"
+                modalComponent={<InviteCollaborator board={board} onClose={handleCollaboratorDataFromModal}/>}
+              /> */}
+              <div id='edit-board-images-container'>
+                <div className="edit-board-images-container-single"><img src={currentUser?.photo_url} className="edit-board-user-image"/></div>
+                {collaborators.map((collaborator)=>(
+                  <div className="edit-board-images-container-single"><img src={collaborator?.photo_url} className="edit-board-user-image"/></div>
+                ))}
+              </div>
+              <button type="button" onClick={()=>setIsCollaboratorModalOpen(!isCollaboratorModalOpen)}>+</button>
+              <>{isCollaboratorModalOpen && <InviteCollaborator isOpen={isCollaboratorModalOpen} onClose={handleCollaboratorDataFromModal} board={board}/>}</>
+             
       </label>
       
         <div id='edit-board-submit-button-container'><button type='submit' disabled={!!Object.keys(errors).length} id="edit-board-submit-button">Done</button></div>

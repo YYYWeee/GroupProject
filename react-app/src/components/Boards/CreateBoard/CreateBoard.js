@@ -13,6 +13,7 @@ export default function CreateBoard() {
   const [is_secret,setIs_secert] = useState(false);
   const [errors,setErrors] = useState({});
   const currentUser = useSelector((state) => state.session.user);
+  
 
   useEffect(()=>{
     let errors = {};

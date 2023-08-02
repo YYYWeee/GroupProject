@@ -1,0 +1,24 @@
+.collaborator-user-image-container{
+    width:20px;
+    height:20px;
+}
+
+.collaborator-user-image{
+    width: 100%;
+    height: 100%;
+}
+
+#collaborators-modal-container{
+    width: 400px;
+    height: 600px;
+}
+
+.edit-board-images-container-single{
+    width:20px;
+    height:20px;
+}
+
+.edit-board-user-image{
+    width: 100%;
+    height: 100%;
+}
