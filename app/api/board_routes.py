@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify,request
 from flask_login import login_required, current_user
-from app.models import Board, BoardUser, db
+from app.models import Board, BoardUser, Favorite, Pin,db
 from app.forms.board_form import BoardForm
 
 board_routes = Blueprint('board', __name__)
@@ -53,20 +53,20 @@ def create_board():
         return response
     if form.errors:
         return form.errors
-    
+
 @board_routes.route('/<int:id>',methods=['GET','PUT','DELETE'])
 @login_required
 def handle_board(id):
-    
-    
+
+
     if request.method == 'GET':
         board = Board.query.get(id)
         if not board:
             return {'errors': ['No board found']}
         response = board.to_dict()
         return response
-    
-    
+
+
     elif request.method == 'PUT':
         form = BoardForm()
         form['csrf_token'].data = request.cookies['csrf_token']
@@ -91,7 +91,7 @@ def handle_board(id):
             return response
         if form.errors:
             return form.errors
-        
+
 
     elif request.method == 'DELETE':
         board = Board.query.get(id)
@@ -104,10 +104,10 @@ def handle_board(id):
 
 
 
-    
 
-        
-        
+
+
+
 
 
 
@@ -115,7 +115,7 @@ def handle_board(id):
 # @board_routes.route('/<int:id>')
 # # @login_required do we want it to be logged in required
 # def get_single_board(id):
-    
+
 
 # delete a board
 @board_routes.route('/<int:id>', methods=['DELETE'])
@@ -128,3 +128,17 @@ def delete_board(id):
         db.session.delete(board)
         db.session.commit()
         return {"Response": "Successfully deleted board"}
+
+
+#get all the favorite pins of a board
+@board_routes.route('/<int:id>/favorite')
+@login_required
+def board_favorite(id):
+    board = Board.query.get(id)
+    if not board:
+        return {'errors': ['No board found']}
+    else:
+        favorite_pins = Pin.query.join(Favorite, Pin.id == Favorite.pin_id).filter(Favorite.board_id == id).all()
+
+        response = [pin.to_dict() for pin in favorite_pins]
+        return response

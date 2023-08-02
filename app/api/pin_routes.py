@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Pin, Comment, db
+from app.models import Pin, Comment, Favorite, db
 from datetime import datetime
 from app.forms.comment_form import CommentForm
 from app.forms.edit_comment_form import EditCommentForm
