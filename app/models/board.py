@@ -34,4 +34,5 @@ class Board(db.Model):
             'name': self.name,
             'description': self.description,
             'is_secret': self.is_secret,
+
         }

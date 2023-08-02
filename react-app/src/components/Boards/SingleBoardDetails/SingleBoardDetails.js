@@ -1,7 +1,7 @@
-import {useEffect, useState, useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
-import {fetchOneBoardThunk} from "../../../store/boards";
+import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchOneBoardThunk } from "../../../store/boards";
 import OpenModalButton from "../../OpenModalButton";
 import EditBoard from "../EditBoard";
 import DeleteBoard from "../DeleteBoard";
@@ -10,7 +10,7 @@ import "./SingleBoard.css";
 
 export default function SingleBoardDetails() {
   const dispatch = useDispatch();
-  const {boardId} = useParams();
+  const { boardId } = useParams();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef1 = useRef();
 
@@ -24,6 +24,7 @@ export default function SingleBoardDetails() {
   });
 
   console.log("this is single board!@!!", singleBoard);
+  console.log("secret", singleBoard.is_secret)
 
   useEffect(() => {
     dispatch(fetchOneBoardThunk(boardId));
@@ -65,7 +66,7 @@ export default function SingleBoardDetails() {
               <OpenModalButton
                 buttonText="Edit Board"
                 onItemClick={closeMenu}
-                modalComponent={<EditBoard board={singleBoard}/>}
+                modalComponent={<EditBoard board={singleBoard} />}
               />
               <OpenModalButton
                 buttonText="Delete Board"
@@ -75,6 +76,12 @@ export default function SingleBoardDetails() {
             </ul>
           </div>
         )}
+        <div className="user-list">
+          <div className="profile-pic-list">
+
+          </div>
+          <div className="secret-text">{singleBoard.is_secret == true && (<p><i class="fa-solid fa-lock"></i>Secret Board</p>)}</div>
+        </div>
       </div>
     </div>
   );
