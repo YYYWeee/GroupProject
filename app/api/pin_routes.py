@@ -15,7 +15,6 @@ pin_routes = Blueprint('pins', __name__)
 
 
 @pin_routes.route('')
-# @login_required
 def get_all_pins():
     """
     Query for all pins and returns them in a list of pin dictionaries
@@ -25,7 +24,6 @@ def get_all_pins():
 
 
 @pin_routes.route('/<int:pinId>')
-# @login_required
 def get_one_pin(pinId):
     """
     Query for all pins and returns them in a list of pin dictionaries

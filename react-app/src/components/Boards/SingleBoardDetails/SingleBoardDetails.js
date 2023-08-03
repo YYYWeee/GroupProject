@@ -87,18 +87,6 @@ export default function SingleBoardDetails() {
         )}
         <div className="user-list">
           <div className="profile-pic-list" onClick={toggleModal}>
-            {/* <div className="creator pic"> */}
-            <img
-              src={
-                sessionUser?.photo_url
-                  ? sessionUser?.photo_url
-                  : "no preview img"
-              }
-              alt="No user profile"
-              className="creator-img cursor"
-            ></img>
-            {/* </div> */}
-
             <div className="collaborator-list" onClick={toggleModal}>
               {singleBoard.collaborators.map((user, index) => (
                 <div key={index} className="creator-img ">

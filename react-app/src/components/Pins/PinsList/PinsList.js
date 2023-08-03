@@ -68,9 +68,7 @@ function PinsList({ targetUser }) {
     window.scroll(0, 0);
   }, [dispatch]);
 
-  return isLoaded === false ? (
-    <h1>Loading in progress</h1>
-  ) : (
+  return (
     <div className="pin-container">
       {pins.map((pin, index) => (
         // <PinsListCard key={pin.id} pin={pin} />

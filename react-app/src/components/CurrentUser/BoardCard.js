@@ -107,8 +107,7 @@ export default function BoardCard({ board, boardUser }) {
         {payload}
         <div className="user-board-name-container">
           <div className="user-board-name">{board.name}</div>
-          {boardUser.id === sessionUser.id &&
-            collaborators.length > 1 &&
+          {collaborators.length > 1 &&
             collaborators.map((member, index) => (
               <div key={index}>
                 <div>{member.id}</div>

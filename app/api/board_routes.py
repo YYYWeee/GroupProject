@@ -60,22 +60,30 @@ def get_user_all_boards(username):
 
 
 @board_routes.route('/<int:id>', methods=['GET'])
-@login_required
 def get_board(id):
-    if request.method == 'GET':
-        board = Board.query.get(id)
-        if not board:
-            return {'errors': ['No board found']}
-        collaborators = db.session.query(User).\
-            join(BoardUser, User.id == BoardUser.user_id).\
-            filter(and_(BoardUser.board_id == id,
-                   BoardUser.role == 'collaborator')).all()
-        response = board.to_dict()
-        response['collaborators'] = [col.to_dict() for col in collaborators]
-        associated_pins = board.pins  # a list of associated pin
-        response['associated_pins'] = [col.to_dict()
-                                       for col in associated_pins]
-        return response
+    board = Board.query.get(id)
+    if not board:
+        return {'errors': ['No board found']}
+    response = board.to_dict()
+
+    # finding all collaborators for this board
+    # collaborators = db.session.query(User).\
+    #     join(BoardUser, User.id == BoardUser.user_id).\
+    #     filter(and_(BoardUser.board_id == id,
+    #            BoardUser.role == 'collaborator')).all()
+    collaborators = db.session.query(User).\
+        join(BoardUser, User.id == BoardUser.user_id).\
+        filter(BoardUser.board_id == id).all()
+    response['collaborators'] = [col.to_dict() for col in collaborators]
+
+    # fnding all pins for this board
+    associated_pins = db.session.query(Pin).\
+        join(PinBoard, Pin.id == PinBoard.pin_id).\
+        filter(PinBoard.board_id == id).all()
+    # associated_pins = board.pins  # a list of associated pin
+    response['associated_pins'] = [col.to_dict()
+                                   for col in associated_pins]
+    return response
 
 
 @board_routes.route('/new', methods=['POST'])
