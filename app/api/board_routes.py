@@ -30,6 +30,8 @@ def get_all_boards():
     response = [board.to_dict() for board in all_boards]
     return response
 
+
+#specific route to add collaborators on boarduser table for invite collaborators 
 @board_routes.route('/<int:id>/collaborator/new',methods=['POST'])
 @login_required
 def add_collaborator(id):
@@ -122,7 +124,6 @@ def update_board(id):
             target_board.description = form.data['description']
             target_board.is_secret = form.data['is_secret']
             db.session.commit()
-            print('col form data', form.data['collaborators'])
             # for collaborator in form.data['collaborators']:
             #     new_board_user = BoardUser(
             #         user_id = collaborator,
@@ -131,6 +132,7 @@ def update_board(id):
             #     )
             #     db.session.add(new_board_user)
             #     db.session.commit()
+            #this route is abandoned since there is a specific route adding collaborators
 
             
 

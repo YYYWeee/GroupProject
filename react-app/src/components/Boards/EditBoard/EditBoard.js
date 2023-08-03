@@ -16,7 +16,7 @@ export default function EditBoard({board}) {
   const [name,setName] = useState(board.name);
   const [is_secret,setIs_secert] = useState(board.is_secret);
   const [description,setDescription] = useState(board.description?board.description : '');
-  const [collaborators,setCollaborators] = useState(board.collaborators? board.collaborators : []);//board doesn't have a collaborator column. must find a way to get collaborators.
+  const [collaborators,setCollaborators] = useState(board.collaborators? board.collaborators : []);
   const [errors,setErrors] = useState({});
   const [isCollaboratorModalOpen,setIsCollaboratorModalOpen] = useState(false);
   const { closeModal } = useModal();
