@@ -5,18 +5,18 @@ import { updatePinThunk } from "../../../store/pins";
 import { deletePinThunk } from "../../../store/pins";
 import './EditPin.css';
 
-// function isValidUrl(str) {
-//   const pattern = new RegExp(
-//     '^([a-zA-Z]+:\\/\\/)?' + // protocol
-//     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-//     '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-//     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-//     '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-//     '(\\#[-a-z\\d_]*)?$', // fragment locator
-//     'i'
-//   );
-//   return pattern.test(str);
-// }
+function isValidUrl(str) {
+  const pattern = new RegExp(
+    '^([a-zA-Z]+:\\/\\/)?' + // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+    '(\\#[-a-z\\d_]*)?$', // fragment locator
+    'i'
+  );
+  return pattern.test(str);
+}
 
 
 function EditPin({ pin, setShowUpdateForm2 }) {
@@ -49,7 +49,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
   const [alt_text, setAlt_text] = useState('');
   const [allow_comment, setAllow_comment] = useState('');
   // const [errors, setErrors] = useState([]);
-  // const [isValidLink, setIsValidLink] = useState(true);
+  const [isValidLink, setIsValidLink] = useState(true);
 
 
 
@@ -59,7 +59,11 @@ function EditPin({ pin, setShowUpdateForm2 }) {
       console.log('no title')
       return
     }
-
+    if (!isValidLink) {
+      console.log('invalid link')
+      setIsValidLink(false);
+      return
+    }
     let payload = {
       // ...pin,
       title: title,
@@ -88,6 +92,13 @@ function EditPin({ pin, setShowUpdateForm2 }) {
     await dispatch(deletePinThunk(targetPin.id));
     history.push(`/pins`);
   };
+
+  const handleLinkChange = (e) => {
+    setLink(e.target.value);
+    setIsValidLink(isValidUrl(e.target.value));
+  };
+
+
 
   useEffect(() => {
     console.log('in the useeffect', allow_comment);
@@ -131,10 +142,14 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                         <input type='text'
                           name='link'
                           value={link}
-                          onChange={(e) => setLink(e.target.value)}
+                          // onChange={(e) => setLink(e.target.value)}
+                          onChange={handleLinkChange}
                         />
 
                       </div>
+                      {/* <div className='error-area'>
+                        {!isValidLink ? "Invalid link" : ""}
+                      </div> */}
                       <div className='altText-area'>
                         <label>Alt text</label>
                         <textarea type='text'
@@ -193,8 +208,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                         className="delete-pin"
                         type="submit"
                         onClick={handleDelete}
-                        // disabled={errors.length > 0}
-
+                        disabled={!isValidLink}
                       >
                         Delete
                       </button>
