@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Board, BoardUser, Pin, db, User
+from app.models import Board, BoardUser, Pin, db, User, PinBoard
 from app.forms.board_form import BoardForm
 
 board_routes = Blueprint('board', __name__)
@@ -133,14 +133,33 @@ def add_pin_to_board(boardId):
     board = Board.query.get(boardId)
     if not board:
         return jsonify({"message": "Board not found"}), 404
+    default_board = Board.query.filter(
+        owner_id=current_user.id, is_default=True)
 
-    pin = Pin.query.get(pinId)
+    pin = Pin.query.get(pinId).join
     if not pin:
         return jsonify({"message": "Pin not found"}), 404
 
-    if (pin not in board.pins):
-        board.pins.extend([pin])
-        db.session.commit()
-        return {"message": "Pin added successfully"}
-    else:
-        return jsonify({"message": "Pin already exists in this board"}), 404
+    new_pin_in_board = PinBoard(
+        pin_id=pinId,
+        board_id=boardId,
+    )
+    db.session.add(new_pin_in_board)
+
+    pin_found_in_default = PinBoard.query.filter(
+        pin_id=pinId, board_id=default_board.id).first()
+    if not pin_found_in_default:
+        new_pin_in_default = PinBoard(
+            pin_id=pinId,
+            board_id=default_board.id,
+        )
+        db.session.add(new_pin_in_default)
+    db.session.commit()
+    return {"message": ["Pin added successfully", "Pin already exists in default board" if pin_found_in_default else ""]}
+
+    # if (pin not in board.pins):
+    #     board.pins.extend([pin])
+    #     db.session.commit()
+    #     return {"message": "Pin added successfully"}
+    # else:
+    #     return jsonify({"message": "Pin already exists in this board"}), 404

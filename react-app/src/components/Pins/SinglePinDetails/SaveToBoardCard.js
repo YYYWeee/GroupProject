@@ -4,9 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 function SaveToBoardCard({ board }) {
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
+  // const handleClickSavePin =
 
   return (
-    <div className="single-save-board-card cursor create-item1">
+    <div
+      className="single-save-board-card cursor create-item1"
+      // onClick={handleClickSavePin}
+    >
       <div className="single-save-board-left">
         <div className="save-board-img-container">
           {board?.previewImgUrl ? (
