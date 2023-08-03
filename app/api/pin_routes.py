@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from .AWS_helpers import upload_file_to_s3, get_unique_filename
 from .auth_routes import validation_errors_to_error_messages
 
-from app.models import db, Pin, Comment, User, Board, BoardUser
+from app.models import db, Pin, Comment, Favorite, User, Board, BoardUser
 from app.forms.comment_form import CommentForm
 
 pin_routes = Blueprint('pins', __name__)

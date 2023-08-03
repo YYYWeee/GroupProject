@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Board, BoardUser, Pin, db, User, PinBoard
+from app.models import Board, BoardUser, Pin, Favorite, Pin, db, User, PinBoard
 from app.forms.board_form import BoardForm
 
 board_routes = Blueprint('board', __name__)
@@ -70,7 +70,6 @@ def get_board(id):
 
 
 @board_routes.route('/new', methods=['POST'])
-@login_required
 def create_board():
     form = BoardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -123,6 +122,20 @@ def update_board(id):
     if form.errors:
         return form.errors
 
+# delete a board
+
+
+@board_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_board(id):
+    board = Board.query.get(id)
+    if not board:
+        return {'errors': ['No board found']}
+    else:
+        db.session.delete(board)
+        db.session.commit()
+        return {"Response": "Successfully deleted board"}
+
 
 @board_routes.route('/<int:boardId>/pins', methods=['POST'])
 @login_required
@@ -163,3 +176,18 @@ def add_pin_to_board(boardId):
     #     return {"message": "Pin added successfully"}
     # else:
     #     return jsonify({"message": "Pin already exists in this board"}), 404
+
+
+# get all the favorite pins of a board
+@board_routes.route('/<int:id>/favorite')
+@login_required
+def board_favorite(id):
+    board = Board.query.get(id)
+    if not board:
+        return {'errors': ['No board found']}
+    else:
+        favorite_pins = Pin.query.join(Favorite, Pin.id == Favorite.pin_id).filter(
+            Favorite.board_id == id).all()
+
+        response = [pin.to_dict() for pin in favorite_pins]
+        return response

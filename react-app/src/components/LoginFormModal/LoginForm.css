@@ -1,0 +1,55 @@
+.log-wrap {
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.log-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.log-btn {
+  width: 15rem;
+}
+
+.demo-btn {
+  border-radius: 20px;
+  background-color: white;
+  color: rgb(225, 22, 22);
+  border: rgb(225, 22, 22) solid 2px;
+  width: 11rem;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.demo-btn:hover {
+  filter: brightness(95%);
+}
+
+.on-pinthis {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.on-pinthis > button {
+  background-color: transparent;
+  border: none;
+  margin-left: 4px;
+  padding: 0;
+}
+
+.on-pinthis > button:hover {
+  background-color: transparent;
+  border: none;
+}
+
+.not-on {
+  margin-right: 0;
+}

@@ -23,9 +23,9 @@ export default function CurrentUser() {
   const allPins = useSelector((state) => {
     return Object.values(state.pins.allPins);
   });
-  const userCreatedPins = allPins?.filter(
-    (pin) => pin.owner_id === boardUser.id
-  );
+  // const userCreatedPins = allPins?.filter(
+  //   (pin) => pin.owner_id === boardUser.id
+  // );
 
   const handleClickCreated = () => {
     if (!showBoards) return;
@@ -56,8 +56,12 @@ export default function CurrentUser() {
       <div className="user-info">
         <img
           className="user-pp"
-          src={boardUser.photo_url}
-          alt="No preview for User"
+          alt="No user preview"
+          src={
+            boardUser.photo_url
+              ? boardUser.photo_url
+              : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+          }
         />
 
         <div className="user-name">
