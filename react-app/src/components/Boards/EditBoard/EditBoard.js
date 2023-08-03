@@ -82,10 +82,10 @@ export default function EditBoard({board}) {
       return;
     }
     setErrors({});
+    delete board.collaborators;
     
-    console.log('modify coll',collaborators)
 
-    const updateBoard = {...board,name,is_secret,description,collaborators}
+    const updateBoard = {...board,name,is_secret,description}
     const data = await dispatch(fetchEditBoardThunk(updateBoard));
     dispatch(fetchOneBoardThunk(board.id))
     closeModal();
