@@ -6,7 +6,7 @@ import { fetchOneBoardThunk } from "../../../store/boards";
 import OpenModalButton from "../../OpenModalButton";
 import EditBoard from "../EditBoard";
 import DeleteBoard from "../DeleteBoard";
-import CollaboratorModal from '../CollaboratorModal'
+import CollaboratorModal from "../CollaboratorModal";
 
 import "./SingleBoard.css";
 
@@ -20,8 +20,8 @@ export default function SingleBoardDetails() {
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
-    setModal(!modal)
-  }
+    setModal(!modal);
+  };
 
   const openUserMenu = () => {
     if (showMenu) return;
@@ -33,7 +33,6 @@ export default function SingleBoardDetails() {
   });
 
   console.log("this is single board!@!!", singleBoard);
-
 
   useEffect(() => {
     dispatch(fetchOneBoardThunk(boardId));
@@ -95,34 +94,34 @@ export default function SingleBoardDetails() {
                   ? sessionUser?.photo_url
                   : "no preview img"
               }
-              alt="Profile picture"
+              alt="No user profile"
               className="creator-img cursor"
             ></img>
             {/* </div> */}
 
             <div className="collaborator-list" onClick={toggleModal}>
-
               {singleBoard.collaborators.map((user, index) => (
-                <div
-                  key={index}
-                  className="creator-img "
-                >
+                <div key={index} className="creator-img ">
                   <img
                     src={user.photo_url ? user.photo_url : "no preview img"}
                     alt="No pin preview"
                     className="creator-img "
                   ></img>
-
                 </div>
               ))}
             </div>
 
-            {modal &&
+            {modal && (
               <CollaboratorModal isOpen={modal} onClose={toggleModal} />
-            }
-
+            )}
           </div>
-          <div className="secret-text">{singleBoard.is_secret == true && (<p><i class="fa-solid fa-lock"></i>Secret Board</p>)}</div>
+          <div className="secret-text">
+            {singleBoard.is_secret === true && (
+              <p>
+                <i className="fa-solid fa-lock"></i>Secret Board
+              </p>
+            )}
+          </div>
         </div>
       </div>
       {/* display all the pic of specific bord */}
@@ -138,7 +137,6 @@ export default function SingleBoardDetails() {
               alt="No pin preview"
               className="pin-img-board-page"
             ></img>
-
           </div>
         ))}
       </div>

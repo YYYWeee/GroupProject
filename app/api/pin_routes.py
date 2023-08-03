@@ -79,7 +79,6 @@ def new_pin():
             link=form.data['link']
         )
 
-        print('new pin@@@@@@@@@@@@@@@@@@@@', new_pin.to_dict())
         db.session.add(new_pin)
         print('add new pin@@@@@@@@@@@@@@@@@@@@@@')
         db.session.commit()
@@ -92,15 +91,16 @@ def new_pin():
 # Update pin
 
 
-@pin_routes.route('/pin/<int:pinId>', methods=['PUT'])
+@pin_routes.route('/<int:pinId>', methods=['PUT'])
 @login_required
 def edit_pin(pinId):
+    print("in update route@@@@@@@@@@@@@@@@@@@@@@@, before form data collecting")
     form = EditPinForm()
-    print("in update route", form.data)
     form['csrf_token'].data = request.cookies['csrf_token']
-    target_pin = Pin.query.get(id)
+    print("in update route@@@@@@@@@@@@@@@@@@@@@@@", form.data)
+    target_pin = Pin.query.get(pinId)
     if form.validate_on_submit():
-        print("we pass validation")
+        print("we pass validation!!!!!!!!!!!!!!!!!!!")
         target_pin.title = form.data['title']
         target_pin.description = form.data['description']
         target_pin.alt_text = form.data['alt_text']

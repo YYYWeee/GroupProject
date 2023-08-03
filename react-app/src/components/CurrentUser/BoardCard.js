@@ -110,14 +110,14 @@ export default function BoardCard({ board, boardUser }) {
           {boardUser.id === sessionUser.id &&
             collaborators.length > 1 &&
             collaborators.map((member, index) => (
-              <>
-                <div key={index}>{member.id}</div>
+              <div key={index}>
+                <div>{member.id}</div>
                 <img
                   className="need-cover-pic"
                   src={member.photo_url}
                   alt="preview board1"
                 />
-              </>
+              </div>
             ))}
         </div>
         <div className="board-stats">

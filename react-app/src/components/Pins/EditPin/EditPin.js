@@ -1,23 +1,22 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useState, useRef, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useRef, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { updatePinThunk } from "../../../store/pins";
 import { deletePinThunk } from "../../../store/pins";
-import './EditPin.css';
+import "./EditPin.css";
 
 function isValidUrl(str) {
   const pattern = new RegExp(
-    '^([a-zA-Z]+:\\/\\/)?' + // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-    '(\\#[-a-z\\d_]*)?$', // fragment locator
-    'i'
+    "^([a-zA-Z]+:\\/\\/)?" + // protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$", // fragment locator
+    "i"
   );
   return pattern.test(str);
 }
-
 
 function EditPin({ pin, setShowUpdateForm2 }) {
   const history = useHistory();
@@ -29,40 +28,33 @@ function EditPin({ pin, setShowUpdateForm2 }) {
   );
 
   useEffect(() => {
-    setTitle(targetPin.title)
-    setDescription(targetPin.description)
-    setLink(targetPin.link)
-    setAlt_text(targetPin.alt_text)
+    setTitle(targetPin.title);
+    setDescription(targetPin.description);
+    setLink(targetPin.link);
+    setAlt_text(targetPin.alt_text);
     // setNote_to_self(targetPin.note_to_self)   //????
-    setAllow_comment(targetPin.allow_comment)  //default true
-  }, [targetPin])
-
-
-
-
-
+    setAllow_comment(targetPin.allow_comment); //default true
+  }, [targetPin]);
 
   const [showUpdateForm, setShowUpdateForm] = useState(true);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [link, setLink] = useState('');
-  const [alt_text, setAlt_text] = useState('');
-  const [allow_comment, setAllow_comment] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [link, setLink] = useState("");
+  const [alt_text, setAlt_text] = useState("");
+  const [allow_comment, setAllow_comment] = useState("");
   // const [errors, setErrors] = useState([]);
   const [isValidLink, setIsValidLink] = useState(true);
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title) {
-      console.log('no title')
-      return
+      console.log("no title");
+      return;
     }
     if (!isValidLink) {
-      console.log('invalid link')
+      console.log("invalid link");
       setIsValidLink(false);
-      return
+      return;
     }
     let payload = {
       // ...pin,
@@ -70,23 +62,22 @@ function EditPin({ pin, setShowUpdateForm2 }) {
       description: description,
       link: link,
       alt_text: alt_text,
-      allow_comment: allow_comment
-    }
+      allow_comment: allow_comment,
+    };
 
     await dispatch(updatePinThunk(payload, targetPin.id));
-    setShowUpdateForm(false)
-    setShowUpdateForm2(false)
-
-  }
+    setShowUpdateForm(false);
+    setShowUpdateForm2(false);
+  };
   const handleCancel = async (e) => {
-    history.goBack()
-  }
+    history.goBack();
+  };
 
   const handleCommentToggleChange = async (e) => {
     setAllow_comment((allow_comment) => !allow_comment);
-    console.log('in handleCommentToggleChange', allow_comment)
+    console.log("in handleCommentToggleChange", allow_comment);
     // Remember above may not show the updated value because it's happening synchronously right after the state update is scheduled, but the log in the useEffect hook on line 60 will show the correct value after the component re-renders.
-  }
+  };
 
   const handleDelete = async (e) => {
     await dispatch(deletePinThunk(targetPin.id));
@@ -98,112 +89,109 @@ function EditPin({ pin, setShowUpdateForm2 }) {
     setIsValidLink(isValidUrl(e.target.value));
   };
 
-
-
   useEffect(() => {
-    console.log('in the useeffect', allow_comment);
+    console.log("in the useeffect", allow_comment);
   }, [allow_comment]);
 
   return (
     <>
-
       {showUpdateForm && (
         <div>
-          <div className='form-page'>
-            <div className='update-form-container-including-title'>
+          <div className="form-page">
+            <div className="update-form-container-including-title">
               <h1>Edit this Pin</h1>
-              <div className='update-form-container'>
-                <form className='edit-pin' onSubmit={handleSubmit}>
-                  <div className='big-container'>
-                    <div className='left-container'>
-                      <div className='title-area error'>
+              <div className="update-form-container">
+                <form className="edit-pin" onSubmit={handleSubmit}>
+                  <div className="big-container">
+                    <div className="left-container">
+                      <div className="title-area error">
                         <label>Title</label>
-                        <input type='text'
-                          name='title'
+                        <input
+                          type="text"
+                          name="title"
                           value={title}
                           onChange={(e) => setTitle(e.target.value)}
                           required
                         />
                       </div>
-                      <div className='description-area'>
+                      <div className="description-area">
                         <label>Description </label>
-                        <textarea type='text'
-                          className='text-input-box'
-                          name='description'
+                        <textarea
+                          type="text"
+                          className="text-input-box"
+                          name="description"
                           value={description}
                           onChange={(e) => setDescription(e.target.value)}
                           placeholder="Tell us about this Pin...    😃 "
                         />
                       </div>
 
-
-                      <div className='link-area'>
+                      <div className="link-area">
                         <label>Website </label>
-                        <input type='text'
-                          name='link'
+                        <input
+                          type="text"
+                          name="link"
                           value={link}
                           // onChange={(e) => setLink(e.target.value)}
                           onChange={handleLinkChange}
                         />
-
                       </div>
                       {/* <div className='error-area'>
                         {!isValidLink ? "Invalid link" : ""}
                       </div> */}
-                      <div className='altText-area'>
+                      <div className="altText-area">
                         <label>Alt text</label>
-                        <textarea type='text'
-                          name='altText'
+                        <textarea
+                          type="text"
+                          name="altText"
                           value={alt_text}
-                          className='alt-input-box'
+                          className="alt-input-box"
                           onChange={(e) => setAlt_text(e.target.value)}
-                          placeholder='This helps people using screen readers understand what your Pin is about.' />
-
+                          placeholder="This helps people using screen readers understand what your Pin is about."
+                        />
                       </div>
-                      <div>
-                      </div>
+                      <div></div>
 
                       {allow_comment ? (
-                        <div className='comment-toggle'>
-                          <input type="checkbox"
+                        <div className="comment-toggle">
+                          <input
+                            type="checkbox"
                             id="switch"
-                            class="checkbox"
+                            className="checkbox"
                             checked={allow_comment}
                             onChange={handleCommentToggleChange}
                           />
-                          <label for="switch"
-                            class="toggle">
-                          </label>
+                          <label htmlFor="switch" className="toggle"></label>
                           Allow people to comment
-                        </div>) : (
-                        <div className='comment-toggle'>
-                          <input type="checkbox"
+                        </div>
+                      ) : (
+                        <div className="comment-toggle">
+                          <input
+                            type="checkbox"
                             id="switch"
-                            class="checkbox"
+                            className="checkbox"
                             checked={allow_comment}
                             onChange={handleCommentToggleChange}
                           />
-                          <label for="switch"
-                            class="toggle">
-                          </label>
+                          <label htmlFor="switch" className="toggle"></label>
                           Allow people to comment
-                        </div>)
-
-                      }
+                        </div>
+                      )}
                     </div>
-                    <div className='right-container'>
-                      <div className='pic-container'>
+                    <div className="right-container">
+                      <div className="pic-container">
                         <img
-                          src={pin?.image_url ? pin.image_url : "no preview img"}
-                          alt='No pin preview'
+                          src={
+                            pin?.image_url ? pin.image_url : "no preview img"
+                          }
+                          alt="No pin preview"
                           className="pic"
                         />
                       </div>
                     </div>
-
                   </div>
-                  <div className='button-container'>
-                    <div className='left-btn'>
+                  <div className="button-container">
+                    <div className="left-btn">
                       <button
                         className="delete-pin"
                         type="submit"
@@ -213,7 +201,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                         Delete
                       </button>
                     </div>
-                    <div className='right-btn'>
+                    <div className="right-btn">
                       <button
                         className="cancel-button"
                         type="submit"
@@ -221,10 +209,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                       >
                         Cancel
                       </button>
-                      <button
-                        className="save-button"
-                        type="submit"
-                      >
+                      <button className="save-button" type="submit">
                         Save
                       </button>
                     </div>
@@ -236,7 +221,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
         </div>
       )}
     </>
-  )
+  );
 }
 
 export default EditPin;
