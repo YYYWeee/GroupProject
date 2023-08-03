@@ -11,7 +11,7 @@ const removeUser = () => ({
   type: REMOVE_USER,
 });
 
-const initialState = {user: null};
+const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch("/api/auth/", {
@@ -31,7 +31,7 @@ export const authenticate = () => async (dispatch) => {
 
 export const login = (user) => async (dispatch) => {
   console.log("inside login thunk");
-  const {email, password} = user;
+  const { email, password } = user;
   const response = await fetch("/api/auth/login", {
     method: "POST",
     headers: {
@@ -71,7 +71,7 @@ export const logout = () => async (dispatch) => {
 };
 
 export const signUp = (user) => async (dispatch) => {
-  const {email, username, first_name, last_name, password} = user;
+  const { email, username, first_name, last_name, password } = user;
   console.log("i am in signup thunk");
   const response = await fetch("/api/auth/signup", {
     method: "POST",
@@ -108,9 +108,9 @@ export const signUp = (user) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
-      return {user: action.payload};
+      return { user: action.payload };
     case REMOVE_USER:
-      return {user: null};
+      return { user: null };
     default:
       return state;
   }

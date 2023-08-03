@@ -35,7 +35,7 @@ def get_one_pin(pinId):
     if current_user.is_authenticated:
         all_boards = Board.query \
             .join(BoardUser) \
-            .filter(BoardUser.user_id == current_user.id, BoardUser.role.in_(['owner', 'collaborator']), Board.is_default == False) \
+            .filter(BoardUser.user_id == current_user.id, BoardUser.role.in_(['owner', 'collaborator'])) \
             .order_by(BoardUser.updated_at).all()
         sessionUserBoards = [board.to_dict_simple() for board in all_boards]
         response["sessionUserBoards"] = sessionUserBoards
@@ -78,7 +78,6 @@ def new_pin():
         )
 
         db.session.add(new_pin)
-        print('add new pin@@@@@@@@@@@@@@@@@@@@@@')
         db.session.commit()
         # return {"new Pin": new_pin.to_dict()}
 

@@ -32,7 +32,7 @@ def get_user_all_boards(username):
     print(target_user.to_dict())
     all_boards = Board.query \
         .join(BoardUser) \
-        .filter(BoardUser.user_id == target_user.id, BoardUser.role.in_(role_types)) \
+        .filter(and_(BoardUser.user_id == target_user.id, BoardUser.role.in_(role_types))) \
         .order_by(Board.updated_at.desc()).all()
 
     # find all the collborators for each board belonging to this user,
@@ -192,48 +192,51 @@ def delete_board(id):
         return {"Response": "Successfully deleted board"}
 
 
-@board_routes.route('/<int:boardId>/pins', methods=['POST'])
+@board_routes.route('/<int:boardId>/pins/<int:pinId>', methods=['POST'])
 @login_required
-def add_pin_to_board(boardId):
-    pin_data = request.json
-    pinId = pin_data.get('pinId')
-
-    board = Board.query.get(boardId)
-    if not board:
-        return jsonify({"message": "Board not found"}), 404
-    default_board = Board.query.filter(
-        owner_id=current_user.id, is_default=True)
-
-    pin = Pin.query.get(pinId).join
+def add_pin_to_board(boardId, pinId):
+    pin = Pin.query.get(pinId)
     if not pin:
         return jsonify({"message": "Pin not found"}), 404
 
-    new_pin_in_board = PinBoard(
-        pin_id=pinId,
-        board_id=boardId,
-    )
-    db.session.add(new_pin_in_board)
-
-    pin_found_in_default = PinBoard.query.filter(
-        pin_id=pinId, board_id=default_board.id).first()
-    if not pin_found_in_default:
-        new_pin_in_default = PinBoard(
+    # the pin need to save in both non-default saved_board and default_board
+    # the user cannot choose to save to default board if it already exists in default board.
+    # the user cannot choose to save to feature board if it already exists in feature board.
+    saved_board = Board.query.get(boardId)
+    if not saved_board:
+        return jsonify({"message": "Board not found"}), 404
+    pin_found_in_saved = PinBoard.query.filter(and_(
+        PinBoard.pin_id == pinId, PinBoard.board_id == saved_board.id)).first()
+    if pin_found_in_saved:
+        return jsonify({"message": "Pin already exists in this board"}), 408
+    else:
+        # add this pin to saved_board
+        new_pin_in_board = PinBoard(
             pin_id=pinId,
-            board_id=default_board.id,
+            board_id=boardId,
         )
-        db.session.add(new_pin_in_default)
+        db.session.add(new_pin_in_board)
+
+    # if the user selected non-default saved_board, then need to save to default_board as well.
+    # so if what user selected is already his default board, this default_board set to None to avoid duplicates in default boards
+    default_board = Board.query.filter(and_(
+        Board.owner_id == current_user.id, Board.is_default == True)).first() if not saved_board.is_default else None
+    if default_board is not None:
+        # if the pin already exist in default board, then don't add again.
+        pin_found_in_default = PinBoard.query.filter(and_(
+            PinBoard.pin_id == pinId, PinBoard.board_id == default_board.id)).first()
+        if not pin_found_in_default:
+            new_pin_in_default = PinBoard(
+                pin_id=pinId,
+                board_id=default_board.id,
+            )
+            db.session.add(new_pin_in_default)
     db.session.commit()
-    return {"message": ["Pin added successfully", "Pin already exists in default board" if pin_found_in_default else ""]}
-
-    # if (pin not in board.pins):
-    #     board.pins.extend([pin])
-    #     db.session.commit()
-    #     return {"message": "Pin added successfully"}
-    # else:
-    #     return jsonify({"message": "Pin already exists in this board"}), 404
-
+    return {"message": ["Pin added successfully"]}
 
 # get all the favorite pins of a board
+
+
 @board_routes.route('/<int:id>/favorite')
 @login_required
 def board_favorite(id):

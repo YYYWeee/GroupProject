@@ -3,6 +3,7 @@ from app.models import User, db, Board, BoardUser
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy import and_
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -84,16 +85,20 @@ def sign_up():
         )
         db.session.add(board)
 
-        created_board = Board.query.order_by(Board.id.desc()).first()
+        created_default_board = Board.query.filter(
+            and_(Board.owner_id == user.id, Board.is_default == True)).first()
+        if not created_default_board:
+            return {'errors': "Default board not created successfully for this user"}, 500
         new_board_user = BoardUser(
-            user_id=created_board.owner_id,
-            board_id=created_board.id,
+            user_id=created_default_board.owner_id,
+            board_id=created_default_board.id,
             role='owner'
         )
         db.session.add(new_board_user)
         db.session.commit()
 
         login_user(user)
+
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
