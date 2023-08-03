@@ -27,9 +27,35 @@
   cursor: pointer;
   margin-left: 5px;
 }
-
 .b-title {
   font-size: 25px;
   font-weight: 600;
   margin-right: 5px;
+}
+.profile-pic-list{
+  display: flex;
+  flex-direction: row;
+
+}
+.collaborator-list{
+  display: flex;
+  flex-direction: row;
+}
+
+.pin-img-board-page{
+  width: 270px;
+  height: 350px;
+  border-radius: 20px;
+}
+
+.detail-container{
+  margin-left: 80px;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-evenly; */
+  gap: 30px;
+}
+
+.profile-pic-list, .pin-img-div{
+  cursor: pointer;
 }

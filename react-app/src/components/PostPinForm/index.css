@@ -29,8 +29,10 @@
 }
 
 .userPic {
-  width: 55px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid grey;
 }
 
 .saveButton-container {
