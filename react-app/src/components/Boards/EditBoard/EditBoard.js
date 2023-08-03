@@ -23,7 +23,7 @@ export default function EditBoard({board}) {
 
   const currentUser = useSelector((state) => state.session.user);
   const newest_board = useSelector((state) => state.boards.singleBoard)
-  console.log('new',newest_board)
+
   
  
  
@@ -138,7 +138,7 @@ export default function EditBoard({board}) {
                 className="open-collaborator-invite"
                 itemText="+"
                 // onModalClose = {handleCollaboratorDataFromModal} 
-                modalComponent={<InviteCollaborator board={newest_board?newest_board:board}/>}
+                modalComponent={<InviteCollaborator board={newest_board.id===board.id?newest_board:board}/>}
               />
               {/* <>{isCollaboratorModalOpen && <InviteCollaborator isOpen={isCollaboratorModalOpen} onClose={handleCollaboratorDataFromModal} board={board}/>}</> */}
              
