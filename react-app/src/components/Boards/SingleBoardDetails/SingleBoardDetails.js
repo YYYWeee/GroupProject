@@ -114,7 +114,7 @@ export default function SingleBoardDetails() {
       </div>
       {/* display all the pic of specific bord */}
       <div className="detail-container">
-        {singleBoard.associated_pins.map((pin, index) => (
+        {singleBoard.associated_pins?.map((pin, index) => (
           <div
             key={index}
             className="pin-img-div "

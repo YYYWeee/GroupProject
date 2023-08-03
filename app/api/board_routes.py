@@ -89,6 +89,9 @@ def get_board(id):
 @board_routes.route('/new', methods=['POST'])
 def create_board():
     form = BoardForm()
+    users = User.query.all()
+    user_choices = [(user.id, user.username)for user in users]
+    form.collaborators.choices = user_choices
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         new_board = Board(
@@ -111,39 +114,8 @@ def create_board():
     if form.errors:
         return form.errors
 
+
 # specific route to add collaborators on boarduser table for invite collaborators
-
-
-@board_routes.route('/<int:id>/collaborator/new', methods=['POST'])
-@login_required
-def add_collaborator(id):
-    form = BoardForm()
-    users = User.query.all()
-    user_choices = [(user.id, user.username)for user in users]
-    form.collaborators.choices = user_choices
-    form['csrf_token'].data = request.cookies['csrf_token']
-    target_board = Board.query.get(id)
-    if form.validate_on_submit():
-        for collaborator in form.data['collaborators']:
-            exist_user = BoardUser.query.filter_by(
-                user_id=collaborator, board_id=id).first()
-            if not exist_user:
-                new_collaborator = BoardUser(
-                    board_id=id,
-                    user_id=collaborator,
-                    role='collaborator'
-                )
-                db.session.add(new_collaborator)
-                db.session.commit()
-        collaborators = db.session.query(User).\
-            join(BoardUser, User.id == BoardUser.user_id).\
-            filter(and_(BoardUser.board_id == id,
-                   BoardUser.role == 'collaborator')).all()
-        response = target_board.to_dict()
-        response['collaborators'] = [col.to_dict() for col in collaborators]
-        return response
-    if form.errors:
-        return form.errors
 
 
 @board_routes.route('/<int:id>', methods=['PUT'])
@@ -177,6 +149,7 @@ def update_board(id):
     if form.errors:
         return form.errors
 
+
 # delete a board
 
 
@@ -190,6 +163,38 @@ def delete_board(id):
         db.session.delete(board)
         db.session.commit()
         return {"Response": "Successfully deleted board"}
+
+
+@board_routes.route('/<int:id>/collaborator/new', methods=['POST'])
+@login_required
+def add_collaborator(id):
+    form = BoardForm()
+    users = User.query.all()
+    user_choices = [(user.id, user.username)for user in users]
+    form.collaborators.choices = user_choices
+    form['csrf_token'].data = request.cookies['csrf_token']
+    target_board = Board.query.get(id)
+    if form.validate_on_submit():
+        for collaborator in form.data['collaborators']:
+            exist_user = BoardUser.query.filter_by(
+                user_id=collaborator, board_id=id).first()
+            if not exist_user:
+                new_collaborator = BoardUser(
+                    board_id=id,
+                    user_id=collaborator,
+                    role='collaborator'
+                )
+                db.session.add(new_collaborator)
+                db.session.commit()
+        collaborators = db.session.query(User).\
+            join(BoardUser, User.id == BoardUser.user_id).\
+            filter(and_(BoardUser.board_id == id,
+                   BoardUser.role == 'collaborator')).all()
+        response = target_board.to_dict()
+        response['collaborators'] = [col.to_dict() for col in collaborators]
+        return response
+    if form.errors:
+        return form.errors
 
 
 @board_routes.route('/<int:boardId>/pins/<int:pinId>', methods=['POST'])

@@ -58,7 +58,7 @@ function NavBarLeftComponent({ user }) {
       {user ? (
         <div className="header-left-container">
           <button onClick={handleClick} className="logo cursor">
-            PinThis
+            <img src='https://cdn.discordapp.com/attachments/1134270927769698500/1136745653691764736/pinlogo_copy.png' alt="PinThis" id="navigation-title-img"/>
           </button>
           <NavLink exact to="/pins" className="nav-home cursor">
             Home
