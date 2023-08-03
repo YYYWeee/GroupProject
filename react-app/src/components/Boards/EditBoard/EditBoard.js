@@ -4,10 +4,9 @@ import { useDispatch,useSelector  } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { fetchEditBoardThunk,fetchOneBoardThunk } from "../../../store/boards";
 import { useModal } from "../../../context/Modal";
-import { fetchAllUsersThunk } from "../../../store/session";
 import InviteCollaborator from "../InviteCollaboratorsModal/InviteCollaboratorsModal";
-import OpenModalButton from "../../OpenModalButton";
 import EditBoardModalHelper from "../EditBoardModalHelper/EditBoardModalHelper";
+import { fetchAllUsersThunk } from "../../../store/session"; 
 
 
 export default function EditBoard({board}) {
@@ -18,11 +17,24 @@ export default function EditBoard({board}) {
   const [description,setDescription] = useState(board.description?board.description : '');
   const [collaborators,setCollaborators] = useState(board.collaborators? board.collaborators : []);
   const [errors,setErrors] = useState({});
-  const [isCollaboratorModalOpen,setIsCollaboratorModalOpen] = useState(false);
   const { closeModal } = useModal();
-
+  
+  const allUsers = useSelector(state => state.session.allUsers?.users);
+  const owner = allUsers? allUsers.find(user => user.id === board.owner_id):{};
   const currentUser = useSelector((state) => state.session.user);
   const newest_board = useSelector((state) => state.boards.singleBoard)
+
+
+  useEffect(()=>{
+    dispatch(fetchAllUsersThunk());
+  },[]);
+  
+  let isOwner;
+  if(currentUser.id===board.owner_id){
+    isOwner = true;
+  }else{
+    isOwner = false;
+  }
 
   
  
@@ -91,7 +103,11 @@ export default function EditBoard({board}) {
     closeModal();
     history.push(`/${currentUser.username}/board/${data.id}`);
   }
-
+  
+  const handleNotOwnerSubmit = () =>{
+     closeModal();
+     history.push(`/${currentUser.username}/board/${board.id}`);
+  }
   
 
   return (
@@ -99,7 +115,8 @@ export default function EditBoard({board}) {
        <div className="form-container-edit-board">
     <p className="edit-board-title">Edit your Board</p>
     <form onSubmit={handleSubmit}>
-      <label id="edit-board-name-label">
+      {isOwner &&<div>
+        <label id="edit-board-name-label">
         <p>Name</p>
          
         <input type = 'text' value = {name} onChange = {e=>setName(e.target.value)} placeholder="Like:'Place to Go' or 'Recipes to Make">
@@ -120,31 +137,44 @@ export default function EditBoard({board}) {
           <p>So only you and collaborators can see it.</p></div>
           
         </label>
+        </div>}
+      
       
       <label id="edit-board-collaborator-label">
         <p>Collaborators</p>
-        {/* <OpenModalButton
-                buttonText="+"
-                modalComponent={<InviteCollaborator board={board} onClose={handleCollaboratorDataFromModal}/>}
-              /> */}
-              <div id='edit-board-images-container'>
-                <div className="edit-board-images-container-single"><img src={currentUser?.photo_url} className="edit-board-user-image"/></div>
-                {collaborators.map((collaborator)=>(
-                  <div className="edit-board-images-container-single"><img src={collaborator?.photo_url} className="edit-board-user-image"/></div>
-                ))}
+
+              <div id="edit-board-collaborator-avatar-modal-container">
+              <div id='edit-board-all-user-avatar-container'>
+          
+          <div className="edit-board-images-container-single"><img src={owner?.photo_url} className="edit-board-user-image"/></div>
+          {collaborators.map((collaborator)=>(
+            <div className="edit-board-images-container-single"><img src={collaborator.photo_url?collaborator.photo_url:'https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg'} className="edit-board-user-image"/></div>
+          ))}
+       
+        
+
+
+        </div>
+        <div id="edit-board-collaborator-modal-container">
+        <EditBoardModalHelper
+          className="open-collaborator-invite"
+          itemText={<i class="fa-solid fa-plus"></i>}
+
+          modalComponent={<InviteCollaborator board={newest_board.id===board.id?newest_board:board}/>}
+        />
+
+        </div>
+        
+
+        
               </div>
-              {/* <button type="button" onClick={()=>setIsCollaboratorModalOpen(!isCollaboratorModalOpen)}>+</button> */}
-              <EditBoardModalHelper
-                className="open-collaborator-invite"
-                itemText="+"
-                // onModalClose = {handleCollaboratorDataFromModal} 
-                modalComponent={<InviteCollaborator board={newest_board.id===board.id?newest_board:board}/>}
-              />
-              {/* <>{isCollaboratorModalOpen && <InviteCollaborator isOpen={isCollaboratorModalOpen} onClose={handleCollaboratorDataFromModal} board={board}/>}</> */}
+              
+
              
       </label>
-      
-        <div id='edit-board-submit-button-container'><button type='submit' disabled={!!Object.keys(errors).length} id="edit-board-submit-button">Done</button></div>
+        {!isOwner && <div id="edit-board-owner-auth-reminder">{<div>Only the board's owner (<strong>{owner.username}</strong>) can manage the rest of its features</div>}</div>}
+         {!isOwner && <div id='edit-board-submit-button-container'><button type='button' onClick={()=>handleNotOwnerSubmit()} id="edit-board-submit-button">Done</button></div>}
+        {isOwner && <div id='edit-board-submit-button-container'><button type='submit' disabled={!!Object.keys(errors).length} id="edit-board-submit-button">Done</button></div>}
     </form>
   </div>
 

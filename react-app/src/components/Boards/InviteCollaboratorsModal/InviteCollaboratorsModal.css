@@ -8,20 +8,10 @@
 #collaborators-modal-container{
     width: 400px;
     max-height: 600px;
-    margin: 10px;
+    margin: 20px;
 }
 
-.edit-board-images-container-single{
-    width:48px;
-    height:48px;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid rgb(212, 212, 212);
 
-}
 
 .collaborator-user-image-container{
     width:48px;
@@ -73,7 +63,7 @@
 }
 
 .collaborator-invite-button {
-    margin-right: 20px;
+
     background-color: rgb(230, 17, 17);
     border-radius: 20px;
     color: #fff;
@@ -84,7 +74,7 @@
 }
 
 .collaborator-invite-button:disabled {
-    margin-right: 20px;
+
     background-color: rgb(184, 184, 184);
     border-radius: 20px;
     color: #fff;

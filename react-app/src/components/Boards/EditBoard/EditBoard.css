@@ -10,6 +10,7 @@
     border-radius: 25px ;
     width: 500px;
     max-height:1100px;
+    min-height: 400px;
     
    
     
@@ -117,7 +118,41 @@
     padding-top:5px;
 }
 
+#edit-board-all-user-avatar-container{
+    display: flex;
+    margin-left: 20px;
+    margin-top: 10px;
+}
 
+.edit-board-images-container-single-hidden{
+    width:48px;
+    height:48px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(212, 212, 212);
+    margin-left: -20px;
+
+}
+
+.edit-board-images-container-single{
+    width:48px;
+    height:48px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(212, 212, 212);
+    margin-left: -20px;
+    transition: transform 0.3s ease;
+    &:hover{
+        transform: translate(-10px);
+    }
+
+}
 
 
 
@@ -157,3 +192,31 @@
     font-size: 12px;
 }
 
+#edit-board-collaborator-avatar-modal-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:400px
+}
+
+#edit-board-collaborator-modal-container{
+    width:48px;
+    height:48px;
+    background-color: rgb(224, 224, 224);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+#edit-board-collaborator-modal-container i{
+   color: #1a1a1a;
+   font-size: 23px;
+}
+
+#edit-board-owner-auth-reminder{
+    width: 400px;
+    text-align: left;
+    margin-top: 10px;
+}

@@ -23,7 +23,7 @@ export default function CreateBoard() {
     if(name.length > 50){
       errors.name = "Please enter no more than 50 characters."
     }
-    setErrors(errors);
+    setErrors({errors});
   },[name])
   
   const validationErrors = () =>{

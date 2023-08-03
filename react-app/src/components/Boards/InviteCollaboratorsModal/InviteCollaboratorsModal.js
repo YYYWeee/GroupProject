@@ -11,14 +11,12 @@ import { fetchAddBoardCollaborator,fetchOneBoardThunk } from '../../../store/boa
 export default function InviteCollaborator({board}) {
     
     const dispatch = useDispatch();
-    const history = useHistory();
     const [collaborators,setCollaborators] = useState(board.collaborators? board.collaborators : []);
     const initialInvitedUsers = board.collaborators? board.collaborators.reduce((acc, user) => {acc[user.id] = true; return acc;}, {}): {};
-    const [InvitedUsers,setInvitedUsers] = useState(initialInvitedUsers)
-    const { closeModal } = useModal();
+    const [InvitedUsers,setInvitedUsers] = useState(initialInvitedUsers);
     const allUsers = useSelector(state => state.session.allUsers?.users);
-    const otherUsers =allUsers? allUsers.filter(allUser=>allUser.id !== board.owner_id):[]
-    const owner = allUsers? allUsers.find(user => user.id === board.owner_id):{}
+    const otherUsers =allUsers? allUsers.filter(allUser=>allUser.id !== board.owner_id):[];
+    const owner = allUsers? allUsers.find(user => user.id === board.owner_id):{};
     
 
 
@@ -83,7 +81,7 @@ export default function InviteCollaborator({board}) {
 
                 </div>
                 
-                <button type='button' onClick = {()=>handleAddCollaborator(user)} disabled={InvitedUsers[user.id]} className='collaborator-invite-button'>Invite</button>
+                <button type='button' onClick = {()=>handleAddCollaborator(user)} disabled={InvitedUsers[user.id]} className='collaborator-invite-button'>{InvitedUsers[user.id]?'Invited':'Invite'}</button>
                
             </li>
 
