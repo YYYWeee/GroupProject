@@ -9,7 +9,9 @@
     background-color: #ffffff;
     border-radius: 25px ;
     width: 500px;
-    height:600px;
+    max-height:1100px;
+    
+   
     
     
   
@@ -21,6 +23,8 @@
   }
   #modal-content {
     border-radius: 25px;
+
+ 
   }
 
 
@@ -123,6 +127,7 @@
   color: #fff;
   cursor: pointer;
   padding: 10px 15px;
+  margin-bottom: 20px;
   border: none;
 }
 

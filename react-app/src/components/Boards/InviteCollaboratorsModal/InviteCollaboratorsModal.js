@@ -4,8 +4,11 @@ import { useDispatch,useSelector  } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
 import { fetchAllUsersThunk } from "../../../store/session";
+import EditBoard from '../EditBoard';
+import EditBoardModalHelper from '../EditBoardModalHelper/EditBoardModalHelper';
+import { fetchAddBoardCollaborator,fetchOneBoardThunk } from '../../../store/boards';
 
-export default function InviteCollaborator({board,onClose,isOpen}) {
+export default function InviteCollaborator({board}) {
     
     const dispatch = useDispatch();
     const history = useHistory();
@@ -14,16 +17,25 @@ export default function InviteCollaborator({board,onClose,isOpen}) {
     const [InvitedUsers,setInvitedUsers] = useState(initialInvitedUsers)
     const { closeModal } = useModal();
     const allUsers = useSelector(state => state.session.allUsers?.users);
-    const otherUsers = allUsers.filter(allUser=>allUser.id !== board.owner_id)
+    const otherUsers =allUsers? allUsers.filter(allUser=>allUser.id !== board.owner_id):[]
     
 
 
     useEffect(()=>{
         dispatch(fetchAllUsersThunk());
       },[]);
-      if(!isOpen){
-        return null;
-    }
+
+      useEffect(()=>{
+        if(collaborators){
+            const collaboratorId = collaborators.map(item=>item.id)
+            const update_board = {...board,collaborators:collaboratorId};
+            dispatch(fetchAddBoardCollaborator(update_board))
+            .then(() => dispatch(fetchOneBoardThunk(board.id)));
+            
+        }
+    },[collaborators])
+
+      
 
     if(allUsers ===undefined||allUsers.length===0){
         return(<div><p>Loading</p></div>)
@@ -33,18 +45,23 @@ export default function InviteCollaborator({board,onClose,isOpen}) {
         if(!collaborators.some(col => col.id ===user.id)){
             setCollaborators([...collaborators,user]);
             setInvitedUsers({...InvitedUsers,[user.id]:true})
+            
 
         }
     }
 
-    const handleSubmit = () =>{
-       onClose(collaborators)
-    //    closeModal()
+    
 
-    }
+    
 
     return(
         <div id="collaborators-modal-container">
+             <EditBoardModalHelper
+                className="open-edit-board"
+                itemText="<"
+                // onModalClose = {handleCollaboratorDataFromModal} 
+                modalComponent={<EditBoard key={board.lastUpdated} board={board}/>}
+              />
         <ol id="collaborators-list">
         {otherUsers.map((user)=>(
             <li key={user.id} className='single-user-container'>
@@ -60,7 +77,6 @@ export default function InviteCollaborator({board,onClose,isOpen}) {
 ))}
 
         </ol>
-        <button onClick={handleSubmit}>Done</button>
         
         </div>
     )

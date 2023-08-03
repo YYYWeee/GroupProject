@@ -10,7 +10,7 @@
 
 #collaborators-modal-container{
     width: 400px;
-    height: 600px;
+    max-height: 500px;
 }
 
 .edit-board-images-container-single{

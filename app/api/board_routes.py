@@ -30,6 +30,39 @@ def get_all_boards():
     response = [board.to_dict() for board in all_boards]
     return response
 
+@board_routes.route('/<int:id>/collaborator/new',methods=['POST'])
+@login_required
+def add_collaborator(id):
+    form=BoardForm()
+    users = User.query.all()
+    user_choices = [(user.id,user.username)for user in users]
+    form.collaborators.choices = user_choices
+    form['csrf_token'].data = request.cookies['csrf_token']
+    target_board = Board.query.get(id)
+    if form.validate_on_submit():
+        for collaborator in form.data['collaborators']:
+            exist_user = BoardUser.query.filter_by(user_id=collaborator, board_id=id).first()
+            if not exist_user:
+                new_collaborator = BoardUser(
+                board_id=id,
+                user_id=collaborator,
+                role='collaborator'
+                )
+                db.session.add(new_collaborator)
+                db.session.commit()
+        collaborators = db.session.query(User).\
+        join(BoardUser, User.id == BoardUser.user_id).\
+        filter(and_(BoardUser.board_id == id, BoardUser.role == 'collaborator')).all()
+        response = target_board.to_dict()
+        response['collaborators'] = [col.to_dict() for col in collaborators]
+        return response
+    if form.errors:
+        return form.errors
+              
+
+
+
+
 @board_routes.route('/new',methods=['POST'])
 def create_board():
     form = BoardForm()
@@ -90,14 +123,14 @@ def update_board(id):
             target_board.is_secret = form.data['is_secret']
             db.session.commit()
             print('col form data', form.data['collaborators'])
-            for collaborator in form.data['collaborators']:
-                new_board_user = BoardUser(
-                    user_id = collaborator,
-                    board_id = id,
-                    role = 'collaborator'
-                )
-                db.session.add(new_board_user)
-                db.session.commit()
+            # for collaborator in form.data['collaborators']:
+            #     new_board_user = BoardUser(
+            #         user_id = collaborator,
+            #         board_id = id,
+            #         role = 'collaborator'
+            #     )
+            #     db.session.add(new_board_user)
+            #     db.session.commit()
 
             
 

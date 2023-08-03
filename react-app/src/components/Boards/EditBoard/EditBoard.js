@@ -7,6 +7,7 @@ import { useModal } from "../../../context/Modal";
 import { fetchAllUsersThunk } from "../../../store/session";
 import InviteCollaborator from "../InviteCollaboratorsModal/InviteCollaboratorsModal";
 import OpenModalButton from "../../OpenModalButton";
+import EditBoardModalHelper from "../EditBoardModalHelper/EditBoardModalHelper";
 
 
 export default function EditBoard({board}) {
@@ -21,7 +22,10 @@ export default function EditBoard({board}) {
   const { closeModal } = useModal();
 
   const currentUser = useSelector((state) => state.session.user);
+  const newest_board = useSelector((state) => state.boards.singleBoard)
+  console.log('new',newest_board)
   
+ 
  
 
   useEffect(()=>{
@@ -38,6 +42,15 @@ export default function EditBoard({board}) {
     setErrors(errors);
   },[name,description])
 
+  useEffect(() => {
+    if(newest_board){
+      if(newest_board.id===board.id){
+        setCollaborators(newest_board.collaborators)
+      }
+  
+    }
+}, [dispatch, newest_board]);
+
   const validationErrors = () =>{
     let errors = {};
     if(name.length === 0) {
@@ -52,11 +65,11 @@ export default function EditBoard({board}) {
     return errors
   }
 
-  const handleCollaboratorDataFromModal = (data) =>{
-    console.log('handleCollaboratorDataFromModal is called',data);
-    setIsCollaboratorModalOpen(false)
-    setCollaborators(data.map(item=>item.id))
-  }
+  // const handleCollaboratorDataFromModal = (data) =>{
+  //   console.log('handleCollaboratorDataFromModal is called',data);
+  //   setIsCollaboratorModalOpen(false)
+  //   setCollaborators(data.map(item=>item.id))
+  // }
 
 
   const handleSubmit = async (e) =>{
@@ -120,8 +133,14 @@ export default function EditBoard({board}) {
                   <div className="edit-board-images-container-single"><img src={collaborator?.photo_url} className="edit-board-user-image"/></div>
                 ))}
               </div>
-              <button type="button" onClick={()=>setIsCollaboratorModalOpen(!isCollaboratorModalOpen)}>+</button>
-              <>{isCollaboratorModalOpen && <InviteCollaborator isOpen={isCollaboratorModalOpen} onClose={handleCollaboratorDataFromModal} board={board}/>}</>
+              {/* <button type="button" onClick={()=>setIsCollaboratorModalOpen(!isCollaboratorModalOpen)}>+</button> */}
+              <EditBoardModalHelper
+                className="open-collaborator-invite"
+                itemText="+"
+                // onModalClose = {handleCollaboratorDataFromModal} 
+                modalComponent={<InviteCollaborator board={newest_board?newest_board:board}/>}
+              />
+              {/* <>{isCollaboratorModalOpen && <InviteCollaborator isOpen={isCollaboratorModalOpen} onClose={handleCollaboratorDataFromModal} board={board}/>}</> */}
              
       </label>
       
