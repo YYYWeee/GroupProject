@@ -24,8 +24,11 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime(timezone=True),
                            server_default=func.now(), onupdate=func.now())
 
+    # one-to-many
     pins = db.relationship("Pin", back_populates="user",
                            cascade="all, delete-orphan")
+
+    # many-to-many
     comments = db.relationship(
         "Comment", back_populates="user", cascade="all, delete-orphan")
 
@@ -53,4 +56,11 @@ class User(db.Model, UserMixin):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'about': self.about
+        }
+
+    def to_dict_simple(self):
+        return {
+            'id': self.id,
+            'photo_url': self.photo_url,
+            'updated_at': self.updated_at
         }

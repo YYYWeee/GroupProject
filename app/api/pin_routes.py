@@ -15,7 +15,7 @@ def get_all_pins():
     """
     Query for all pins and returns them in a list of pin dictionaries
     """
-    pins = Pin.query.order_by(Pin.created_at.desc()).all()
+    pins = Pin.query.order_by(Pin.updated_at.desc()).all()
     return {"pins": [pin.to_dict() for pin in pins]}
 
 
@@ -32,8 +32,8 @@ def get_one_pin(pinId):
     if current_user.is_authenticated:
         all_boards = Board.query \
             .join(BoardUser) \
-            .filter(BoardUser.user_id == current_user.id, BoardUser.role.in_(['owner', 'collaborator'])) \
-            .all()
+            .filter(BoardUser.user_id == current_user.id, BoardUser.role.in_(['owner', 'collaborator']), Board.is_default == False) \
+            .order_by(BoardUser.updated_at).all()
         sessionUserBoards = [board.to_dict_simple() for board in all_boards]
         response["sessionUserBoards"] = sessionUserBoards
     return response

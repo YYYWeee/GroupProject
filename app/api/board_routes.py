@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Board, BoardUser, Pin, db
+from app.models import Board, BoardUser, Pin, db, User
 from app.forms.board_form import BoardForm
 
 board_routes = Blueprint('board', __name__)
@@ -18,19 +18,42 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-# get all current user's board
+# get all the boards and related info for the username, might not be the session user.
 
 
-@board_routes.route('')
-@login_required
-def get_all_boards():
+@board_routes.route('/<string:username>')
+def get_user_all_boards(username):
     # all_boards = Board.query.filter(Board.owner_id == current_user.id).all()
+    print(username)
+    target_user = User.query.filter(User.username == username).first()
+    if not target_user:
+        return jsonify({"message": "User not found"}), 404
+    print(target_user.to_dict())
     all_boards = Board.query \
         .join(BoardUser) \
-        .filter(BoardUser.user_id == current_user.id, BoardUser.role.in_(role_types)) \
-        .all()
-    response = [board.to_dict() for board in all_boards]
-    return response
+        .filter(BoardUser.user_id == target_user.id, BoardUser.role.in_(role_types)) \
+        .order_by(Board.updated_at.desc()).all()
+
+    # find all the collborators for each board belonging to this user,
+    # get the id and user image and updated_at for sorting the membership date
+    response = {}
+    for board in all_boards:
+        response[board.id] = board.to_dict_simple()
+        response[board.id]["membersId"] = []
+        for membership in board.board_users:
+            response[board.id]["membersId"].append(membership.user_id)
+
+    allUsers = User.query.all()
+
+    returned_response = {"boards": response,
+                         "boardUser": target_user.to_dict(),
+                         "allUsers": [user.to_dict_simple() for user in allUsers]}
+    return returned_response
+
+    # response = [board.to_dict_simple() for board in all_boards]
+    # returned_response = {"boards": response,
+    #                      "boardUser": target_user.to_dict()}
+    # return returned_response
 
 # get a single board of user
 

@@ -6,4 +6,4 @@ from .comment import Comment
 from .board import Board
 from .favorite import Favorite
 from .board_user import BoardUser
-from .pin_board import pin_boards
+from .pin_board import PinBoard

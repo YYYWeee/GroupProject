@@ -10,9 +10,9 @@ const EDIT_BOARD = "board/EDIT_BOARD";
 const DELETE_BOARD = "boards/DELETE_BOARD";
 
 /**  Action Creators: */
-export const loadAllBoards = (boards) => ({
+export const loadAllBoards = (payload) => ({
   type: LOAD_ALL_BOARDS,
-  boards,
+  payload,
 });
 
 export const loadOneBoard = (board) => ({
@@ -36,11 +36,11 @@ export const deleteBoard = (boardId) => ({
 });
 
 /** Thunk Action Creators: */
-export const fetchAllBoardsThunk = () => async (dispatch) => {
-  const res = await fetch("/api/boards");
+export const fetchAllBoardsThunk = (username) => async (dispatch) => {
+  const res = await fetch(`/api/boards/${username}`);
   if (res.ok) {
-    const boards = await res.json();
-    dispatch(loadAllBoards(boards));
+    const data = await res.json();
+    dispatch(loadAllBoards(data));
   } else {
     const errors = await res.json();
     return errors;
@@ -125,15 +125,18 @@ export const addPinToBoardThunk = (pinId, boardId) => async (dispatch) => {
 };
 
 /** Boards Reducer: */
-const initialState = { allBoards: {}, singleBoard: {} };
+const initialState = { allBoards: {}, singleBoard: {}, boardUser: {} };
 
 const boardsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_ALL_BOARDS: {
-      const boardsState = { allBoards: {}, singleBoard: {} };
-      action.boards.forEach((board) => {
-        boardsState.allBoards[board.id] = board;
-      });
+      const boardsState = { allBoards: {}, singleBoard: {}, boardUser: {} };
+      // Object.values(action.payload.boards).forEach((board) => {
+      //   boardsState.allBoards[board.id] = board;
+      // });
+      boardsState.allBoards = action.payload.boards;
+      boardsState.boardUser = action.payload.boardUser;
+      boardsState.allUsers = action.payload.allUsers;
       return boardsState;
     }
     case LOAD_ONE_BOARD: {

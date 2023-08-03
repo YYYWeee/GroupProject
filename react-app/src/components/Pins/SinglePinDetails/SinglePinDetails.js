@@ -9,7 +9,6 @@ import CommentList from "./CommentsList";
 import CreateComment from "./CreateComment";
 import EditPin from "../EditPin";
 import SaveToBoardCard from "./SaveToBoardCard";
-import { fetchAllBoardsThunk } from "../../../store/boards";
 import OpenModalButton from "../../OpenModalButton";
 import LoginFormModal from "../../LoginFormModal";
 import { useModal } from "../../../context/Modal";
@@ -63,7 +62,7 @@ function SinglePinDetails() {
     linkHostname = linkHostname.slice(4);
   }
   const handleClickUser = async (e) => {
-    history.push(`/${sessionUser?.username}`);
+    history.push(`/${targetPin?.creator?.username}`);
     window.scrollTo(0, 0);
   };
   const handleUpdate = (pin) => {
@@ -119,7 +118,29 @@ function SinglePinDetails() {
             )}
           </div>
           <div className="pin-right-container">
-            <div className="btns-boards">
+            <div className="btns-board">
+              {sessionUser && targetPin.owner_id === sessionUser.id ? (
+                <button
+                  className="update-btn"
+                  onClick={() => handleUpdate(targetPin)}
+                >
+                  <i className="fa-solid fa-pen-to-square fa-lg"></i>
+                </button>
+              ) : (
+                <div></div>
+              )}
+              {!sessionUser && (
+                <div className="btns-boards">
+                  <a href={targetPin?.link} className="save2 cursor">
+                    Visit
+                  </a>
+                  <OpenModalButton
+                    buttonText="Save"
+                    onItemClick={closeModal}
+                    modalComponent={<LoginFormModal />}
+                  />
+                </div>
+              )}
               {sessionUser && (
                 <div>
                   <button onClick={openMenu} className="nav-create cursor">
@@ -152,11 +173,11 @@ function SinglePinDetails() {
                       </div>
                     </div>
                     <div
-                      class="cursor create-item2"
+                      className="cursor create-item2"
                       onClick={handleCreateBoardInPin}
                     >
-                      <div class="single-save-board-left">
-                        <div class="save-board-img-container plus">
+                      <div className="single-save-board-left">
+                        <div className="save-board-img-container plus">
                           <i className="fa-solid fa-plus"></i>
                         </div>
                         <div className="save-board-name truncate">
@@ -175,29 +196,6 @@ function SinglePinDetails() {
               )}
             </div>
             <div className="pin-content-container">
-              <div className="operation">
-                {sessionUser && targetPin.owner_id === sessionUser.id && (
-                  <button
-                    className="update-btn"
-                    onClick={() => handleUpdate(targetPin)}
-                  >
-                    <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                  </button>
-                )}
-
-                {!sessionUser && (
-                  <div className="btns-boards">
-                    <a href={targetPin?.link} className="save2 cursor">
-                      Visit
-                    </a>
-                    <OpenModalButton
-                      buttonText="Save"
-                      onItemClick={closeModal}
-                      modalComponent={<LoginFormModal />}
-                    />
-                  </div>
-                )}
-              </div>
               <a href={targetPin?.link} className="hostname">
                 {linkHostname}
               </a>

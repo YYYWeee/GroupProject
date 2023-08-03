@@ -24,10 +24,12 @@ def seed_board_users():
         {"user_id": 6, "board_id": 16, "role": 'owner'},
 
         {"user_id": 1, "board_id": 12, "role": 'collaborator'},
-        {"user_id": 1, "board_id": 14, "role": 'collaborator'},
-
-        {"user_id": 3, "board_id": 1, "role": 'collaborator'},
+        {"user_id": 1, "board_id": 15, "role": 'collaborator'},
+        {"user_id": 2, "board_id": 15, "role": 'collaborator'},
         {"user_id": 3, "board_id": 15, "role": 'collaborator'},
+        {"user_id": 4, "board_id": 15, "role": 'collaborator'},
+        {"user_id": 6, "board_id": 15, "role": 'collaborator'},
+
     ]
 
     seed_board_users = [db.session.add(

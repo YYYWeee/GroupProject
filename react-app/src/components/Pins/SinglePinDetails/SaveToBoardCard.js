@@ -6,9 +6,9 @@ function SaveToBoardCard({ board }) {
   const sessionUser = useSelector((state) => state.session.user);
 
   return (
-    <div class="single-save-board-card cursor create-item1">
-      <div class="single-save-board-left">
-        <div class="save-board-img-container">
+    <div className="single-save-board-card cursor create-item1">
+      <div className="single-save-board-left">
+        <div className="save-board-img-container">
           {board?.previewImgUrl ? (
             <img
               src={board?.previewImgUrl}

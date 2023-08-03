@@ -14,6 +14,7 @@
   box-shadow: 1px -2px 3px #efefef, -3px 3px 5px #efefef, 3px 3px 3ch #f7f7f7,
     0px 3px 5px #f7f7f7;
   overflow: hidden;
+  z-index: 10 !important;
 }
 
 .save-to-board-container {
@@ -131,10 +132,20 @@
   width: 496px;
 }
 
+.btns-board {
+  padding-top: 32px;
+  padding-bottom: 6px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .btns-boards {
   padding-top: 32px;
   padding-bottom: 6px;
   width: 100%;
+  align-self: flex-end;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -150,6 +161,20 @@
   border-radius: 60px;
   min-width: 60px;
   min-height: 48px;
+}
+
+.update-btn {
+  background-color: transparent;
+  border-radius: 50%;
+  border: none;
+  padding: 14px;
+  cursor: pointer;
+}
+
+.update-btn:hover {
+  background-color: #e9e9e9;
+  padding: 14px;
+  border-radius: 50%;
 }
 
 .save:hover {
@@ -243,6 +268,7 @@
   height: 48px;
   border-radius: 50%;
   border: 1px solid grey;
+  object-fit: cover;
 }
 
 .creator-img:hover {

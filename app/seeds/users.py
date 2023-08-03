@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password',  first_name='Demo', last_name='Lition', about='I am\' demo user. Welcome to my profile!', photo_url='https://img.freepik.com/free-photo/bacon-burger_1339-1384.jpg')
+        username='Demo', email='demo@aa.io', password='password',  first_name='Demo', last_name='Lition', about='Hello, fellow Pinners! Welcome to my Pinterest profile! 🌟 I\'m a passionate PinThis user with a diverse range of interests. From home decor to mouthwatering recipes, my pins reflect my love for exploring new trends and DIY projects. I hope my boards bring a touch of inspiration to your life and spark your imagination!', photo_url='https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg')
     ross = User(
         username='Ross', email='user2@aa.io', password='password', first_name='Ross', last_name='Geller', about='I love everything about science, dinosaurs, comic books, sports and keyboard music.', photo_url='https://i.pinimg.com/564x/b0/a5/a8/b0a5a8192234f926ab55d382c8573681.jpg')
     rachel = User(
@@ -17,7 +17,13 @@ def seed_users():
     phoebe = User(
         username='HomeTalk', email='user6@aa.io', password='password', first_name='Home Talk & Decor | Creativity | Life', last_name='', about='🌴DIY crafts YouTuber ☀️Resin art & resin crafts maker 🌴Flip-flop wearer 🐈Stops for stuff at curb for furniture makeovers ☀️Loves pinning DIY home decor ideas', photo_url='https://imgix.bustle.com/rehost/2016/9/13/c9e38185-9873-4dd9-82eb-6d873280415e.png')
 
-    db.session.add(demo, ross, rachel, joey, monica, phoebe)
+    db.session.add(demo)
+    db.session.add(ross)
+    db.session.add(rachel)
+    db.session.add(joey)
+    db.session.add(monica)
+    db.session.add(phoebe)
+
     db.session.commit()
 
 
