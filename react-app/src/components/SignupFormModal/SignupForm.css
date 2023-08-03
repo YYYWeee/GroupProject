@@ -1,0 +1,84 @@
+.sign-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 27rem;
+  padding: 1rem;
+}
+
+.the-errors {
+  color: red;
+}
+
+.sign-label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.4rem;
+  color: rgb(52, 50, 50);
+  position: relative;
+}
+
+#modal-content {
+  border-radius: 25px;
+}
+
+.continue-btn {
+  margin-top: 1rem;
+  border-radius: 20px;
+  background-color: rgb(225, 22, 22);
+  color: white;
+  border: none;
+  width: 11rem;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.continue-btn:hover {
+  filter: brightness(90%);
+}
+
+.welcome-sign {
+  font-size: 30px;
+  margin-bottom: 1rem;
+  margin-top: 10px;
+}
+
+.new-ideas {
+  margin-bottom: 0.4rem;
+  color: rgb(52, 50, 50);
+}
+
+.sign-input {
+  border: lightgray 2px solid;
+  border-radius: 10px;
+  width: 13rem;
+  height: 2rem;
+}
+
+.sign-input:focus {
+  outline: 2px solid lightskyblue;
+}
+
+.sign-input:hover {
+  border-color: darkgray;
+}
+
+.sign-err {
+  color: red;
+}
+
+.pwicon {
+  position: absolute;
+  top: 65%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

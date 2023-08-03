@@ -4,14 +4,18 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllPinsThunk } from "../../../store/pins";
 
-function PinsList() {
+function PinsList({ targetUser }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
   const sessionUser = useSelector((state) => state.session.user);
-  const pins = Object.values(
+  let pins = Object.values(
     useSelector((state) => (state.pins.allPins ? state.pins.allPins : {}))
   );
+
+  if (targetUser) {
+    pins = pins?.filter((pin) => pin.owner_id === targetUser.id);
+  }
 
   pins?.sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at));
 
@@ -55,18 +59,16 @@ function PinsList() {
     );
     return matchingKeys;
   });
-  console.log("imageRatios", imageRatios);
-  console.log("closestRatios", closestRatios);
-  console.log("keysList", keysList);
+  // console.log("imageRatios", imageRatios);
+  // console.log("closestRatios", closestRatios);
+  // console.log("keysList", keysList);
 
   useEffect(() => {
     dispatch(fetchAllPinsThunk()).then(setIsLoaded(true));
     window.scroll(0, 0);
   }, [dispatch]);
 
-  return isLoaded === false ? (
-    <h1>Loading in progress</h1>
-  ) : (
+  return (
     <div className="pin-container">
       {pins.map((pin, index) => (
         // <PinsListCard key={pin.id} pin={pin} />

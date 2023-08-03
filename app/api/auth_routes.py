@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, db, Board, BoardUser
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy import and_
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -42,7 +43,7 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
-        print('user.to_dict()!!!!!!!!',user.to_dict()['id'])
+        print('user.to_dict()!!!!!!!!', user.to_dict()['id'])
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
@@ -68,11 +69,36 @@ def sign_up():
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password'],
-            first_name=form.data['username']
+            first_name=form.data['first_name'],
+            last_name=form.data['last_name']
         )
         db.session.add(user)
+        created_user = User.query.filter(
+            User.email == form.data['email']).first()
+
+        # when user sign up, create a default board named "All pins"
+        board = Board(
+            owner_id=created_user.id,
+            name="All pins",
+            is_secret=False,
+            is_default=True
+        )
+        db.session.add(board)
+
+        created_default_board = Board.query.filter(
+            and_(Board.owner_id == user.id, Board.is_default == True)).first()
+        if not created_default_board:
+            return {'errors': "Default board not created successfully for this user"}, 500
+        new_board_user = BoardUser(
+            user_id=created_default_board.owner_id,
+            board_id=created_default_board.id,
+            role='owner'
+        )
+        db.session.add(new_board_user)
         db.session.commit()
+
         login_user(user)
+
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 

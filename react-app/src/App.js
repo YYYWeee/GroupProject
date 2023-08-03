@@ -9,7 +9,6 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import PinsList from "./components/Pins/PinsList/PinsList";
 import SinglePinDetails from "./components/Pins/SinglePinDetails/SinglePinDetails";
-import CreatePin from "./components/Pins/CreatePin/CreatePin";
 import PostPinForm from "./components/PostPinForm";
 import CurrentUser from "./components/CurrentUser/CurrentUser";
 import SingleBoardDetails from "./components/Boards/SingleBoardDetails/SingleBoardDetails";

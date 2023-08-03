@@ -111,6 +111,11 @@
   animation-duration: 1s; */
 }
 
+.pin-card-img:hover {
+  /* filter: brightness(70%); */
+  opacity: 0.7;
+}
+
 /* .pin-card-img.one {
   -webkit-animation-delay: 0.1s;
   -moz-animation-delay: 0.1s;

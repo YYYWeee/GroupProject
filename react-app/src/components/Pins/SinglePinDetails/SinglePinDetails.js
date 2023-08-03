@@ -3,11 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 
 import "./SinglePinDetails.css";
+import "./SaveToBoard.css";
 import { fetchOnePinThunk } from "../../../store/pins";
 import CommentList from "./CommentsList";
 import CreateComment from "./CreateComment";
-import EditPin from "../EditPin"
-
+import EditPin from "../EditPin";
+import SaveToBoardCard from "./SaveToBoardCard";
+import OpenModalButton from "../../OpenModalButton";
+import LoginFormModal from "../../LoginFormModal";
+import { useModal } from "../../../context/Modal";
 
 function SinglePinDetails() {
   const { pinId } = useParams();
@@ -23,22 +27,68 @@ function SinglePinDetails() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [selectedBoard, setSelectedBoard] = useState(null);
 
-  const openMenu = () => {
+  const selectBoard = (board) => {
+    setSelectedBoard(board);
+  };
+
+  useEffect(() => {
+    (async () => {
+      console.log(selectedBoard);
+      await fetch(`/api/boards/${selectedBoard?.id}/pins/${targetPin?.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    })();
+  }, [selectedBoard, targetPin]);
+
+  const { closeModal } = useModal();
+
+  const openMenu = (e) => {
+    e.stopPropagation();
     if (showMenu) return;
     setShowMenu(true);
   };
   const profileArrowDirection = showMenu ? "up" : "down";
-  const ulClassName = "create-dropdown" + (showMenu ? "" : " hidden");
+  const ulClassName = "create-dropdown3" + (showMenu ? "" : " hidden");
+
+  const handleCreateBoardInPin = () => {
+    history.push(`/${sessionUser.username}/board-builder`);
+    window.scroll(0, 0);
+  };
+
+  // const handleClickSave =()=> {
+  //   const response = await fetch(`/api/${}`)
+  // }
+
+  const boardLists =
+    targetPin?.sessionUserBoards &&
+    Object.values(targetPin?.sessionUserBoards).sort((a, b) => a.id - b.id);
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
 
   let linkHostname;
   linkHostname = targetPin?.link && new URL(targetPin.link).hostname;
   if (linkHostname?.startsWith("www.")) {
     linkHostname = linkHostname.slice(4);
   }
-
   const handleClickUser = async (e) => {
-    history.push(`/${sessionUser?.username}`);
+    history.push(`/${targetPin?.creator?.username}`);
     window.scrollTo(0, 0);
   };
   const handleUpdate = (pin) => {
@@ -50,22 +100,8 @@ function SinglePinDetails() {
     window.scroll(0, 0);
   }, [dispatch, pinId]);
 
-  useEffect(() => {
-    if (!showMenu) return;
-
-    const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
-    };
-
-    document.addEventListener("click", closeMenu);
-
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
-
   return showUpdateForm === true ? (
-    <EditPin pin={targetPin} />
+    <EditPin pin={targetPin} setShowUpdateForm2={setShowUpdateForm} />
   ) : (
     <section className="single-pin-container">
       <main className="single-pin-upper-container">
@@ -96,36 +132,92 @@ function SinglePinDetails() {
             )}
           </div>
           <div className="pin-right-container">
-            <div className="btns-boards">
-              <div>
-                <button onClick={openMenu} className="nav-create cursor">
-                  <span className="pin-board-name">All pins</span>{" "}
-                  <i
-                    className={`fa-solid fa-chevron-${profileArrowDirection} arrow`}
-                  ></i>
+            <div className="btns-board">
+              {sessionUser && targetPin.owner_id === sessionUser.id ? (
+                <button
+                  className="update-btn"
+                  onClick={() => handleUpdate(targetPin)}
+                >
+                  <i className="fa-solid fa-pen-to-square fa-lg"></i>
                 </button>
-                <div className={ulClassName} ref={ulRef}>
-                  <div className="save-to-board">Save to board</div>
-                  <div className="">
-                    <button>boardcard here</button>
-                  </div>
-                  <div className="">
-                    <button>boardcard here</button>
-                  </div>
-                  <div className="">
-                    <button>boardcard here</button>
-                  </div>
+              ) : (
+                <div></div>
+              )}
+              {!sessionUser && (
+                <div className="btns-boards">
+                  <a href={targetPin?.link} className="save2 cursor">
+                    Visit
+                  </a>
+                  <OpenModalButton
+                    buttonText="Save"
+                    onItemClick={closeModal}
+                    modalComponent={<LoginFormModal />}
+                  />
                 </div>
-                <button className="save cursor">Save</button>
-              </div>
+              )}
+              {sessionUser && (
+                <div>
+                  <button onClick={openMenu} className="nav-create cursor">
+                    <span className="pin-board-name">
+                      {selectedBoard?.name}
+                    </span>{" "}
+                    <i
+                      className={`fa-solid fa-chevron-${profileArrowDirection} arrow`}
+                    ></i>
+                  </button>
+                  <div
+                    className={ulClassName}
+                    ref={ulRef}
+                    // onClick={handleGetUserAllBoards}
+                  >
+                    <div className="save-to-board-container">
+                      <div>
+                        <div
+                          className="save-to-board"
+                          // onClick={handleClickSave}
+                        >
+                          Save
+                        </div>
+                        (
+                        <div className={`save-to-board-context`}>
+                          {boardLists &&
+                            boardLists.length > 0 &&
+                            boardLists.map((board) => (
+                              <div
+                                key={board?.id}
+                                onClick={() => selectBoard(board)}
+                              >
+                                <SaveToBoardCard board={board} />
+                              </div>
+                            ))}
+                        </div>
+                        )
+                      </div>
+                    </div>
+                    <div
+                      className="cursor create-item2"
+                      onClick={handleCreateBoardInPin}
+                    >
+                      <div className="single-save-board-left">
+                        <div className="save-board-img-container plus">
+                          <i className="fa-solid fa-plus"></i>
+                        </div>
+                        <div className="save-board-name truncate">
+                          Create board
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    className="save cursor"
+                    // onClick={handleAddPinToBoard}
+                  >
+                    Save
+                  </button>
+                </div>
+              )}
             </div>
             <div className="pin-content-container">
-              <div className="operation">
-                {sessionUser && targetPin.owner_id === sessionUser.id &&
-                (<button className="update-btn" onClick={() => handleUpdate(targetPin)}>
-                  <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                </button>)}
-              </div>
               <a href={targetPin?.link} className="hostname">
                 {linkHostname}
               </a>
@@ -172,8 +264,6 @@ function SinglePinDetails() {
       <div className="more-like-this">More like this</div>
       <div className="more-like-this">More like this</div>
     </section>
-
-
   );
 }
 

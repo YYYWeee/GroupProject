@@ -41,7 +41,7 @@ function CreateComment({ targetPin }) {
     if (!showMenu) return;
 
     const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
         setShowMenu(false);
       }
     };

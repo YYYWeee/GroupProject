@@ -1,15 +1,17 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import {createStore, combineReducers, applyMiddleware, compose} from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
 import pinsReducer from "./pins";
 import commentsReducer from "./comments";
 import boardsReducer from "./boards";
+import favoritesReducer from "./favorites";
 
 const rootReducer = combineReducers({
   session,
   pins: pinsReducer,
   comments: commentsReducer,
   boards: boardsReducer,
+  favorites: favoritesReducer,
 });
 
 let enhancer;
