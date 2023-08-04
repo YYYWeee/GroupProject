@@ -7,40 +7,43 @@ import "./EditPin.css";
 import DeletePinModal from "../DeletePinModal";
 import OpenModalButton from "../../OpenModalButton";
 
-function isValidUrl(str) {
-  const pattern = new RegExp(
-    "^([a-zA-Z]+:\\/\\/)?" + // protocol
-    "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-    "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-    "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-    "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-    "(\\#[-a-z\\d_]*)?$", // fragment locator
-    "i"
-  );
-  return pattern.test(str);
+// function isValidUrl(str) {
+//   const pattern = new RegExp(
+//     "^([a-zA-Z]+:\\/\\/)?" + // protocol
+//     "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+//     "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+//     "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+//     "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+//     "(\\#[-a-z\\d_]*)?$", // fragment locator
+//     "i"
+//   );
+//   return pattern.test(str);
+// }
+
+function isValidUrl(string) {
+  let url;
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;
+  }
+  return url.protocol === "http:" || url.protocol === "https:";
 }
 
 function EditPin({ pin, setShowUpdateForm2 }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
+
+  const [showMenu, setShowMenu] = useState(false);
   const ulRef1 = useRef();
+  const closeMenu = () => setShowMenu(false);
 
 
   const sessionUser = useSelector((state) => state.session.user);
   const targetPin = useSelector((state) =>
     state.pins.singlePin ? state.pins.singlePin : {}
   );
-  // const closeMenu = () => setShowMenu(false);
-  // const ulClassName = "dropdown-menu" + (showMenu ? "" : " hidden");
-
-  // useEffect(() => {
-  //   document.addEventListener("click", closeMenu);
-
-  //   return () => document.removeEventListener("click", closeMenu);
-  // }, [showMenu]);
-
-
 
   useEffect(() => {
     setTitle(targetPin.title);
@@ -62,9 +65,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
   const [isValidLink, setIsValidLink] = useState(true);
   const [modal, setModal] = useState(false);
 
-  const toggleModal = () => {
-    setModal(!modal);
-  };
+
 
 
   const handleSubmit = async (e) => {
@@ -101,12 +102,12 @@ function EditPin({ pin, setShowUpdateForm2 }) {
     console.log("in handleCommentToggleChange", allow_comment);
     // Remember above may not show the updated value because it's happening synchronously right after the state update is scheduled, but the log in the useEffect hook on line 60 will show the correct value after the component re-renders.
   };
-// now (right)
+  // now (right)
   const handleDelete = async (e) => {
     await dispatch(deletePinThunk(targetPin.id));
     history.push(`/pins`);
   };
-// now (right)
+  // now (right)
   useEffect(() => {
     const errorsArray = [];
     if (link && !isValidUrl(link)) {
@@ -114,12 +115,6 @@ function EditPin({ pin, setShowUpdateForm2 }) {
     }
     setErrors(errorsArray);
   }, [link])
-
-  // useEffect(() => {
-  //   console.log("in the useeffect", link);
-  //   // setLink(link);
-  //   setIsValidLink(isValidUrl(link));
-  // }, [link]);
 
   return (
     <>
@@ -220,14 +215,22 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                   </div>
                   <div className="button-container">
 
-                    <div className="left-btn">
-                      <button
+                    <div className="left-btn" ref={ulRef1}>
+
+                      {/* <button
                         className="delete-pin"
                         type="submit"
                         onClick={handleDelete}
                       >
                         Delete
-                      </button>
+                      </button> */}
+
+                      <OpenModalButton
+                        buttonText="Delete"
+                        onItemClick={closeMenu}
+                        modalComponent={<DeletePinModal pin={targetPin} />}
+                      />
+
                     </div>
 
 

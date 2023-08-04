@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useModal } from "../../../context/Modal";
+import { deletePinThunk } from "../../../store/pins";
 import "./DeletePinModal.css";
 
-function DeletePinModal({ pin }) {
+function DeletePinModal({pin}) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const history = useHistory();
@@ -15,12 +16,9 @@ function DeletePinModal({ pin }) {
     state.pins.singlePin ? state.pins.singlePin : {}
   );
 
-  const deleteHandler = async () => {
-    console.log("inside delete handler");
-    // await dispatch(fetchDeleteBoardThunk(board.id));
-
+  const handleDelete = async () => {
+    await dispatch(deletePinThunk(targetPin.id));
     closeModal();
-    // history.push(`/${currentUser.username}`);
     history.push(`/pins`);
   };
 
@@ -33,11 +31,11 @@ function DeletePinModal({ pin }) {
         <div className="delete-content">
           Once you delete a Pin, you can't undo it!
         </div>
-        <div className="del-b-btn">
+        <div className="del-p-btn">
           <button className="cancel-btn" onClick={closeModal}>
             Cancel
           </button>
-          <button className="del-btn" onClick={deleteHandler}>
+          <button className="del-btn" onClick={handleDelete}>
             Delete
           </button>
         </div>

@@ -4,19 +4,28 @@ import { useHistory } from 'react-router-dom';
 import './index.css';
 import { createNewPinThunk } from "../../store/pins";
 
-function isValidUrl(str) {
-  const pattern = new RegExp(
-    "^([a-zA-Z]+:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$", // fragment locator
-    "i"
-  );
-  return pattern.test(str);
-}
+// function isValidUrl(str) {
+//   const pattern = new RegExp(
+//     "^([a-zA-Z]+:\\/\\/)?" + // protocol
+//       "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+//       "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+//       "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+//       "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+//       "(\\#[-a-z\\d_]*)?$", // fragment locator
+//     "i"
+//   );
+//   return pattern.test(str);
+// }
 
+function isValidUrl(string) {
+  let url;
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;
+  }
+  return url.protocol === "http:" || url.protocol === "https:";
+}
 
 
 function PostPinForm() {
