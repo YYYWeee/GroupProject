@@ -17,7 +17,6 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
   const [formErr, setFormErr] = useState({});
   const [didSubmit, setDidSubmit] = useState(false);
   const [visible1, setVisible1] = useState(false);
@@ -37,10 +36,8 @@ function SignupFormModal() {
       errorsObj.email = "Please enter a valid email address";
     }
 
-    if (username.length < 4)
-      errorsObj.username = "Username must be at least 4 characters";
     if (password.length < 6)
-      errorsObj.password = "Password must be at least 6 characters";
+      errorsObj.passLength = "Password must be at least 6 characters";
 
     setFormErr(errorsObj);
   }, [username, email, firstName, lastName, password]);
@@ -49,56 +46,51 @@ function SignupFormModal() {
     e.preventDefault();
     setDidSubmit(true);
 
-    if (password === confirmPassword) {
-      setFormErr({});
-      const data = await dispatch(
-        signUp({
-          email: email.toLowerCase(),
-          username,
-          first_name: firstName,
-          last_name: lastName,
-          password,
-        })
-      );
-      if (data) {
-        const flattenedData = {};
-        data.forEach((item) => {
-          const [key, value] = item.split(" : ");
-          flattenedData[key.trim()] = value.trim();
-        });
-        setFormErr(flattenedData);
+    if (Object.keys(formErr).length === 0) {
+      if (password === confirmPassword) {
+        setFormErr({});
+
+        const data = await dispatch(
+          signUp({
+            email: email.toLowerCase(),
+            username,
+            first_name: firstName,
+            last_name: lastName,
+            password,
+          })
+        );
+        if (data) {
+          const flattenedData = {};
+          data.forEach((item) => {
+            const [key, value] = item.split(" : ");
+            flattenedData[key.trim()] = value.trim();
+          });
+          setFormErr(flattenedData);
+        } else {
+          closeModal();
+          history.push("/pins");
+        }
       } else {
-        closeModal();
-        history.push("/pins");
+        const errorsObj = {
+          confirmPassword: "Confirm Password and Password must be the same",
+        };
+        setFormErr(errorsObj);
       }
-    } else {
-      const errorsObj = {
-        confirmPassword: "Confirm Password and Password must be the same",
-      };
-
-      setFormErr(errorsObj);
-
-      // setErrors([
-      //   "Confirm Password field must be the same as the Password field",
-      // ]);
     }
   };
-  const disabled = password.length < 6 ? true : null;
+
+  const disabled = password.length < 6 || username.length < 4 ? true : null;
 
   return (
     <div className="sign-wrap">
+      <img
+        src="https://cdn.discordapp.com/attachments/1134270927769698500/1136745653691764736/pinlogo_copy.png"
+        alt="PinThis"
+        id="navigation-title-img"
+      />
       <h1 className="welcome-sign">Welcome to PinThis</h1>
       <div className="new-ideas">Find new ideas to try</div>
       <form className="sign-form" onSubmit={handleSubmit}>
-        {/* <ul>
-          {didSubmit &&
-            errors.map((error, idx) => (
-              <li className="the-errors" key={idx}>
-                {error}
-              </li>
-            ))}
-        </ul> */}
-
         <label className="sign-label">
           Email
           <input
@@ -111,6 +103,9 @@ function SignupFormModal() {
         </label>
         {didSubmit && formErr.email && (
           <p className="sign-err">{formErr.email}</p>
+        )}
+        {email.length < 4 && email.length > 0 && (
+          <p className="sign-err">Please input a valid email</p>
         )}
         <label className="sign-label">
           Username
@@ -125,6 +120,9 @@ function SignupFormModal() {
         {didSubmit && formErr.username && (
           <p className="sign-err">{formErr.username}</p>
         )}
+        {username.length < 4 && username.length > 0 && (
+          <p className="sign-err">Username must be at least 4 characters</p>
+        )}
 
         <label className="sign-label">
           First Name
@@ -138,6 +136,9 @@ function SignupFormModal() {
         </label>
         {didSubmit && formErr.firstName && (
           <p className="sign-err">{formErr.firstName}</p>
+        )}
+        {firstName.length < 2 && firstName.length > 0 && (
+          <p className="sign-err">First name is required</p>
         )}
         <label className="sign-label">
           Last Name
@@ -168,6 +169,9 @@ function SignupFormModal() {
         {didSubmit && formErr.password && (
           <p className="sign-err">{formErr.password}</p>
         )}
+        {password.length < 6 && password.length > 0 && (
+          <p className="sign-err">Password must be at least 6 characters.</p>
+        )}
         {didSubmit && formErr.confirmPassword && (
           <p className="sign-err">{formErr.confirmPassword}</p>
         )}
@@ -188,7 +192,7 @@ function SignupFormModal() {
             )}
           </div>
         </label>
-        <button className="continue-btn" disabled={disabled} type="submit">
+        <button className="continue-btn" type="submit" disabled={disabled}>
           Continue
         </button>
         <div className="on-pinthis">

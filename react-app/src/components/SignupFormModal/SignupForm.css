@@ -23,6 +23,8 @@
   margin-top: 0.4rem;
   color: rgb(52, 50, 50);
   position: relative;
+  align-items: flex-start;
+  margin-right: 4rem;
 }
 
 #modal-content {
@@ -47,7 +49,7 @@
 
 .welcome-sign {
   font-size: 30px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   margin-top: 10px;
 }
 
@@ -78,7 +80,7 @@
 .pwicon {
   position: absolute;
   top: 65%;
-  right: 0.5rem;
+  left: 11rem;
   transform: translateY(-50%);
   cursor: pointer;
 }
