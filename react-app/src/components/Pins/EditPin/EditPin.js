@@ -3,44 +3,46 @@ import { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { updatePinThunk } from "../../../store/pins";
 import { deletePinThunk } from "../../../store/pins";
-import { useModal } from "../../../context/Modal";
-
 import "./EditPin.css";
 import DeletePinModal from "../DeletePinModal";
 import OpenModalButton from "../../OpenModalButton";
 
-function isValidUrl(str) {
-  const pattern = new RegExp(
-    "^([a-zA-Z]+:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$", // fragment locator
-    "i"
-  );
-  return pattern.test(str);
+// function isValidUrl(str) {
+//   const pattern = new RegExp(
+//     "^([a-zA-Z]+:\\/\\/)?" + // protocol
+//     "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+//     "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+//     "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+//     "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+//     "(\\#[-a-z\\d_]*)?$", // fragment locator
+//     "i"
+//   );
+//   return pattern.test(str);
+// }
+
+function isValidUrl(string) {
+  let url;
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;
+  }
+  return url.protocol === "http:" || url.protocol === "https:";
 }
 
 function EditPin({ pin, setShowUpdateForm2 }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
+
+  const [showMenu, setShowMenu] = useState(false);
   const ulRef1 = useRef();
-  const { closeModal } = useModal();
+  const closeMenu = () => setShowMenu(false);
 
   const sessionUser = useSelector((state) => state.session.user);
   const targetPin = useSelector((state) =>
     state.pins.singlePin ? state.pins.singlePin : {}
   );
-  // const closeMenu = () => setShowMenu(false);
-  // const ulClassName = "dropdown-menu" + (showMenu ? "" : " hidden");
-
-  // useEffect(() => {
-  //   document.addEventListener("click", closeMenu);
-
-  //   return () => document.removeEventListener("click", closeMenu);
-  // }, [showMenu]);
 
   useEffect(() => {
     setTitle(targetPin.title);
@@ -58,10 +60,6 @@ function EditPin({ pin, setShowUpdateForm2 }) {
   const [allow_comment, setAllow_comment] = useState("");
   const [isValidLink, setIsValidLink] = useState(true);
   const [modal, setModal] = useState(false);
-
-  const toggleModal = () => {
-    setModal(!modal);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,10 +96,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
   };
   // now (right)
   const handleDelete = async (e) => {
-    e.preventDefault();
     await dispatch(deletePinThunk(targetPin.id));
-    closeModal();
-
     history.push(`/pins`);
   };
   // now (right)
@@ -113,12 +108,6 @@ function EditPin({ pin, setShowUpdateForm2 }) {
     setErrors(errorsArray);
   }, [link]);
 
-  // useEffect(() => {
-  //   console.log("in the useeffect", link);
-  //   // setLink(link);
-  //   setIsValidLink(isValidUrl(link));
-  // }, [link]);
-
   return (
     <>
       {showUpdateForm && (
@@ -127,7 +116,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
             <div className="update-form-container-including-title">
               <h1>Edit this Pin</h1>
               <div className="update-form-container">
-                <form className="edit-pin">
+                <form className="edit-pin" onSubmit={handleSubmit}>
                   <div className="big-container">
                     <div className="left-container">
                       <div className="title-area error">
@@ -217,14 +206,20 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                     </div>
                   </div>
                   <div className="button-container">
-                    <div className="left-btn">
-                      <button
+                    <div className="left-btn" ref={ulRef1}>
+                      {/* <button
                         className="delete-pin"
                         type="submit"
                         onClick={handleDelete}
                       >
                         Delete
-                      </button>
+                      </button> */}
+
+                      <OpenModalButton
+                        buttonText="Delete"
+                        onItemClick={closeMenu}
+                        modalComponent={<DeletePinModal pin={targetPin} />}
+                      />
                     </div>
 
                     <div className="right-btn">
