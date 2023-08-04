@@ -58,7 +58,7 @@ class Board(db.Model):
             pinImagesUrls = [pin.image_url for pin in pins_for_board]
 
             selectedPinImages = random.sample(
-                pinImagesUrls, 4) if len(pinImagesUrls) > 4 else pinImagesUrls
+                pinImagesUrls, 5) if len(pinImagesUrls) > 5 else pinImagesUrls
             selectedBoardPreviewImg = selectedPinImages[0]
 
         return {

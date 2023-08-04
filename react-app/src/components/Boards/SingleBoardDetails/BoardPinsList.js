@@ -51,8 +51,8 @@ function BoardPinsList({ pins }) {
   // console.log("keysList", keysList);
 
   return (
-    <div className="pin-container">
-      {pins.map((pin, index) => (
+    <div className="pin-container1">
+      {pins?.map((pin, index) => (
         // <PinsListCard key={pin.id} pin={pin} />
         <div
           key={index}

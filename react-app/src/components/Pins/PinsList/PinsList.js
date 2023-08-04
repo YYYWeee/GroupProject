@@ -16,7 +16,7 @@ function PinsList({ targetUser }) {
     pins = pins?.filter((pin) => pin.owner_id === targetUser.id);
   }
 
-  pins?.sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at));
+  pins?.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
   // calculate the height/width ratio for all images
   const [imageRatios, setImageRatios] = useState([]);

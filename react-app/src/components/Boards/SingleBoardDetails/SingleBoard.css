@@ -32,23 +32,22 @@
   font-weight: 600;
   margin-right: 5px;
 }
-.profile-pic-list{
-  display: flex;
-  flex-direction: row;
-
-}
-.collaborator-list{
+.profile-pic-list {
   display: flex;
   flex-direction: row;
 }
+.collaborator-list {
+  display: flex;
+  flex-direction: row;
+}
 
-.pin-img-board-page{
+.pin-img-board-page {
   width: 270px;
   height: 350px;
   border-radius: 20px;
 }
 
-.detail-container{
+.detail-container {
   margin-left: 80px;
   display: flex;
   flex-direction: row;
@@ -56,6 +55,21 @@
   gap: 30px;
 }
 
-.profile-pic-list, .pin-img-div{
+.profile-pic-list,
+.pin-img-div {
   cursor: pointer;
+}
+
+.pin-container1 {
+  padding-top: 0px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 250px);
+  grid-auto-rows: 1px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: center;
+  box-sizing: border-box;
+  z-index: -1;
 }

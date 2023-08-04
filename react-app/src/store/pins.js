@@ -97,7 +97,7 @@ export const updatePinThunk = (updatePin, id) => async (dispatch) => {
 
 export const deletePinThunk = (pinId) => async (dispatch) => {
   const response = await fetch(`/api/pins/${pinId}`, {
-    method: "delete",
+    method: "DELETE",
   });
   if (response.ok) {
     const { id: deletedPinId } = await response.json();

@@ -87,39 +87,34 @@ def seed_pin_boards():
         # for those boards that the pinner is a collaborator,
         # add the pins inside to the default board of user.
         # {"user_id": 1, "board_id": 12, "role": 'collaborator'},
-        # board12 has pin20, pin21, pin22, add those pins to board1,
+        # board12 has pin20, pin21, pin22, pin23, add those pins to board1,
         # which is default board of collaborator user1
         {"board_id": 1, "pin_id": 20, "note_to_group": ''},
         {"board_id": 1, "pin_id": 21, "note_to_group": ''},
         {"board_id": 1, "pin_id": 22, "note_to_group": ''},
+        {"board_id": 1, "pin_id": 23, "note_to_group": ''},
 
         # {"user_id": 1, "board_id": 15, "role": 'collaborator'},
-        # board 15 has pin 27,28,29,30, add those pins
+        # board 15 has pin 27,28,29, add those pins
         # to board1, board2, board3, board4, board5, board6
         {"board_id": 1, "pin_id": 27, "note_to_group": ''},
         {"board_id": 1, "pin_id": 28, "note_to_group": ''},
         {"board_id": 1, "pin_id": 29, "note_to_group": ''},
-        {"board_id": 1, "pin_id": 30, "note_to_group": ''},
         {"board_id": 2, "pin_id": 27, "note_to_group": ''},
         {"board_id": 2, "pin_id": 28, "note_to_group": ''},
         {"board_id": 2, "pin_id": 29, "note_to_group": ''},
-        {"board_id": 2, "pin_id": 30, "note_to_group": ''},
         {"board_id": 3, "pin_id": 27, "note_to_group": ''},
         {"board_id": 3, "pin_id": 28, "note_to_group": ''},
         {"board_id": 3, "pin_id": 29, "note_to_group": ''},
-        {"board_id": 3, "pin_id": 30, "note_to_group": ''},
         {"board_id": 4, "pin_id": 27, "note_to_group": ''},
         {"board_id": 4, "pin_id": 28, "note_to_group": ''},
         {"board_id": 4, "pin_id": 29, "note_to_group": ''},
-        {"board_id": 4, "pin_id": 30, "note_to_group": ''},
         {"board_id": 5, "pin_id": 27, "note_to_group": ''},
         {"board_id": 5, "pin_id": 28, "note_to_group": ''},
         {"board_id": 5, "pin_id": 29, "note_to_group": ''},
-        {"board_id": 5, "pin_id": 30, "note_to_group": ''},
         {"board_id": 6, "pin_id": 27, "note_to_group": ''},
         {"board_id": 6, "pin_id": 28, "note_to_group": ''},
         {"board_id": 6, "pin_id": 29, "note_to_group": ''},
-        {"board_id": 6, "pin_id": 30, "note_to_group": ''},
     ]
 
     # query all the pins, for each pin find the pin.owner_id

@@ -33,8 +33,9 @@ class Pin(db.Model):
     comments = db.relationship(
         "Comment", back_populates="pin", cascade="all, delete-orphan")
     favorite = db.relationship(
-        'Favorite', back_populates='pin')
-    board_pins = db.relationship('PinBoard', back_populates='pins')
+        'Favorite', back_populates='pin', cascade="all, delete-orphan")
+    board_pins = db.relationship(
+        'PinBoard', back_populates='pins', cascade="all, delete-orphan")
 
     def to_dict(self):
         pin_dict = {

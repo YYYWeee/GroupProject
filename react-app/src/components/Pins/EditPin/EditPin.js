@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { updatePinThunk } from "../../../store/pins";
 import { deletePinThunk } from "../../../store/pins";
+import { useModal } from "../../../context/Modal";
+
 import "./EditPin.css";
 import DeletePinModal from "../DeletePinModal";
 import OpenModalButton from "../../OpenModalButton";
@@ -10,11 +12,11 @@ import OpenModalButton from "../../OpenModalButton";
 function isValidUrl(str) {
   const pattern = new RegExp(
     "^([a-zA-Z]+:\\/\\/)?" + // protocol
-    "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-    "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-    "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-    "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-    "(\\#[-a-z\\d_]*)?$", // fragment locator
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$", // fragment locator
     "i"
   );
   return pattern.test(str);
@@ -25,7 +27,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
   const ulRef1 = useRef();
-
+  const { closeModal } = useModal();
 
   const sessionUser = useSelector((state) => state.session.user);
   const targetPin = useSelector((state) =>
@@ -40,8 +42,6 @@ function EditPin({ pin, setShowUpdateForm2 }) {
   //   return () => document.removeEventListener("click", closeMenu);
   // }, [showMenu]);
 
-
-
   useEffect(() => {
     setTitle(targetPin.title);
     setDescription(targetPin.description);
@@ -49,9 +49,6 @@ function EditPin({ pin, setShowUpdateForm2 }) {
     setAlt_text(targetPin.alt_text);
     setAllow_comment(targetPin.allow_comment); //default true
   }, [targetPin]);
-
-
-
 
   const [showUpdateForm, setShowUpdateForm] = useState(true);
   const [title, setTitle] = useState("");
@@ -65,7 +62,6 @@ function EditPin({ pin, setShowUpdateForm2 }) {
   const toggleModal = () => {
     setModal(!modal);
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,7 +88,6 @@ function EditPin({ pin, setShowUpdateForm2 }) {
     setShowUpdateForm2(false);
   };
   const handleCancel = async (e) => {
-
     history.push(`/pins/${targetPin.id}`);
   };
 
@@ -101,19 +96,22 @@ function EditPin({ pin, setShowUpdateForm2 }) {
     console.log("in handleCommentToggleChange", allow_comment);
     // Remember above may not show the updated value because it's happening synchronously right after the state update is scheduled, but the log in the useEffect hook on line 60 will show the correct value after the component re-renders.
   };
-// now (right)
+  // now (right)
   const handleDelete = async (e) => {
+    e.preventDefault();
     await dispatch(deletePinThunk(targetPin.id));
+    closeModal();
+
     history.push(`/pins`);
   };
-// now (right)
+  // now (right)
   useEffect(() => {
     const errorsArray = [];
     if (link && !isValidUrl(link)) {
-      errorsArray.push("Link is invalid")
+      errorsArray.push("Link is invalid");
     }
     setErrors(errorsArray);
-  }, [link])
+  }, [link]);
 
   // useEffect(() => {
   //   console.log("in the useeffect", link);
@@ -129,7 +127,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
             <div className="update-form-container-including-title">
               <h1>Edit this Pin</h1>
               <div className="update-form-container">
-                <form className="edit-pin" onSubmit={handleSubmit}>
+                <form className="edit-pin">
                   <div className="big-container">
                     <div className="left-container">
                       <div className="title-area error">
@@ -161,10 +159,10 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                           name="link"
                           value={link}
                           onChange={(e) => setLink(e.target.value)}
-                        // onChange={handleLinkChange}
+                          // onChange={handleLinkChange}
                         />
                       </div>
-                      <p className='errors'>
+                      <p className="errors">
                         {errors.includes("Link is invalid") && "Invalid link"}
                       </p>
                       <div className="altText-area">
@@ -219,7 +217,6 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                     </div>
                   </div>
                   <div className="button-container">
-
                     <div className="left-btn">
                       <button
                         className="delete-pin"
@@ -230,9 +227,6 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                       </button>
                     </div>
 
-
-
-
                     <div className="right-btn">
                       <button
                         className="cancel-button"
@@ -241,7 +235,12 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                       >
                         Cancel
                       </button>
-                      <button className="save-button" type="submit" onClick={handleSubmit} disabled={errors.length > 0}>
+                      <button
+                        className="save-button"
+                        type="submit"
+                        onClick={handleSubmit}
+                        disabled={errors.length > 0}
+                      >
                         Save
                       </button>
                     </div>

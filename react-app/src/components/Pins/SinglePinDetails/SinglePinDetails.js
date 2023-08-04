@@ -23,27 +23,43 @@ function SinglePinDetails() {
   const targetPin = useSelector((state) =>
     state.pins.singlePin ? state.pins.singlePin : {}
   );
+  const [selectedBoard, setSelectedBoard] = useState("");
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [selectedBoard, setSelectedBoard] = useState(null);
+
+  useEffect(() => {
+    let savedOnes =
+      (targetPin.sessionUserBoards &&
+        Object.values(targetPin.sessionUserBoards) &&
+        Object.values(targetPin.sessionUserBoards).filter(
+          (board) => board.is_pin_existing === true
+        )) ||
+      [];
+    savedOnes.sort((a, b) =>
+      a.is_default === b.is_default ? 0 : a.is_default ? 1 : -1
+    );
+    if (savedOnes.length > 0) {
+      setSelectedBoard(savedOnes[0]);
+    }
+  }, [targetPin]);
 
   const selectBoard = (board) => {
     setSelectedBoard(board);
   };
 
-  useEffect(() => {
-    (async () => {
-      console.log(selectedBoard);
-      await fetch(`/api/boards/${selectedBoard?.id}/pins/${targetPin?.id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    })();
-  }, [selectedBoard, targetPin]);
+  // useEffect(() => {
+  //   (async () => {
+  //     console.log(selectedBoard);
+  //     await fetch(`/api/boards/${selectedBoard?.id}/pins/${targetPin?.id}`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //   })();
+  // }, [selectedBoard, targetPin]);
 
   const { closeModal } = useModal();
 
@@ -66,7 +82,12 @@ function SinglePinDetails() {
 
   const boardLists =
     targetPin?.sessionUserBoards &&
-    Object.values(targetPin?.sessionUserBoards).sort((a, b) => a.id - b.id);
+    Object.values(targetPin?.sessionUserBoards).sort((a, b) => {
+      if (a.is_default !== b.is_default) {
+        return a.is_default ? -1 : 1;
+      }
+      return new Date(b.updated_at) - new Date(a.updated_at);
+    });
 
   useEffect(() => {
     if (!showMenu) return;
@@ -157,13 +178,19 @@ function SinglePinDetails() {
               )}
               {sessionUser && (
                 <div>
-                  <button onClick={openMenu} className="nav-create cursor">
+                  <button onClick={openMenu} className="nav-create1 cursor">
                     <span className="pin-board-name">
-                      {selectedBoard?.name}
+                      {selectedBoard.name || "Boards"}
                     </span>{" "}
                     <i
                       className={`fa-solid fa-chevron-${profileArrowDirection} arrow`}
                     ></i>
+                  </button>
+                  <button
+                    className="save cursor"
+                    // onClick={handleAddPinToBoard}
+                  >
+                    Save
                   </button>
                   <div
                     className={ulClassName}
@@ -178,7 +205,7 @@ function SinglePinDetails() {
                         >
                           Save
                         </div>
-                        (
+
                         <div className={`save-to-board-context`}>
                           {boardLists &&
                             boardLists.length > 0 &&
@@ -187,11 +214,10 @@ function SinglePinDetails() {
                                 key={board?.id}
                                 onClick={() => selectBoard(board)}
                               >
-                                <SaveToBoardCard board={board} />
+                                <SaveToBoardCard board={board} pinId={pinId} />
                               </div>
                             ))}
                         </div>
-                        )
                       </div>
                     </div>
                     <div
@@ -208,12 +234,12 @@ function SinglePinDetails() {
                       </div>
                     </div>
                   </div>
-                  <button
+                  {/* <button
                     className="save cursor"
                     // onClick={handleAddPinToBoard}
                   >
                     Save
-                  </button>
+                  </button> */}
                 </div>
               )}
             </div>

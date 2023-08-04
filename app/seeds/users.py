@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password',  first_name='Demo', last_name='Lition', about='Hello, fellow Pinners! Welcome to my Pinterest profile! 🌟 I\'m a passionate PinThis user with a diverse range of interests. From home decor to mouthwatering recipes, my pins reflect my love for exploring new trends and DIY projects. I hope my boards bring a touch of inspiration to your life and spark your imagination!', photo_url='https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg')
+        username='Demo', email='demo@aa.io', password='password',  first_name='Demo', last_name='Lition', about='Hello, fellow Pinners! Welcome to my Pinterest profile! 🌟 I\'m a passionate PinThis user with a diverse range of interests. 🌴From home decor to mouthwatering recipes, my pins reflect my love for exploring new trends and DIY projects. I hope my boards bring a touch of inspiration to your life and spark your imagination!🎯', photo_url='https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg')
     ross = User(
         username='Ross', email='user2@aa.io', password='password', first_name='Ross', last_name='Geller', about='I love everything about science, dinosaurs, comic books, sports and keyboard music.', photo_url='https://i.pinimg.com/564x/b0/a5/a8/b0a5a8192234f926ab55d382c8573681.jpg')
     rachel = User(
