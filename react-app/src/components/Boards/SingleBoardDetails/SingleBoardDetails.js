@@ -9,6 +9,7 @@ import DeleteBoard from "../DeleteBoard";
 import CollaboratorModal from "../CollaboratorModal";
 
 import "./SingleBoard.css";
+import BoardPinsList from "./BoardPinsList";
 
 export default function SingleBoardDetails() {
   const dispatch = useDispatch();
@@ -113,7 +114,7 @@ export default function SingleBoardDetails() {
         </div>
       </div>
       {/* display all the pic of specific bord */}
-      <div className="detail-container">
+      {/* <div className="detail-container">
         {singleBoard.associated_pins?.map((pin, index) => (
           <div
             key={index}
@@ -127,8 +128,8 @@ export default function SingleBoardDetails() {
             ></img>
           </div>
         ))}
-      </div>
-      {/* end */}
+      </div> */}
+      <BoardPinsList pins={singleBoard.associated_pins} />
     </div>
   );
 }

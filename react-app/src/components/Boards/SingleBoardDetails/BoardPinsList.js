@@ -1,22 +1,10 @@
-import "./PinsList.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllPinsThunk } from "../../../store/pins";
 
-function PinsList({ targetUser }) {
-  const dispatch = useDispatch();
+function BoardPinsList({ pins }) {
   const history = useHistory();
-  const [isLoaded, setIsLoaded] = useState(false);
-  let pins = Object.values(
-    useSelector((state) => (state.pins.allPins ? state.pins.allPins : {}))
-  );
 
-  if (targetUser) {
-    pins = pins?.filter((pin) => pin.owner_id === targetUser.id);
-  }
-
-  pins?.sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at));
+  pins?.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
   // calculate the height/width ratio for all images
   const [imageRatios, setImageRatios] = useState([]);
@@ -62,11 +50,6 @@ function PinsList({ targetUser }) {
   // console.log("closestRatios", closestRatios);
   // console.log("keysList", keysList);
 
-  useEffect(() => {
-    dispatch(fetchAllPinsThunk()).then(setIsLoaded(true));
-    window.scroll(0, 0);
-  }, [dispatch]);
-
   return (
     <div className="pin-container">
       {pins.map((pin, index) => (
@@ -95,4 +78,4 @@ function PinsList({ targetUser }) {
   );
 }
 
-export default PinsList;
+export default BoardPinsList;
