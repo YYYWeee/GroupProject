@@ -4,6 +4,20 @@ import { useHistory } from 'react-router-dom';
 import './index.css';
 import { createNewPinThunk } from "../../store/pins";
 
+function isValidUrl(str) {
+  const pattern = new RegExp(
+    "^([a-zA-Z]+:\\/\\/)?" + // protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$", // fragment locator
+    "i"
+  );
+  return pattern.test(str);
+}
+
+
 
 function PostPinForm() {
   const history = useHistory();
@@ -12,7 +26,7 @@ function PostPinForm() {
   const [description, setDescription] = useState('');
   const [altText, setAltText] = useState('');
   const [showAlt, setShowAlt] = useState(false);
-  const [link, setlink] = useState('');
+  const [link, setLink] = useState('');
   const [image, setImage] = useState(null);
   const [validationErrors, setValidationErrors] = useState([]);
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -20,18 +34,20 @@ function PostPinForm() {
   const [photoUrl, setPhotoUrl] = useState(null);
   const [noPicture, setNoPicture] = useState(false);
   const uploadInput = useRef();
-  // const [errors, setErrors] = useState([]);
-
+  const [isValidLink, setIsValidLink] = useState(true);
+  const [errors, setErrors] = useState([]);
 
   const currentUser = useSelector((state) => state.session.user);
-  // useEffect(() => {
-  //   const errorsArray = [];
-  //   if (!image) {
-  //     errorsArray.push("An Image is required to create a Pin.");
-  //   }
-  //   setErrors(errorsArray);
-  // }, [image])
 
+
+
+  useEffect(() => {
+    const errorsArray = [];
+    if (link && !isValidUrl(link)) {
+      errorsArray.push("Link is invalid")
+    }
+    setErrors(errorsArray);
+  }, [link])
 
 
   const handlePhoto = async ({ currentTarget }) => {
@@ -49,14 +65,23 @@ function PostPinForm() {
   if (photoUrl) preview = <img src={photoUrl} id="preview-pin-img" alt="" />;
 
 
+  useEffect(() => {
+    console.log("in the useeffect", link);
+    // setLink(link);
+    setIsValidLink(isValidUrl(link));
+  }, [link]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
-    // setNoPicture(false);
+    if (link && !isValidLink) {
+      console.log("invalid link");
+      setIsValidLink(false);
+      return;
+    }
 
     if (image == null){
       setNoPicture(true)
-
       return
     }
 
@@ -79,7 +104,7 @@ function PostPinForm() {
     setTitle('');
     setDescription('');
     setAltText('');
-    setlink('');
+    setLink('');
     setImage('');
     setValidationErrors([]);
     setHasSubmitted(false);
@@ -153,11 +178,6 @@ function PostPinForm() {
                 placeholder="Tell everyone what your Pin is about    😃 "
                 onChange={(e) => setDescription(e.target.value)}>
               </input>
-              {/* <input className="altText"
-                value={altText}
-                placeholder="Explain what people can see in the pin"
-                onChange={(e) => setAltText(e.target.value)}>
-              </input> */}
               <div className='alt'>
               {!showAlt && (
                 <div
@@ -183,9 +203,9 @@ function PostPinForm() {
               <input className="link"
                 value={link}
                 placeholder="Add a destination link"
-                onChange={(e) => setlink(e.target.value)}>
+                onChange={(e) => setLink(e.target.value)}>
               </input>
-
+              <p className='errors'>{errors.filter((validation) => validation.includes("Link"))}</p>
             </div>
           </div>
         </form>
