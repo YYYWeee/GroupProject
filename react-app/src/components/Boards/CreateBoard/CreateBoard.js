@@ -50,10 +50,10 @@ export default function CreateBoard() {
   };
 
   return (
-    <div className="form-page">
+    <div className="create-board-form-page">
       <div className="form-container-create-board">
         <p className="create-board-title">Create Board</p>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="create-board-form">
           <label id="create-board-name-label">
             <p>Name</p>
             <input
