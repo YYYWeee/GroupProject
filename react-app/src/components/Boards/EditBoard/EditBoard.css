@@ -45,6 +45,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width:400px
 }
 
 #edit-board-name-label p {
@@ -70,6 +71,7 @@
     align-items: center;
     justify-content: flex-start;
     margin-top: 10px;
+    width:400px
 }
 
 #edit-board-secret-label p:first-of-type {
@@ -87,7 +89,8 @@
 }
 
 #edit-board-secret-label input {
-    transform: scale(1.5)
+    transform: scale(1.5);
+    width: auto;
 
 
 }
