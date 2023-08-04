@@ -1,0 +1,18 @@
+.pin-card {
+  display: flex;
+  flex-direction: row;
+}
+
+.pin-fav-img {
+  height: 15rem;
+  margin: 1rem;
+  border: 1px solid red;
+}
+
+.p-link {
+  cursor: pointer;
+}
+
+#s-stars {
+  margin-left: 1rem;
+}

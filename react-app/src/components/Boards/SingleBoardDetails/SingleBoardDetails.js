@@ -92,11 +92,7 @@ export default function SingleBoardDetails() {
               {singleBoard.collaborators.map((user, index) => (
                 <div key={index} className="creator-img ">
                   <img
-                    src={
-                      user.photo_url
-                        ? user.photo_url
-                        : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
-                    }
+                    src={user.photo_url ? user.photo_url : "no preview img"}
                     alt="No pin preview"
                     className="creator-img "
                   ></img>
