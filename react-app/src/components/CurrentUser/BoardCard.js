@@ -13,39 +13,48 @@ export default function BoardCard({ board, boardUser }) {
   let payload;
   if (board.is_default) {
     payload = (
-      <div className="feature-board-container">
-        <div className="default-board-1">
+      <div className="feature-board-container0">
+        <div className="default-board-01">
           {board.pinImgUrls[0] && (
             <img
-              className="need-cover-pic"
+              className="need-cover-pic0"
               src={board.pinImgUrls[0]}
               alt="preview board1"
             />
           )}
         </div>
-        <div className="default-board-1">
+        <div className="default-board-02">
           {board.pinImgUrls[1] && (
             <img
-              className="need-cover-pic"
+              className="need-cover-pic0"
               src={board.pinImgUrls[1]}
               alt="preview board1"
             />
           )}
         </div>
-        <div className="default-board-1">
+        <div className="default-board-03">
           {board.pinImgUrls[2] && (
             <img
-              className="need-cover-pic"
+              className="need-cover-pic0"
               src={board.pinImgUrls[2]}
               alt="preview board1"
             />
           )}
         </div>
-        <div className="default-board-1">
+        <div className="default-board-04">
           {board.pinImgUrls[3] && (
             <img
-              className="need-cover-pic"
+              className="need-cover-pic0"
               src={board.pinImgUrls[3]}
+              alt="preview board1"
+            />
+          )}
+        </div>
+        <div className="default-board-05">
+          {board.pinImgUrls[4] && (
+            <img
+              className="need-cover-pic0"
+              src={board.pinImgUrls[4]}
               alt="preview board1"
             />
           )}
@@ -112,7 +121,7 @@ export default function BoardCard({ board, boardUser }) {
               <div key={index}>
                 <div>{member.id}</div>
                 <img
-                  className="need-cover-pic"
+                  className="need-cover-pic2"
                   src={member.photo_url}
                   alt="preview board1"
                 />
