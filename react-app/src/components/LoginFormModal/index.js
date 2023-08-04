@@ -69,6 +69,8 @@ function LoginFormModal() {
     history.push("/pins");
   };
 
+  const disabled = password.length < 6 || email.length < 4 ? true : null;
+
   return (
     <div className="log-wrap">
       <img
@@ -126,7 +128,11 @@ function LoginFormModal() {
         {didSubmit && formErr.password && (
           <p className="sign-err">{formErr.password}</p>
         )}
-        <button className="continue-btn" type="submit">
+        <button
+          className={`continue-btn ${disabled ? "inactive" : ""}`}
+          disabled={disabled}
+          type="submit"
+        >
           Log In
         </button>
         <button className="demo-btn" onClick={demoUser}>

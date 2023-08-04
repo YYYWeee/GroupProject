@@ -34,13 +34,22 @@
 .continue-btn {
   margin-top: 1rem;
   border-radius: 20px;
-  background-color: rgb(225, 22, 22);
+  background-color: rgb(213, 84, 84);
   color: white;
-  border: none;
+  border: 1px solid white;
   width: 11rem;
   padding: 10px;
   cursor: pointer;
   margin-bottom: 1rem;
+  box-shadow: 2px 2px gray;
+}
+
+.continue-btn.inactive {
+  background-color: rgb(240, 239, 239);
+  color: gray;
+  box-shadow: 2px 2px gray;
+  border: 1px solid darkgray;
+  cursor: auto;
 }
 
 .continue-btn:hover {

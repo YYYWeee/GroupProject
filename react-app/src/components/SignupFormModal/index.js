@@ -21,6 +21,7 @@ function SignupFormModal() {
   const [didSubmit, setDidSubmit] = useState(false);
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
+  const [passwordErr, setPasswordErr] = useState({});
   const {closeModal} = useModal();
 
   useEffect(() => {
@@ -49,7 +50,7 @@ function SignupFormModal() {
     if (Object.keys(formErr).length === 0) {
       if (password === confirmPassword) {
         setFormErr({});
-
+        setPasswordErr({});
         const data = await dispatch(
           signUp({
             email: email.toLowerCase(),
@@ -74,7 +75,7 @@ function SignupFormModal() {
         const errorsObj = {
           confirmPassword: "Confirm Password and Password must be the same",
         };
-        setFormErr(errorsObj);
+        setPasswordErr(errorsObj);
       }
     }
   };
@@ -172,8 +173,8 @@ function SignupFormModal() {
         {password.length < 6 && password.length > 0 && (
           <p className="sign-err">Password must be at least 6 characters.</p>
         )}
-        {didSubmit && formErr.confirmPassword && (
-          <p className="sign-err">{formErr.confirmPassword}</p>
+        {didSubmit && passwordErr.confirmPassword && (
+          <p className="sign-err">{passwordErr.confirmPassword}</p>
         )}
         <label className="sign-label">
           Confirm Password
@@ -192,7 +193,11 @@ function SignupFormModal() {
             )}
           </div>
         </label>
-        <button className="continue-btn" type="submit" disabled={disabled}>
+        <button
+          className={`continue-btn ${disabled ? "inactive" : ""}`}
+          type="submit"
+          disabled={disabled}
+        >
           Continue
         </button>
         <div className="on-pinthis">
