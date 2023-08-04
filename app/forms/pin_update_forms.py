@@ -11,7 +11,7 @@ class EditPinForm(FlaskForm):
     description = StringField('Description')
     alt_text = StringField('Alt text')
     # link = StringField('Link')
-    link = StringField('Link', validators=[URL()])
+    link = StringField('Link')
     # note_to_self=StringField('Note To Self')
     allow_comment = BooleanField('Allow people to comment')
     # show_shopping_recommendations=BooleanField('Show shopping recommendations')

@@ -240,7 +240,7 @@ textarea[name="altText"]::placeholder {
   border: 1px solid #cc0033;
   outline: none;
 } */
-
+/*
 
 .error-area{
   color: #CC0000;
@@ -251,4 +251,9 @@ textarea[name="altText"]::placeholder {
   flex-direction: row;
   justify-content: center;
   margin-left: 150px;
+} */
+
+
+.errors{
+  color: #CC0000;
 }
