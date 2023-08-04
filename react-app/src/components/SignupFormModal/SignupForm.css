@@ -23,6 +23,8 @@
   margin-top: 0.4rem;
   color: rgb(52, 50, 50);
   position: relative;
+  align-items: flex-start;
+  margin-right: 4rem;
 }
 
 #modal-content {
@@ -32,13 +34,20 @@
 .continue-btn {
   margin-top: 1rem;
   border-radius: 20px;
-  background-color: rgb(225, 22, 22);
+  background-color: rgb(207, 22, 22);
   color: white;
-  border: none;
   width: 11rem;
   padding: 10px;
   cursor: pointer;
   margin-bottom: 1rem;
+  border: none;
+}
+
+.continue-btn.inactive {
+  background-color: rgb(240, 239, 239);
+  color: gray;
+  border: 1px solid darkgray;
+  cursor: auto;
 }
 
 .continue-btn:hover {
@@ -47,7 +56,7 @@
 
 .welcome-sign {
   font-size: 30px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   margin-top: 10px;
 }
 
@@ -78,7 +87,7 @@
 .pwicon {
   position: absolute;
   top: 65%;
-  right: 0.5rem;
+  left: 11rem;
   transform: translateY(-50%);
   cursor: pointer;
 }

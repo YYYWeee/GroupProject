@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { fetchOneBoardThunk } from "../../../store/boards";
+import {useEffect, useState, useRef} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {useParams} from "react-router-dom";
+import {fetchOneBoardThunk} from "../../../store/boards";
 import OpenModalButton from "../../OpenModalButton";
 import EditBoard from "../EditBoard";
 import DeleteBoard from "../DeleteBoard";
@@ -14,7 +14,7 @@ import BoardPinsList from "./BoardPinsList";
 export default function SingleBoardDetails() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { boardId } = useParams();
+  const {boardId} = useParams();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef1 = useRef();
   const sessionUser = useSelector((state) => state.session.user);
@@ -92,7 +92,11 @@ export default function SingleBoardDetails() {
               {singleBoard.collaborators.map((user, index) => (
                 <div key={index} className="creator-img ">
                   <img
-                    src={user.photo_url ? user.photo_url : "no preview img"}
+                    src={
+                      user.photo_url
+                        ? user.photo_url
+                        : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+                    }
                     alt="No pin preview"
                     className="creator-img "
                   ></img>

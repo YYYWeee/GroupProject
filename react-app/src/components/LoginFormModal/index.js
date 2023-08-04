@@ -29,8 +29,9 @@ function LoginFormModal() {
     if (!emailRegex.test(email)) {
       errorsObj.logEmail = "Please enter a valid email address";
     }
+
     setFormErr(errorsObj);
-  }, [email]);
+  }, [email, password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,19 +69,17 @@ function LoginFormModal() {
     history.push("/pins");
   };
 
-  const disabled = password.length < 6 ? true : null;
+  const disabled = password.length < 6 || email.length < 4 ? true : null;
 
   return (
     <div className="log-wrap">
+      <img
+        src="https://cdn.discordapp.com/attachments/1134270927769698500/1136745653691764736/pinlogo_copy.png"
+        alt="PinThis"
+        id="navigation-title-img"
+      />
       <div className="welcome-sign">Welcome to PinThis</div>
       <form className="log-form" onSubmit={handleSubmit}>
-        {/* <ul>
-          {errors?.map((error, idx) => (
-            <li className="sign-err" key={idx}>
-              {error}
-            </li>
-          ))}
-        </ul> */}
         <div className="on-pinthis">
           <div className="not-on">Not on PinThis yet?</div>
           <OpenModalButton
@@ -97,11 +96,14 @@ function LoginFormModal() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-        {didSubmit && formErr.logEmail && (
-          <p className="sign-err">{formErr.logEmail}</p>
+        {email.length < 4 && email.length > 0 && (
+          <p className="sign-err">Please input a valid email</p>
         )}
         {didSubmit && formErr.email && (
           <p className="sign-err">{formErr.email}</p>
+        )}
+        {didSubmit && formErr.logEmail && (
+          <p className="sign-err">{formErr.logEmail}</p>
         )}
 
         <label className="sign-label">
@@ -120,10 +122,17 @@ function LoginFormModal() {
             )}
           </div>
         </label>
+        {password.length < 6 && password.length > 0 && (
+          <p className="sign-err">Password must be at least 6 characters.</p>
+        )}
         {didSubmit && formErr.password && (
           <p className="sign-err">{formErr.password}</p>
         )}
-        <button className="continue-btn" type="submit" disabled={disabled}>
+        <button
+          className={`continue-btn ${disabled ? "inactive" : ""}`}
+          disabled={disabled}
+          type="submit"
+        >
           Log In
         </button>
         <button className="demo-btn" onClick={demoUser}>

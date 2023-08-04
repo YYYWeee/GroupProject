@@ -66,7 +66,10 @@ function ProfileButton({user}) {
                 className="commenter-img"
               ></img>
             ) : (
-              <img className="fas fa-user-circle" />
+              <img
+                className="nav-user-pic"
+                src="https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+              />
             )}
           </button>
           <button onClick={openUserMenu} className="menu-arrow cursor">

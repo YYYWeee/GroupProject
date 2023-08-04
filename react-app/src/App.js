@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
-import { authenticate } from "./store/session";
+import React, {useState, useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {Route, Switch} from "react-router-dom";
+import {authenticate} from "./store/session";
 
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
@@ -13,6 +13,7 @@ import PostPinForm from "./components/PostPinForm";
 import CurrentUser from "./components/CurrentUser/CurrentUser";
 import SingleBoardDetails from "./components/Boards/SingleBoardDetails/SingleBoardDetails";
 import CreateBoard from "./components/Boards/CreateBoard/CreateBoard";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ function App() {
           </Switch>
         )}
       </div>
+      <Footer />
     </>
   );
 }
