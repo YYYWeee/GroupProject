@@ -314,6 +314,7 @@
   height: 32px;
   border-radius: 50%;
   border: 1px solid grey;
+  object-fit: cover;
 }
 
 .commenter-bold {
@@ -419,7 +420,6 @@
 .comment-input-box:focus-within {
   border-color: #d3d3d3 !important;
   background-color: white;
-  cursor: text;
   outline: none;
 }
 
@@ -438,6 +438,7 @@
   resize: none;
   /* overflow: hidden; */
   vertical-align: center;
+  cursor: pointer;
 }
 
 .comment-btn {

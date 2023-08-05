@@ -114,23 +114,25 @@ export default function BoardCard({ board, boardUser }) {
     <div className="board-card-wrap">
       <Link to={`/${boardUser.username}/board/${board.id}`}>
         {payload}
-        <div className="user-board-name-container">
-          <div className="user-board-name">{board.name}</div>
-          {collaborators.length > 1 &&
-            collaborators.map((member, index) => (
-              <div key={index}>
-                <div>{member.id}</div>
-                <img
-                  className="need-cover-pic2"
-                  src={member.photo_url}
-                  alt="preview board1"
-                />
-              </div>
-            ))}
-        </div>
-        <div className="board-stats">
-          <p>{board.numPins} Pins</p>
-          <p>{calculatedTimePassed(board.updated_at)}</p>
+        <div className="board-stats-wrap">
+          <div className="user-board-name-container">
+            <div className="user-board-name">{board.name}</div>
+            <div className="user-board-container">
+              {collaborators.length > 1 &&
+                collaborators.map((member, index) => (
+                  <img
+                    key={index}
+                    className="need-cover-pic2"
+                    src={member.photo_url}
+                    alt="preview board1"
+                  />
+                ))}
+            </div>
+          </div>
+          <div className="board-stats">
+            <p>{board.numPins} Pins</p>
+            <p>{calculatedTimePassed(board.updated_at)}</p>
+          </div>
         </div>
       </Link>
     </div>
