@@ -43,7 +43,8 @@ export const fetchDeleteFavThunk = (boardId, pinId) => async (dispatch) => {
     });
     console.log("del fav thunk went to backend");
     if (res.ok) {
-      const pinId = await res.json();
+      const response = await res.json();
+      console.log("pinId", pinId);
       dispatch(deleteFavorite(pinId));
     }
   } catch (err) {
