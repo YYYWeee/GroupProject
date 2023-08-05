@@ -64,7 +64,6 @@ function SinglePinDetails() {
   const { closeModal } = useModal();
 
   const openMenu = (e) => {
-    e.stopPropagation();
     if (showMenu) return;
     setShowMenu(true);
   };
@@ -75,10 +74,6 @@ function SinglePinDetails() {
     history.push(`/${sessionUser.username}/board-builder`);
     window.scroll(0, 0);
   };
-
-  // const handleClickSave =()=> {
-  //   const response = await fetch(`/api/${}`)
-  // }
 
   const boardLists =
     targetPin?.sessionUserBoards &&
@@ -186,26 +181,13 @@ function SinglePinDetails() {
                       className={`fa-solid fa-chevron-${profileArrowDirection} arrow`}
                     ></i>
                   </button>
-                  <button
-                    className="save cursor"
-                    // onClick={handleAddPinToBoard}
-                  >
+                  <button className="save cursor" onClick={openMenu}>
                     Save
                   </button>
-                  <div
-                    className={ulClassName}
-                    ref={ulRef}
-                    // onClick={handleGetUserAllBoards}
-                  >
+                  <div className={ulClassName} ref={ulRef}>
                     <div className="save-to-board-container">
                       <div>
-                        <div
-                          className="save-to-board"
-                          // onClick={handleClickSave}
-                        >
-                          Save
-                        </div>
-
+                        <div className="save-to-board">Save</div>
                         <div className={`save-to-board-context`}>
                           {boardLists &&
                             boardLists.length > 0 &&

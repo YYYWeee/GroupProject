@@ -67,6 +67,10 @@ function PinsList({ targetUser }) {
     window.scroll(0, 0);
   }, [dispatch]);
 
+  const handleClickLink = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <div className="pin-container">
       {pins.map((pin, index) => (
@@ -83,6 +87,21 @@ function PinsList({ targetUser }) {
             className="pin-card-img one"
           ></img>
           {/* {imageRatios[index] && <p>h/w Ratio: {imageRatios[index]}</p>} */}
+          {pin?.link && (
+            <div className="img-link-container1 cursor">
+              <i className="fa-solid fa-arrow-up-right-from-square"></i>
+              <a
+                href={pin?.link}
+                className="img-link1"
+                onClick={handleClickLink}
+              >
+                {pin?.link &&
+                  (new URL(pin?.link).hostname.startsWith("www.")
+                    ? new URL(pin?.link).hostname.split(".")[1]
+                    : new URL(pin?.link).hostname)}
+              </a>
+            </div>
+          )}
         </div>
       ))}
       {/* <div className="pin-container">

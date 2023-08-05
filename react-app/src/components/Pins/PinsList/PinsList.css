@@ -57,6 +57,7 @@
   margin-left: 8px;
   margin-right: 8px;
   border-radius: 16px;
+  position: relative;
 }
 
 /* Keyframes for the fade-in */
@@ -132,4 +133,57 @@
 /* Apply the animation */
 .pin-card-img {
   animation: showWithDelay 0.3s ease 0.05s forwards;
+}
+
+.pin-img-container1 {
+  height: fit-content;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+
+  flex: 1;
+  position: relative;
+}
+
+.img-link-container1 {
+  color: #111;
+  font-weight: 600;
+  font-size: 10px;
+  /* background-color: #edecec; */
+  background-color: #efefef;
+  text-decoration: none;
+  border: none;
+  border-radius: 48px;
+  /* min-height: 48px; */
+  max-width: 80%;
+  padding: 6px 10px;
+
+  position: absolute;
+  bottom: 10px;
+  left: 8px;
+
+  opacity: 0;
+  transition: opacity 0.2s;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  z-index: 10;
+}
+
+.img-link-container1:hover {
+  background-color: #d3d3d3;
+}
+
+.img-link1 {
+  color: #111;
+  font-weight: 600;
+  font-size: 14px;
+
+  text-decoration: none;
+  padding-left: 4px;
+}
+
+.card-container:hover .img-link-container1 {
+  opacity: 1;
 }
