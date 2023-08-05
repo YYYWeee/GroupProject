@@ -39,7 +39,7 @@ function SaveToBoardCard({ board, pinId }) {
         <div className="save-board-name nav-create truncate">{board.name}</div>
       </div>
       <button
-        className={`save3 cursor ${
+        className={`save3 cursor a99 ${
           board.is_pin_existing ? "color-saved-board" : ""
         } ${showAfterSaved ? "show-after-saved" : ""}`}
         disabled={board.is_pin_existing || buttonText === "Saved"}

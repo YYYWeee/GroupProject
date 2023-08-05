@@ -13,7 +13,7 @@ export default function BoardCard({ board, boardUser }) {
   let payload;
   if (board.is_default) {
     payload = (
-      <div className="feature-board-container0">
+      <div className="feature-board-container0 a9">
         <div className="default-board-01">
           {board.pinImgUrls[0] && (
             <img
@@ -68,7 +68,7 @@ export default function BoardCard({ board, boardUser }) {
           <i className="fa-solid fa-lock"></i>
         )}
         {boardUser.id === sessionUser.id && (
-          <div className="aa">
+          <div className="aa a83">
             <i className="fa-solid fa-pen-to-square fa-lg"></i>
           </div>
         )}

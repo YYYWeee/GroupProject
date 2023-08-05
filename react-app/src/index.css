@@ -35,3 +35,67 @@ html body {
 .cursor {
   cursor: pointer;
 }
+
+.btn-animation {
+  transition: transform 0.3s ease;
+}
+
+.btn-animation:active {
+  transform: scale(0.8);
+}
+
+.a83 {
+  transition: transform 0.2s ease;
+}
+
+.a83:active {
+  transform: scale(0.83);
+}
+
+.a85 {
+  transition: transform 0.2s ease;
+}
+
+.a85:active {
+  transform: scale(0.85);
+}
+
+.a87 {
+  transition: transform 0.2s ease;
+}
+
+.a87:active {
+  transform: scale(0.87);
+}
+
+.a90 {
+  transition: transform 0.2s ease;
+}
+
+.a90:active {
+  transform: scale(0.9);
+}
+
+.a95 {
+  transition: transform 0.2s ease;
+}
+
+.a95:active {
+  transform: scale(0.95);
+}
+
+.a97 {
+  transition: transform 0.2s ease;
+}
+
+.a97:active {
+  transform: scale(0.97);
+}
+
+.a99 {
+  transition: transform 0.2s ease;
+}
+
+.a99:active {
+  transform: scale(0.99);
+}

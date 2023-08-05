@@ -42,16 +42,27 @@
   text-align: center;
   border-radius: 50%;
   padding: 12px;
+  height: auto;
+  transition: transform 0.3s ease;
 }
 
 .logo:hover {
   background-color: #e9e9e9;
 }
 
+.logo:active {
+  transform: scale(0.8);
+}
+
 #navigation-title-img1 {
   align-self: flex-end;
   width: 27px;
   height: 27px;
+  transition: transform 0.3s ease;
+}
+
+#navigation-title-img1:active {
+  transform: scale(0.8);
 }
 
 #navigation-title-img {

@@ -174,6 +174,9 @@ def add_collaborator(id):
     form.collaborators.choices = user_choices
     form['csrf_token'].data = request.cookies['csrf_token']
     target_board = Board.query.get(id)
+    if target_board.is_default:
+        return jsonify({"message": "Cannot add colloborator to your default board"}), 408
+
     if form.validate_on_submit():
         for collaborator in form.data['collaborators']:
             exist_user = BoardUser.query.filter_by(
@@ -185,7 +188,26 @@ def add_collaborator(id):
                     role='collaborator'
                 )
                 db.session.add(new_collaborator)
+
+                # START: add all the pins in target_board to the default board of this new collaborator
+                collaborator_default_board = Board.query.filter(and_(
+                    Board.owner_id == collaborator, Board.is_default == True)).first()
+                # get all the pins in the target_board
+                associated_pins = db.session.query(Pin).\
+                    join(PinBoard, Pin.id == PinBoard.pin_id).\
+                    filter(PinBoard.board_id == target_board.id).all()
+                for pin in associated_pins:
+                    pin_found_in_default = PinBoard.query.filter(and_(
+                        PinBoard.pin_id == pin.id, PinBoard.board_id == collaborator_default_board.id)).first()
+                    if not pin_found_in_default:
+                        new_pin_in_default = PinBoard(
+                            pin_id=pin.id,
+                            board_id=collaborator_default_board.id,
+                        )
+                        db.session.add(new_pin_in_default)
                 db.session.commit()
+                # END!
+
         collaborators = db.session.query(User).\
             join(BoardUser, User.id == BoardUser.user_id).\
             filter(and_(BoardUser.board_id == id,
@@ -239,9 +261,28 @@ def add_pin_to_board(boardId, pinId):
     db.session.commit()
     return {"message": ["Pin added successfully"]}
 
+
+@board_routes.route('/<int:boardId>/pins/<int:pinId>', methods=['DELETE'])
+@login_required
+def remove_pin_from_board(boardId, pinId):
+    pin = Pin.query.get(pinId)
+    if not pin:
+        return jsonify({"message": "Pin not found"}), 404
+
+    saved_board = Board.query.get(boardId)
+    if not saved_board:
+        return jsonify({"message": "Board not found"}), 404
+
+    pin_found_in_saved = PinBoard.query.filter(and_(
+        PinBoard.pin_id == pinId, PinBoard.board_id == saved_board.id)).first()
+    if pin_found_in_saved:
+        # remove this pin to saved_board
+        db.session.delete(pin_found_in_saved)
+        db.session.commit()
+        return {"Response": "Successfully remove pin from this board"}
+
+
 # get all the favorite pins of a board
-
-
 @board_routes.route('/<int:id>/favorite')
 @login_required
 def board_favorite(id):

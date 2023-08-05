@@ -142,7 +142,7 @@ export default function CurrentUser() {
         {sessionUser.id === boardUser.id && (
           <div className="user-buttons">
             <button
-              className="follow-btn cursor"
+              className="follow-btn cursor a97"
               onClick={() => alert("Feature Coming Soon...")}
             >
               Edit Profile
@@ -164,7 +164,7 @@ export default function CurrentUser() {
         <div className="board-created-btn">
           <button
             onClick={handleClickCreated}
-            className={`board-created ${!showBoards ? "focuss" : ""}`}
+            className={`board-created a97 ${!showBoards ? "focuss" : ""}`}
           >
             Created
           </button>
@@ -172,7 +172,7 @@ export default function CurrentUser() {
         <div className="board-created-btn">
           <button
             onClick={handleClickSaved}
-            className={`board-created ${showBoards ? "focuss" : ""}`}
+            className={`board-created a97 ${showBoards ? "focuss" : ""}`}
           >
             Saved
           </button>
@@ -182,7 +182,7 @@ export default function CurrentUser() {
         <div className="board-func-btns-container">
           <div
             className={
-              "save-board-img-container1 plus cursor " +
+              "save-board-img-container1 plus cursor a85" +
               (showMenu1 ? "dropopen" : "")
             }
             onClick={openMenu1}
@@ -229,7 +229,7 @@ export default function CurrentUser() {
           </div>
           <div
             className={
-              "save-board-img-container1 plus cursor " +
+              "save-board-img-container1 plus cursor a85" +
               (showMenu2 ? "dropopen" : "")
             }
             onClick={openMenu2}

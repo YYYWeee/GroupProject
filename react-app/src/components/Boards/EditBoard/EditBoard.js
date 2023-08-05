@@ -7,6 +7,7 @@ import { useModal } from "../../../context/Modal";
 import InviteCollaborator from "../InviteCollaboratorsModal/InviteCollaboratorsModal";
 import EditBoardModalHelper from "../EditBoardModalHelper/EditBoardModalHelper";
 import { fetchAllUsersThunk } from "../../../store/session";
+import ShowCollaboratorModal from "../ShowCollaboratorModal/ShowCollaboratorModal";
 
 export default function EditBoard({ board }) {
   const dispatch = useDispatch();
@@ -17,7 +18,11 @@ export default function EditBoard({ board }) {
     board.description ? board.description : ""
   );
   const [collaborators, setCollaborators] = useState(
-    board.collaborators ? board.collaborators : []
+    board.collaborators
+      ? board.collaborators.filter(
+          (collaborator) => collaborator.id !== board.owner_id
+        )
+      : []
   );
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
@@ -57,7 +62,11 @@ export default function EditBoard({ board }) {
   useEffect(() => {
     if (newest_board) {
       if (newest_board.id === board.id) {
-        setCollaborators(newest_board.collaborators);
+        setCollaborators(
+          newest_board?.collaborators?.filter(
+            (collaborator) => collaborator.id !== board.owner_id
+          )
+        );
       }
     }
   }, [dispatch, newest_board]);
@@ -152,7 +161,12 @@ export default function EditBoard({ board }) {
 
             <div id="edit-board-collaborator-avatar-modal-container">
               <div id="edit-board-all-user-avatar-container">
-                {/* <div className="edit-board-images-container-single"><img src={owner?.photo_url} className="edit-board-user-image"/></div> */}
+                <div className="edit-board-images-container-single">
+                  <img
+                    src={owner?.photo_url}
+                    className="edit-board-user-image"
+                  />
+                </div>
                 {collaborators.map((collaborator) => (
                   <div className="edit-board-images-container-single">
                     <img
@@ -166,19 +180,44 @@ export default function EditBoard({ board }) {
                   </div>
                 ))}
               </div>
-              <div id="edit-board-collaborator-modal-container">
-                <EditBoardModalHelper
-                  className="open-collaborator-invite"
-                  itemText={<i class="fa-solid fa-plus"></i>}
-                  modalComponent={
-                    <InviteCollaborator
-                      board={
-                        newest_board.id === board.id ? newest_board : board
-                      }
-                    />
-                  }
-                />
-              </div>
+              {!isOwner && (
+                <div id="edit-board-collaborator-modal-container">
+                  <EditBoardModalHelper
+                    className="open-collaborator-invite"
+                    itemText={
+                      <div className="edit-board-add-collaborator-button-container">
+                        <i class="fa-solid fa-plus"></i>
+                      </div>
+                    }
+                    modalComponent={
+                      <ShowCollaboratorModal
+                        board={
+                          newest_board.id === board.id ? newest_board : board
+                        }
+                      />
+                    }
+                  />
+                </div>
+              )}
+              {isOwner && (
+                <div id="edit-board-collaborator-modal-container">
+                  <EditBoardModalHelper
+                    className="open-collaborator-invite"
+                    itemText={
+                      <div className="edit-board-add-collaborator-button-container">
+                        <i class="fa-solid fa-plus"></i>
+                      </div>
+                    }
+                    modalComponent={
+                      <InviteCollaborator
+                        board={
+                          newest_board.id === board.id ? newest_board : board
+                        }
+                      />
+                    }
+                  />
+                </div>
+              )}
             </div>
           </label>
           {!isOwner && (

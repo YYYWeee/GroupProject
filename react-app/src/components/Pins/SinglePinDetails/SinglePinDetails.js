@@ -111,10 +111,15 @@ function SinglePinDetails() {
     setShowUpdateForm(true);
   };
 
+  // useEffect(() => {
+  //   dispatch(fetchOnePinThunk(pinId)).then(setIsLoaded(true));
+  //   window.scroll(0, 0);
+  // }, [dispatch, pinId]);
+
   useEffect(() => {
     dispatch(fetchOnePinThunk(pinId)).then(setIsLoaded(true));
     window.scroll(0, 0);
-  }, [dispatch, pinId]);
+  }, []);
 
   return showUpdateForm === true ? (
     <EditPin pin={targetPin} setShowUpdateForm2={setShowUpdateForm} />
@@ -122,9 +127,9 @@ function SinglePinDetails() {
     <section className="single-pin-container">
       <main className="single-pin-upper-container">
         <div className="for-you-container">
-          <NavLink exact to="/pins" className="for-you">
+          <NavLink exact to="/pins" className="for-you a90">
             <span>
-              <i className={"fa-solid fa-arrow-left arrow left-arrow "}></i>
+              <i className={"fa-solid fa-arrow-left arrow left-arrow a90"}></i>
             </span>
             {sessionUser && <span className="for-you"> For you</span>}
           </NavLink>
@@ -151,7 +156,7 @@ function SinglePinDetails() {
             <div className="btns-board">
               {sessionUser && targetPin.owner_id === sessionUser.id ? (
                 <button
-                  className="update-btn"
+                  className="update-btn a90"
                   onClick={() => handleUpdate(targetPin)}
                 >
                   <i className="fa-solid fa-pen-to-square fa-lg"></i>
@@ -172,7 +177,7 @@ function SinglePinDetails() {
                 </div>
               )}
               {sessionUser && (
-                <div>
+                <div className="save-trick">
                   <button onClick={openMenu} className="nav-create1 cursor">
                     <span className="pin-board-name">
                       {selectedBoard.name || "Boards"}
@@ -181,7 +186,7 @@ function SinglePinDetails() {
                       className={`fa-solid fa-chevron-${profileArrowDirection} arrow`}
                     ></i>
                   </button>
-                  <button className="save cursor" onClick={openMenu}>
+                  <button className="save cursor a95" onClick={openMenu}>
                     Save
                   </button>
                   <div className={ulClassName} ref={ulRef}>

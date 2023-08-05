@@ -63,7 +63,7 @@ function ProfileButton({ user }) {
               <img
                 src={user.photo_url}
                 alt="No creator preview"
-                className="sessionuser-img"
+                className="sessionuser-img a85"
               ></img>
             ) : (
               <img
@@ -72,7 +72,10 @@ function ProfileButton({ user }) {
               />
             )}
           </button>
-          <button onClick={openUserMenu} className="menu-arrow cursor">
+          <button
+            onClick={openUserMenu}
+            className="menu-arrow cursor btn-animation"
+          >
             <i
               className={`fa-solid fa-chevron-${profileArrowDirection} arrow`}
             ></i>

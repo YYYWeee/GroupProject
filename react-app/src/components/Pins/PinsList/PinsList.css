@@ -156,7 +156,7 @@
   border: none;
   border-radius: 48px;
   /* min-height: 48px; */
-  max-width: 80%;
+  max-width: 70%;
   padding: 6px 10px;
 
   position: absolute;
@@ -185,5 +185,29 @@
 }
 
 .card-container:hover .img-link-container1 {
+  opacity: 1;
+}
+
+.aa1 {
+  padding: 7px !important;
+  background-color: #efefef;
+  position: absolute;
+  bottom: 9px;
+  right: 9px;
+  border-radius: 50%;
+
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.aa1:hover {
+  z-index: 35 !important;
+
+  background-color: #d3d3d3;
+}
+
+.card-container:hover .aa1 {
   opacity: 1;
 }

@@ -1,8 +1,8 @@
-import {useEffect, useState, useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {useHistory} from "react-router-dom";
-import {useParams} from "react-router-dom";
-import {fetchOneBoardThunk} from "../../../store/boards";
+import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { fetchOneBoardThunk } from "../../../store/boards";
 import OpenModalButton from "../../OpenModalButton";
 import EditBoard from "../EditBoard";
 import DeleteBoard from "../DeleteBoard";
@@ -14,7 +14,7 @@ import BoardPinsList from "./BoardPinsList";
 export default function SingleBoardDetails() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {boardId} = useParams();
+  const { boardId } = useParams();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef1 = useRef();
   const sessionUser = useSelector((state) => state.session.user);
@@ -39,6 +39,32 @@ export default function SingleBoardDetails() {
     dispatch(fetchOneBoardThunk(boardId));
   }, [dispatch, boardId]);
 
+  let isOwner;
+  if (sessionUser.id === singleBoard?.owner_id) {
+    isOwner = true;
+  } else {
+    isOwner = false;
+  }
+
+  let hasAuthToEdit;
+  if (
+    singleBoard?.collaborators?.find(
+      (collaborator) => collaborator.id === sessionUser.id
+    )
+  ) {
+    hasAuthToEdit = true;
+  } else {
+    hasAuthToEdit = false;
+  }
+
+  const handleMoreButtonClick = () => {
+    if (hasAuthToEdit) {
+      setShowMenu(!showMenu);
+    } else {
+      alert("Only owner and collaborators can edit or delete this board");
+    }
+  };
+
   const closeMenu = () => setShowMenu(false);
   const ulClassName = "dropdown-menu" + (showMenu ? "" : " hidden");
 
@@ -62,47 +88,63 @@ export default function SingleBoardDetails() {
   return (
     <div>
       <div className="b-details">
-        <div className="b-name-btn">
-          <div className="b-title">{singleBoard.name}</div>
-          <button className="dots-btn" onClick={() => setShowMenu(!showMenu)}>
-            ...
-          </button>
+        <div className="b-title truncate">
+          {singleBoard.name}{" "}
+          {!singleBoard.is_default && hasAuthToEdit ? (
+            <i
+              className="fa-solid fa-ellipsis dots-btn"
+              onClick={() => handleMoreButtonClick()}
+            ></i>
+          ) : (
+            ""
+          )}
         </div>
-
-        <div>{singleBoard.description}</div>
         {showMenu && (
           <div className={ulClassName} ref={ulRef1}>
             <ul>
-              <OpenModalButton
-                buttonText="Edit Board"
-                onItemClick={closeMenu}
-                modalComponent={<EditBoard board={singleBoard} />}
-              />
-              <OpenModalButton
-                buttonText="Delete Board"
-                onItemClick={closeMenu}
-                modalComponent={<DeleteBoard board={singleBoard} />}
-              />
+              {hasAuthToEdit && (
+                <OpenModalButton
+                  buttonText="Edit Board"
+                  onItemClick={closeMenu}
+                  modalComponent={<EditBoard board={singleBoard} />}
+                />
+              )}
+
+              {isOwner && (
+                <OpenModalButton
+                  buttonText="Delete Board"
+                  onItemClick={closeMenu}
+                  modalComponent={<DeleteBoard board={singleBoard} />}
+                />
+              )}
             </ul>
           </div>
         )}
         <div className="user-list">
           <div className="profile-pic-list" onClick={toggleModal}>
-            <div className="collaborator-list" onClick={toggleModal}>
-              {singleBoard.collaborators.map((user, index) => (
-                <div key={index} className="creator-img ">
-                  <img
-                    src={
-                      user.photo_url
-                        ? user.photo_url
-                        : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
-                    }
-                    alt="No pin preview"
-                    className="creator-img "
-                  ></img>
-                </div>
-              ))}
-            </div>
+            {!singleBoard.is_default && (
+              <div className="collaborator-list" onClick={toggleModal}>
+                {singleBoard.collaborators.map((user, index) => (
+                  <div key={index} className="creator-img1 ">
+                    <img
+                      src={
+                        user.photo_url
+                          ? user.photo_url
+                          : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+                      }
+                      alt="No pin preview"
+                      className="creator-img2 "
+                    ></img>
+                  </div>
+                ))}
+                {isOwner && (
+                  <div className="creator-img1">
+                    <i class="fa-solid fa-plus plus-collab"></i>
+                  </div>
+                )}
+              </div>
+            )}
+            <div>{singleBoard.description}</div>
 
             {modal && (
               <CollaboratorModal isOpen={modal} onClose={toggleModal} />
