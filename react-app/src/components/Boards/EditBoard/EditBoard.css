@@ -236,3 +236,27 @@
     border-radius: 50%;
     margin-top: 10px;
 }
+
+.edit-board-add-collaborator-button-container-red{
+    width:48px;
+    height:48px;
+    background-color:  rgb(230, 17, 17);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.edit-board-add-collaborator-button-container-red i{
+    color: white;
+}
+
+#detail-collaborator-modal-invite-button-container{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#detail-collaborator-modal-invite-button-container p{
+     margin-left: 10px;
+}

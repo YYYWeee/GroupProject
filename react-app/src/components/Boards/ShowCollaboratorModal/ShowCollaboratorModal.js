@@ -11,9 +11,11 @@ import EditBoardModalHelper from "../EditBoardModalHelper/EditBoardModalHelper";
 export default function ShowCollaboratorModal({board}) {
     
     const dispatch = useDispatch();
+    const history = useHistory();
     const allUsers = useSelector(state => state.session.allUsers?.users);
     const owner = allUsers? allUsers.find(user => user.id === board.owner_id):{};
     const collaborators = board.collaborators.filter(collaborator=>collaborator.id!==board.owner_id)
+    const {closeModal} =useModal();
     
     
 
@@ -50,7 +52,7 @@ export default function ShowCollaboratorModal({board}) {
        <p id='show-collaborators-list-title'>Collaborators</p>
        
  <ol id="collaborators-list">
-     <div className='single-user-container-owner'>
+     <div className='single-user-container-owner' onClick={() => {closeModal();history.push(`/${owner.username}`);}}>
      <div className="collaborator-user-image-container">
          <img src = {owner?.photo_url? owner.photo_url:'https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg'} alt={owner?.username} className="collaborator-user-image"/>
          
@@ -58,7 +60,7 @@ export default function ShowCollaboratorModal({board}) {
          <p>{owner?.username}</p>
      </div>
  {collaborators?.map((user)=>(
-     <li key={user.id} className='single-user-container-with-button'>
+     <li key={user.id} className='single-user-container-with-button' onClick={() => {closeModal();history.push(`/${user.username}`);}}>
          <div className='single-user-container'>
          <div className="collaborator-user-image-container">
          <img src = {user.photo_url?user.photo_url:'https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg'} alt={user.username} className="collaborator-user-image"/>

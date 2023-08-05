@@ -8,9 +8,11 @@ import EditBoard from '../EditBoard';
 import EditBoardModalHelper from '../EditBoardModalHelper/EditBoardModalHelper';
 import { fetchAddBoardCollaborator,fetchOneBoardThunk } from '../../../store/boards';
 
-export default function InviteCollaborator({board}) {
+export default function InviteCollaborator({board,isInDetailPage}) {
     
     const dispatch = useDispatch();
+    const history = useHistory();
+    const {closeModal} =useModal();
     const [collaborators,setCollaborators] = useState(board.collaborators? board.collaborators : []);
     const initialInvitedUsers = board.collaborators? board.collaborators.reduce((acc, user) => {acc[user.id] = true; return acc;}, {}): {};
     const [InvitedUsers,setInvitedUsers] = useState(initialInvitedUsers);
@@ -55,16 +57,16 @@ export default function InviteCollaborator({board}) {
 
     return(
         <div id="collaborators-modal-container">
-             <EditBoardModalHelper
+             {!isInDetailPage && <EditBoardModalHelper
                 className="open-edit-board"
                 itemText={<div id='invite-collaborator-back-icon'><i className="fa-solid fa-chevron-left"></i></div>}
                 // onModalClose = {handleCollaboratorDataFromModal} 
                 modalComponent={<EditBoard key={board.lastUpdated} board={board}/>}
-              />
+              />}
               <div id='invite-collaborator-title-container'><div id='invite-collaborator-title'>Invite Collaborators</div></div>
               
         <ol id="collaborators-list">
-            <div className='single-user-container-owner'>
+            <div className='single-user-container-owner' onClick={() => {closeModal();history.push(`/${owner.username}`);}}>
             <div className="collaborator-user-image-container">
                 <img src = {owner?.photo_url? owner.photo_url:'https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg'} alt={owner?.username} className="collaborator-user-image"/>
                 
@@ -72,9 +74,9 @@ export default function InviteCollaborator({board}) {
                 <p>{owner?.username}</p>
             </div>
         {otherUsers.map((user)=>(
-            <li key={user.id} className='single-user-container-with-button'>
+            <li key={user.id} className='single-user-container-with-button'  >
                 <div className='single-user-container'>
-                <div className="collaborator-user-image-container">
+                <div className="collaborator-user-image-container" onClick={() => {closeModal();history.push(`/${user.username}`);}}>
                 <img src = {user.photo_url?user.photo_url:'https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg'} alt={user.username} className="collaborator-user-image"/>
                 </div>
                 <p>{user.username}</p>
