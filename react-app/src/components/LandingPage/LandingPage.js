@@ -34,7 +34,7 @@ function LandingPage() {
       <div className="intro">
         <Splash />
       </div>
-      <div id="first-container" className="container"><h2>Save ideas you like</h2></div>
+      {/* <div id="first-container" className="container"><h2>Save ideas you like</h2></div> */}
       <div id="second-container" className="container">
         <h2>See it, make it, try it, do it<a href="/pins" className="explore">explore</a></h2>
         <div className="button-container">
