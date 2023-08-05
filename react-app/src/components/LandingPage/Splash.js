@@ -208,6 +208,7 @@ function Splash() {
           <div
             key={index}
             className={`card-container ${keysList[index]}`}
+            onClick={() => history.push(`/pins`)}
           >
             <img
               src={pin.image_url ? pin.image_url : "no preview img"}
