@@ -199,8 +199,6 @@ function Splash() {
       </div> */}
       {/* test1 */}
 
-
-
       {/* test2 */}
       <div className="pin-container">
       <div className="title-container"><h2 className="green1">Save ideas you like</h2></div>
