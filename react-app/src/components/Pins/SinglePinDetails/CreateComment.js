@@ -61,7 +61,9 @@ function CreateComment({ targetPin }) {
         <div className="add-comment-container">
           <img
             src={
-              sessionUser?.photo_url ? sessionUser?.photo_url : "no preview img"
+              sessionUser?.photo_url
+                ? sessionUser?.photo_url
+                : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
             }
             alt="No creator preview"
             className="this-commenter-img"

@@ -11,6 +11,7 @@
   align-items: center;
   width: 27rem;
   padding: 1rem;
+  position: relative;
 }
 
 .the-errors {
@@ -58,6 +59,10 @@
   font-size: 30px;
   margin-bottom: 0.5rem;
   margin-top: 10px;
+  /* position: absolute; */
+  z-index: 100;
+  color: #111;
+  opacity: 1;
 }
 
 .new-ideas {

@@ -52,5 +52,7 @@
 }
 
 .not-on {
+  color: #111;
+  opacity: 1;
   margin-right: 0;
 }

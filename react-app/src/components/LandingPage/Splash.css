@@ -38,7 +38,6 @@
   background-color: #11a69c;
 } */
 
-
 /* .pin-container {
   padding-top: 0px;
   width: 100%;
@@ -52,7 +51,7 @@
   box-sizing: border-box;
 } */
 
-.pin-container {
+/* .pin-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
@@ -61,10 +60,7 @@
     "main main . sidebar sidebar sidebar"
     "main main . sidebar sidebar sidebar"
     "footer footer footer footer footer footer";
-
-
-
-}
+} */
 
 .green1 {
   position: absolute;
@@ -74,10 +70,12 @@
   left: 50%; */
   /* transform: translate(-50%, -50%); */
   font-size: 15vh;
-  color:		#303030;
+  color: #303030;
+  opacity: 1;
+  z-index: 15;
 }
 
-.title-container{
+.title-container {
   position: absolute;
   top: 10%;
   left: 30%;
@@ -91,8 +89,7 @@
   border-radius: 16px;
 }
 
-
-.pin-card-img {
+.pin-card-img1 {
   max-width: 100%;
   width: 100%;
   height: 100%;
@@ -103,5 +100,4 @@
   resize: none;
   border-radius: 16px;
   visibility: hidden;
-
 }

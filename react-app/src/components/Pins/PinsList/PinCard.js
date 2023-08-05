@@ -21,7 +21,7 @@ function PinCard({ pin, index, keysList, handleImageLoad, handleClickLink }) {
           src={pin.image_url ? pin.image_url : "no preview img"}
           alt="No pin preview"
           onLoad={(e) => handleImageLoad(e, index)}
-          className="pin-card-img one"
+          className="pin-card-img"
         ></img>
         {/* {imageRatios[index] && <p>h/w Ratio: {imageRatios[index]}</p>} */}
         {pin?.link && (
@@ -35,7 +35,7 @@ function PinCard({ pin, index, keysList, handleImageLoad, handleClickLink }) {
             </a>
           </div>
         )}
-        {pin.owner_id === sessionUser.id && (
+        {sessionUser && pin.owner_id === sessionUser.id && (
           <div
             className="aa1"
             onClick={(e) => {

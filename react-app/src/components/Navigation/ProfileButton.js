@@ -67,7 +67,7 @@ function ProfileButton({ user }) {
               ></img>
             ) : (
               <img
-                className="nav-user-pic"
+                className="nav-user-pic a85"
                 src="https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
               />
             )}
