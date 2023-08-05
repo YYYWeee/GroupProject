@@ -24,6 +24,7 @@
 
 .single-pin-container {
   padding: 12px 16px;
+  padding-bottom: 32px;
 }
 
 .single-pin-upper-container {
@@ -128,7 +129,7 @@
 /* right */
 .pin-right-container {
   padding: 0 32px;
-  max-height: 1200px;
+  max-height: 1100px;
   width: 496px;
 }
 
@@ -247,9 +248,6 @@
   -webkit-line-clamp: 1;
   line-clamp: 1;
   -webkit-box-orient: vertical; */
-
-  overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
@@ -391,7 +389,7 @@
   z-index: 1;
   background-color: white;
   padding-top: 8px;
-  padding-bottom: 4px;
+  padding-bottom: 12px;
 }
 
 .comment-stats-container {
@@ -503,6 +501,7 @@
 
 .more-like-this {
   text-align: center;
+  margin-bottom: 32px;
 }
 
 /* emoji  */

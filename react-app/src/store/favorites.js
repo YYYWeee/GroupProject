@@ -1,9 +1,7 @@
 /** Action Type Constants: */
 export const LOAD_FAVORITES = "favorites/LOAD_FAVORITES";
-
-export const DELETE_FAVORITE = "favorites/DELETE_FAVORITE";
-
 export const ADD_FAVORITE = "favorites/ADD_FAVORITE";
+export const DELETE_FAVORITE = "favorites/DELETE_FAVORITE";
 
 /**  Action Creators: */
 const loadFavorites = (favorites) => ({
@@ -11,15 +9,16 @@ const loadFavorites = (favorites) => ({
   favorites,
 });
 
+const addFavorite = (favorite) => ({
+  type: ADD_FAVORITE,
+  favorite,
+});
+
 const deleteFavorite = (pinId) => ({
   type: DELETE_FAVORITE,
   pinId,
 });
 
-const addFavorite = (favorite) => ({
-  type: ADD_FAVORITE,
-  favorite,
-});
 /** Thunk Action Creators: */
 export const fetchAllFavoritesThunk = (boardId) => async (dispatch) => {
   const res = await fetch(`/api/boards/${boardId}/favorite`);
@@ -85,12 +84,12 @@ const favoritesReducer = (state = initialState, action) => {
       return newState;
     }
     case DELETE_FAVORITE: {
-      const newState = {...state};
+      const newState = { ...state };
       delete newState[action.pinId];
       return newState;
     }
     case ADD_FAVORITE: {
-      return {...state, [action.favorite.id]: action.favorite};
+      return { ...state, [action.favorite.id]: action.favorite };
     }
     default:
       return state;

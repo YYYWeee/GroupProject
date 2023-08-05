@@ -65,7 +65,7 @@ export default function BoardCard({ board, boardUser }) {
     payload = (
       <div className="feature-board-container">
         {boardUser.id === sessionUser.id && board.is_secret && (
-          <i className="fa-solid fa-lock"></i>
+          <i className="fa-solid fa-lock secret1"></i>
         )}
         {boardUser.id === sessionUser.id && (
           <div className="aa a83">

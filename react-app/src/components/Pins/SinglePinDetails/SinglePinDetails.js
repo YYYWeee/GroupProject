@@ -246,7 +246,7 @@ function SinglePinDetails() {
                     src={
                       targetPin?.creator?.photo_url
                         ? targetPin?.creator?.photo_url
-                        : "no preview img"
+                        : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
                     }
                     alt="No creator preview"
                     className="creator-img cursor"
@@ -262,7 +262,12 @@ function SinglePinDetails() {
                 </div>
                 <div>
                   {sessionUser && (
-                    <button className="follow-btn cursor">Follow</button>
+                    <button
+                      className="follow-btn cursor"
+                      onClick={() => alert("Feature coming soon!")}
+                    >
+                      Follow
+                    </button>
                   )}
                 </div>
               </div>
@@ -272,10 +277,7 @@ function SinglePinDetails() {
           </div>
         </div>
       </main>
-      <div className="more-like-this">More like this</div>
-      <div className="more-like-this">More like this</div>
-      <div className="more-like-this">More like this</div>
-      <div className="more-like-this">More like this</div>
+      <div className="more-like-this"></div>
     </section>
   );
 }

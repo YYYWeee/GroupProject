@@ -17,4 +17,4 @@ class PinForm(FlaskForm):
     # allow_comment=BooleanField('Allow')
     # show_shopping_recommendations=BooleanField('Show')
     # submit = SubmitField("Submit")
-    session_user_boards = SelectField('Boards', coerce=int)
+    # session_user_boards = SelectField('Boards', coerce=int)

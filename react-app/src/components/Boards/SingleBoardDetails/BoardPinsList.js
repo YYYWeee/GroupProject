@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 function BoardPinsList({ pins }) {
   const history = useHistory();
 
-  pins?.sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at));
+  pins?.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
   // calculate the height/width ratio for all images
   const [imageRatios, setImageRatios] = useState([]);

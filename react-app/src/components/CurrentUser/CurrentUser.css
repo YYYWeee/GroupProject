@@ -166,6 +166,7 @@
   object-fit: cover;
   border: 2px solid white;
   border-radius: 16px;
+  background-color: #efefef;
 }
 
 .default-board-02 {
@@ -231,13 +232,22 @@
   background-color: #e9e9e9;
 }
 
-.fa-solid.fa-lock {
+.fa-solid.fa-lock.secret1 {
   position: absolute;
   left: 11px;
   top: 11px;
   padding: 8px;
   background-color: white;
   border-radius: 50%;
+}
+
+.fa-solid.fa-lock.secret2 {
+  left: 11px;
+  top: 11px;
+  padding: 8px;
+  background-color: white;
+  border-radius: 50%;
+  font-size: 16px;
 }
 
 .feature-board-left-container {
@@ -354,7 +364,7 @@
 /* created & saved  */
 .board-created-container {
   display: flex;
-  margin-top: 8px;
+  margin-top: 32px;
   margin-bottom: 16px;
 }
 

@@ -4,7 +4,10 @@ from app.models import Pin, Favorite, db
 
 favorite_routes = Blueprint('favorites', __name__)
 
-@favorite_routes.route('/<int:boardId>/<int:pinId>',methods=['DELETE'])
+# mark a pin in a board as favorite
+
+
+@favorite_routes.route('/<int:boardId>/<int:pinId>', methods=['DELETE'])
 @login_required
 def unfavorite_pin(pinId, boardId):
     fav_pin = Favorite.query.filter_by(pin_id=pinId, board_id=boardId).first()
@@ -15,6 +18,8 @@ def unfavorite_pin(pinId, boardId):
         return {"Response": "Successfully unfavorited this pin"}
     else:
         return {"Response": "Could not unfavorite this pin"}
+
+# unfavoriate a pin in a board
 
 
 @favorite_routes.route('/<int:boardId>/<int:pinId>', methods=['POST'])
@@ -28,7 +33,8 @@ def favorite_pin(boardId, pinId):
     if favorite:
         return jsonify({"error": "Pin is already favorited"}), 400
 
-    new_favorite = Favorite(board_id=boardId, pin_id=pinId, user_id=current_user.id)
+    new_favorite = Favorite(
+        board_id=boardId, pin_id=pinId, user_id=current_user.id)
     db.session.add(new_favorite)
     db.session.commit()
 

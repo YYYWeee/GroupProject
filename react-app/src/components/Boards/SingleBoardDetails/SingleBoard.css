@@ -2,26 +2,54 @@
   display: none;
 }
 
+.board-info-container {
+  padding: 0px auto;
+}
+
 .b-details {
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  margin-top: 16px;
-  width: 488px;
-  word-wrap: break-word;
-  margin-bottom: 1rem;
+  align-items: center;
+  position: relative;
 }
 
 .b-title {
-  font-size: 36px;
-  font-weight: 600;
+  color: #111;
   text-align: center;
   align-self: center;
+
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
-  word-wrap: break-word;
+  position: relative;
 }
+
+.b-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 36px;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.board-des {
+  width: 100%;
+  background-color: transparent;
+}
+
+.board-description {
+  width: 488px;
+  margin-top: 10px;
+  color: black;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+}
+
 .dots-btn {
   background-color: #efefef;
   border: none;
@@ -42,9 +70,37 @@
   line-height: normal;
 }
 
+.combine-btn-dropdown {
+  position: relative;
+  margin-left: 8px;
+}
+
+.dropdown-menu {
+  /* transform: translate3d(0px, 16px, 0px); */
+  position: absolute;
+  top: -8px;
+  left: 32px;
+  min-width: 170px;
+
+  font-weight: 300;
+  line-height: 1.4rem;
+  background-color: white;
+  opacity: 1 !important;
+
+  border-radius: 16px;
+  /* box-shadow: 3px 3px 4px rgba(112, 112, 112, 0.5); */
+  box-shadow: 1px -2px 3px #efefef, -3px 3px 5px #efefef, 3px 3px 3ch #f7f7f7,
+    0px 3px 10px #f7f7f7;
+  margin: 8px;
+  padding: 8px;
+  z-index: 1000 !important;
+}
+
 .profile-pic-list {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .collaborator-list {
@@ -89,6 +145,11 @@
   justify-content: center;
   box-sizing: border-box;
   z-index: -1;
+  padding-bottom: 48px;
+}
+
+.user-pins-masonary {
+  margin-bottom: 32px;
 }
 
 .creator-img1 {
@@ -121,4 +182,23 @@
   border-radius: 50%;
   object-fit: cover;
   border: 1.5px solid #efefef;
+}
+.secret-text {
+  font-weight: 400;
+  color: #5f5f5f;
+  font-size: 16px;
+  margin-top: 8px;
+}
+.num-board-pins {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-align: left;
+  align-self: flex-start;
+  padding-left: 32px;
+}
+
+.dropdown-title {
+  font-size: 12px;
+  text-align: left;
 }

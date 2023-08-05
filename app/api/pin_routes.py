@@ -11,6 +11,8 @@ from app.forms.edit_comment_form import EditCommentForm
 from ..forms.pin_post_forms import PinForm
 from ..forms.pin_update_forms import EditPinForm
 from sqlalchemy import and_, case
+from sqlalchemy.sql import func
+
 
 pin_routes = Blueprint('pins', __name__)
 
@@ -76,6 +78,8 @@ def get_one_pin(pinId):
 @pin_routes.route('', methods=["POST"])
 @login_required
 def new_pin():
+    print('Backend now!!!!!!!', current_user)
+
     form = PinForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     # count = Pin.query.all().count
@@ -97,6 +101,17 @@ def new_pin():
         )
 
         db.session.add(new_pin)
+
+        # now we only allow new pin created in default board
+        # add new pin to default board of session user
+        default_board = Board.query.filter(and_(
+            Board.owner_id == current_user.id, Board.is_default == True)).first()
+        new_pin_in_board = PinBoard(
+            pin_id=new_pin.id,
+            board_id=default_board.id,
+        )
+        db.session.add(new_pin_in_board)
+        default_board.updated_at = func.now()
         db.session.commit()
         return {"new Pin": new_pin.to_dict()}
 

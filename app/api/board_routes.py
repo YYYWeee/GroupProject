@@ -3,6 +3,8 @@ from flask_login import login_required, current_user
 from app.models import Board, BoardUser, Pin, Favorite, Pin, db, User, PinBoard
 from app.forms.board_form import BoardForm
 from sqlalchemy import and_
+from sqlalchemy.sql import func
+
 
 board_routes = Blueprint('board', __name__)
 
@@ -178,6 +180,7 @@ def add_collaborator(id):
         return jsonify({"message": "Cannot add colloborator to your default board"}), 408
 
     if form.validate_on_submit():
+        target_board.updated_at = func.now()
         for collaborator in form.data['collaborators']:
             exist_user = BoardUser.query.filter_by(
                 user_id=collaborator, board_id=id).first()
@@ -204,6 +207,7 @@ def add_collaborator(id):
                             pin_id=pin.id,
                             board_id=collaborator_default_board.id,
                         )
+                        collaborator_default_board.updated_at = func.now()
                         db.session.add(new_pin_in_default)
                 db.session.commit()
                 # END!
@@ -243,6 +247,7 @@ def add_pin_to_board(boardId, pinId):
             board_id=boardId,
         )
         db.session.add(new_pin_in_board)
+        saved_board.updated_at = func.now()
 
     # if the user selected non-default saved_board, then need to save to default_board as well.
     # so if what user selected is already his default board, this default_board set to None to avoid duplicates in default boards
@@ -258,6 +263,8 @@ def add_pin_to_board(boardId, pinId):
                 board_id=default_board.id,
             )
             db.session.add(new_pin_in_default)
+            default_board.updated_at = func.now()
+
     db.session.commit()
     return {"message": ["Pin added successfully"]}
 

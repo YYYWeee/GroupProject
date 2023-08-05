@@ -121,8 +121,8 @@ nav {
 
   border-radius: 16px;
   /* box-shadow: 3px 3px 4px rgba(112, 112, 112, 0.5); */
-  box-shadow: 1px -2px 3px #efefef, -3px 3px 5px #efefef, 3px 3px 3ch #f7f7f7,
-    0px 3px 10px #f7f7f7;
+  box-shadow: 1px -2px 3px #efefef, -3px 3px 3px #efefef, 3px 3px 3ch #f7f7f7,
+    0px 3px 5px #f7f7f7;
   margin: 8px;
   padding: 8px;
 }

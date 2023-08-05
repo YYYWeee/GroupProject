@@ -83,7 +83,10 @@ function NavBarLeftComponent({ user }) {
               </div>
             </div>
           </div>
-          <div className="nav-search">
+          <div
+            className="nav-search"
+            onClick={() => alert("Feature coming soon!")}
+          >
             <i className="fas fa-search"></i>
             <input className="search-input" placeholder="Search" />
           </div>
