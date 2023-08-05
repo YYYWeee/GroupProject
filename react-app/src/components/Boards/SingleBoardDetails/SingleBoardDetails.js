@@ -39,6 +39,29 @@ export default function SingleBoardDetails() {
     dispatch(fetchOneBoardThunk(boardId));
   }, [dispatch, boardId]);
 
+
+  let isOwner;
+  if(sessionUser.id===singleBoard?.owner_id){
+    isOwner = true;
+  }else{
+    isOwner = false;
+  }
+
+  let hasAuthToEdit;
+  if(singleBoard?.collaborators?.find(collaborator=>collaborator.id===sessionUser.id)){
+    hasAuthToEdit = true;
+  }else{
+    hasAuthToEdit = false;
+  }
+
+  const handleMoreButtonClick = () => {
+    if(hasAuthToEdit){
+      setShowMenu(!showMenu)
+    }else{
+      alert('Only owner and collaborators can edit or delete this board')
+    }
+  }
+
   const closeMenu = () => setShowMenu(false);
   const ulClassName = "dropdown-menu" + (showMenu ? "" : " hidden");
 
@@ -64,7 +87,7 @@ export default function SingleBoardDetails() {
       <div className="b-details">
         <div className="b-name-btn">
           <div className="b-title">{singleBoard.name}</div>
-          <button className="dots-btn" onClick={() => setShowMenu(!showMenu)}>
+          <button className="dots-btn" onClick={() => handleMoreButtonClick()}>
             ...
           </button>
         </div>
@@ -73,16 +96,20 @@ export default function SingleBoardDetails() {
         {showMenu && (
           <div className={ulClassName} ref={ulRef1}>
             <ul>
+              {hasAuthToEdit &&
               <OpenModalButton
-                buttonText="Edit Board"
-                onItemClick={closeMenu}
-                modalComponent={<EditBoard board={singleBoard} />}
-              />
-              <OpenModalButton
+              buttonText="Edit Board"
+              onItemClick={closeMenu}
+              modalComponent={<EditBoard board={singleBoard} />}
+            />
+              }
+
+              {isOwner && <OpenModalButton
                 buttonText="Delete Board"
                 onItemClick={closeMenu}
                 modalComponent={<DeleteBoard board={singleBoard} />}
-              />
+              />}
+              
             </ul>
           </div>
         )}

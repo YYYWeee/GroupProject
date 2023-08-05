@@ -210,16 +210,29 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    margin-top: 10px;
+    margin-top: 14px;
 }
 
 #edit-board-collaborator-modal-container i{
    color: #1a1a1a;
    font-size: 23px;
+   margin-bottom: 5px;
+
 }
 
 #edit-board-owner-auth-reminder{
     width: 400px;
     text-align: left;
+    margin-top: 10px;
+}
+
+.edit-board-add-collaborator-button-container{
+    width:48px;
+    height:48px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
     margin-top: 10px;
 }

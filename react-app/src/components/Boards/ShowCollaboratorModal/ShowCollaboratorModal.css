@@ -1,0 +1,13 @@
+.show-collaborator-content:first-child p{
+    font-size: 3px;
+   
+}
+
+.show-collaborator-content{
+    margin-bottom: 20px;
+}
+
+#show-collaborators-list-title{
+    font-size: 12px;
+    margin-bottom: 10px;
+}
