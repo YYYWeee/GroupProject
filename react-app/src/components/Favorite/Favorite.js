@@ -25,20 +25,24 @@ export default function Favorite() {
 
   console.log("this is single board!@!!", singleBoard);
 
-  console.log("this is single board collab", singleBoard.collaborators);
+  let canFav;
+  if (
+    singleBoard?.collaborators?.find(
+      (collaborator) => collaborator.id === sessionUser.id
+    )
+  ) {
+    canFav = true;
+  } else {
+    canFav = false;
+  }
 
-  const isBoardUser = (id, arr) => {
-    for (let obj of arr) {
-      if (obj.id === id) {
-        return true;
-      }
-    }
-    return false;
-  };
+  let notAll;
 
-  const seeFav = isBoardUser(sessionUser.id, [{id: 1}]);
-
-  console.log("seeFave", seeFav);
+  if (![1, 2, 3, 4, 5, 6].includes(singleBoard.id)) {
+    notAll = true;
+  } else {
+    notAll = false;
+  }
 
   useEffect(() => {
     dispatch(fetchOneBoardThunk(boardId));
@@ -60,7 +64,9 @@ export default function Favorite() {
       <h1>inside favorite component </h1>
       <div>
         <button onClick={handleClickFav}>All Pins</button>
-        <button onClick={handleClickPins}>Favorited Pins</button>
+        {canFav && notAll && (
+          <button onClick={handleClickPins}>Favorited Pins</button>
+        )}
       </div>
       {showPins ? (
         <div className="pin-card">
@@ -68,7 +74,7 @@ export default function Favorite() {
             <SinglePin key={pin.id} pin={pin} boardId={singleBoard.id} />
           ))}
         </div>
-      ) : (
+      ) : favPinsArr.length > 0 ? (
         <div className="pin-card">
           {favPinsArr?.map((pin) => (
             <SinglePin
@@ -79,6 +85,8 @@ export default function Favorite() {
             />
           ))}
         </div>
+      ) : (
+        <div>Favorite pins to this board!</div>
       )}
     </div>
   );

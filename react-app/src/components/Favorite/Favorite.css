@@ -1,12 +1,15 @@
 .pin-card {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 236px);
 }
 
 .pin-fav-img {
-  height: 15rem;
+  width: 10rem;
   margin: 1rem;
   border: 1px solid red;
+  height: 13rem;
+  object-fit: cover;
+  border-radius: 24px;
 }
 
 .p-link {
@@ -14,5 +17,10 @@
 }
 
 #s-stars {
-  margin-left: 1rem;
+  margin-left: 10rem;
+  margin-top: 0;
+}
+
+.star-div {
+  margin-top: 0;
 }

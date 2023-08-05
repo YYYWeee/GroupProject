@@ -96,8 +96,7 @@
   grid-auto-rows: 1px;
   /* left: 50%;
   transform: translateX(-50%); */
-  justify-content: center;
-  box-sizing: border-box;
+  grid-auto-rows: 1px;
   gap: 12px;
 }
 

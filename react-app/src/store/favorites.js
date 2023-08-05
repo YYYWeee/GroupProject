@@ -51,30 +51,25 @@ export const fetchDeleteFavThunk = (boardId, pinId) => async (dispatch) => {
   }
 };
 
-export const fetchAddFavoriteThunk =
-  (boardId, pinId, favoriteData) => async (dispatch) => {
-    try {
-      const res = await fetch(`/api/favorites/${boardId}/${pinId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(favoriteData),
-      });
+export const fetchAddFavoriteThunk = (boardId, pinId) => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/favorites/${boardId}/${pinId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      if (res.ok) {
-        const favorite = await res.json();
-        dispatch(addFavorite(favorite));
-      } else {
-        console.log("Failed to add favorite pin");
-      }
-    } catch (err) {
-      console.log(
-        "There was something wrong with adding the favorite pin",
-        err
-      );
+    if (res.ok) {
+      const favorite = await res.json();
+      dispatch(addFavorite(favorite));
+    } else {
+      console.log("Failed to add favorite pin");
     }
-  };
+  } catch (err) {
+    console.log("There was something wrong with adding the favorite pin", err);
+  }
+};
 
 /** Favorites Reducer */
 const initialState = {};

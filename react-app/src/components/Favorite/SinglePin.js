@@ -15,16 +15,19 @@ function SinglePin({pin, boardId, favPinIds}) {
     setVisible1(!visible1);
 
     const favoriteData = {
-      board_id: boardId,
-      pin_id: pin.id,
+      boardId,
+      pinId: pin.id,
     };
+
+    console.log("fav data", favoriteData);
 
     if (visible1) {
       await dispatch(fetchDeleteFavThunk(boardId, pin.id));
       await dispatch(fetchAllFavoritesThunk(boardId));
     } else {
       console.log("inside create fav");
-      const newFav = await dispatch(fetchAddFavoriteThunk(favoriteData));
+      const newFav = await dispatch(fetchAddFavoriteThunk(boardId, pin.id));
+      await dispatch(fetchAllFavoritesThunk(boardId));
     }
   };
 
@@ -39,7 +42,7 @@ function SinglePin({pin, boardId, favPinIds}) {
           ></img>
         </Link>
       </div>
-      <div onClick={handleStarClick}>
+      <div className="star-div" onClick={handleStarClick}>
         {visible1 ? (
           <i id="s-stars" className="fa-solid fa-star"></i>
         ) : (
