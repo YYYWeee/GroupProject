@@ -79,12 +79,9 @@ The file explorer is accessible using the button in left corner of the navigatio
 ![2023-08-05 23 53 52](https://github.com/YYYWeee/GroupProject/assets/63111667/1abc5104-f31a-48cb-8403-1df0b08fb016)
 
 
-## All Boards belong to  specific user page
+## Create a board and invite collaborators
 
-
-
-## Board detail page
-
+![2023-08-06 00 14 18](https://github.com/YYYWeee/GroupProject/assets/63111667/272e8267-3a1f-44a4-a597-ca8e69e23f5f)
 
 
 
