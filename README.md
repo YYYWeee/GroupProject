@@ -60,7 +60,7 @@ The file explorer is accessible using the button in left corner of the navigatio
  
    
 ## Landing Page
-![2023-08-05 23 17 58](https://github.com/YYYWeee/GroupProject/assets/63111667/abc3190d-c994-45f5-997e-d85cbdc24681)
+![2023-08-05 23 44 04](https://github.com/YYYWeee/GroupProject/assets/63111667/f6eb90ce-9f11-4887-b117-a673b97db4b3)
 
 
 ## Sign up & Log in 
