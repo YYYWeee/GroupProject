@@ -11,7 +11,7 @@
 
 /* After slide changes */
 .toggle:after {
-  content: '';
+  content: "";
   position: absolute;
   /* width: 50px;
   height: 50px; */
@@ -27,11 +27,11 @@
 }
 
 /* Checkbox checked effect */
-.checkbox:checked+.toggle::after {
+.checkbox:checked + .toggle::after {
   left: 20px;
 }
 
-.checkbox:checked+.toggle {
+.checkbox:checked + .toggle {
   background-color: black;
 }
 
@@ -39,7 +39,6 @@
 .checkbox {
   display: none;
 }
-
 
 * {
   box-sizing: border-box;
@@ -70,14 +69,12 @@ input {
   height: 600px;
 }
 
-
 .big-container {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   border-bottom: 1px solid rgb(189, 183, 183);
   padding-bottom: 20px;
-
 }
 
 .right-container {
@@ -122,13 +119,12 @@ input {
   font-weight: bold;
   padding: 12px 5px;
   border-radius: 60px;
+  z-index: 1000;
 }
-
 
 .button-container {
   display: flex;
   flex-direction: row;
-
 }
 
 .pic-container {
@@ -146,12 +142,9 @@ input {
   margin-top: 10px;
 }
 
-
 .pic {
   width: 255px;
 }
-
-
 
 .description-area,
 .title-area,
@@ -182,7 +175,6 @@ textarea {
   box-shadow: none;
 }
 
-
 label {
   display: inline-block;
   width: 150px;
@@ -190,7 +182,6 @@ label {
   justify-content: flex-start;
   display: flex;
 }
-
 
 textarea[name="description"]::placeholder {
   padding-top: 10px;
@@ -202,19 +193,16 @@ textarea[name="altText"]::placeholder {
   text-align: left;
 }
 
-
 .button-container {
   padding-top: 40px;
   display: flex;
   justify-content: space-between;
-
 }
 
 .right-btn {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-
 }
 
 .save-button {
@@ -253,7 +241,6 @@ textarea[name="altText"]::placeholder {
   margin-left: 150px;
 } */
 
-
-.errors{
-  color: #CC0000;
+.errors {
+  color: #cc0000;
 }

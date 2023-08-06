@@ -1,16 +1,16 @@
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
-import {fetchOneBoardThunk} from "../../store/boards";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchOneBoardThunk } from "../../store/boards";
 import SinglePin from "./SinglePin";
 import "./Favorite.css";
-import {fetchAllFavoritesThunk} from "../../store/favorites";
+import { fetchAllFavoritesThunk } from "../../store/favorites";
 
 export default function Favorite() {
   const dispatch = useDispatch();
-  const [showPins, setPins] = useState(true);
+  const [showPins, setShowPins] = useState(true);
   const [star, setStar] = useState();
-  const {boardId} = useParams();
+  const { boardId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
 
   const singleBoard = useSelector((state) => {
@@ -48,16 +48,19 @@ export default function Favorite() {
     dispatch(fetchOneBoardThunk(boardId));
   }, [dispatch, boardId]);
 
+  // click All pins tab and get all pins in the board with their favoraite stats (for all board members) with each pin
+  // the pin favorited by the session user has star filled
   const handleClickPins = async () => {
     if (!showPins) return;
-    setPins(false);
+    setShowPins(false);
 
     await dispatch(fetchAllFavoritesThunk(boardId));
   };
 
+  // click Favoirted pins tab and get only the pins that is favorited by the session user and its correponding fav stats, star filled.
   const handleClickFav = () => {
     if (showPins) return;
-    setPins(true);
+    setShowPins(true);
   };
   return (
     <div>

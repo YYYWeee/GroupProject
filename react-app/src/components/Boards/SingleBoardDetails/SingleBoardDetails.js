@@ -165,16 +165,16 @@ export default function SingleBoardDetails() {
         <div className="board-created-container">
           <div className="board-created-btn">
             <button
-              // onClick={handleClickCreated}
+              onClick={handleClickFavorite}
               className={`board-created a97 ${!showPins ? "focuss" : ""}`}
             >
-              Favorite
+              Favorites
             </button>
           </div>
 
           <div className="board-created-btn">
             <button
-              // onClick={handleClickSaved}
+              onClick={handleClickAllPins}
               className={`board-created a97 ${showPins ? "focuss" : ""}`}
             >
               Saved
