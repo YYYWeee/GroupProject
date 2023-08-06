@@ -76,8 +76,7 @@ The file explorer is accessible using the button in left corner of the navigatio
 
 
 ## Create Pin page
-
-![2023-08-05 23 39 50](https://github.com/YYYWeee/GroupProject/assets/63111667/dc15357b-0977-451c-852c-ec3700930d88)
+![2023-08-05 23 53 52](https://github.com/YYYWeee/GroupProject/assets/63111667/1abc5104-f31a-48cb-8403-1df0b08fb016)
 
 
 ## All Boards belong to  specific user page
