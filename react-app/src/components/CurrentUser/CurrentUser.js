@@ -139,7 +139,7 @@ export default function CurrentUser() {
         </div>
         <div className="my-username">@{boardUser?.username}</div>
         <div className="my-username1">{boardUser?.about}</div>
-        {sessionUser.id === boardUser.id && (
+        {sessionUser && sessionUser?.id === boardUser?.id && (
           <div className="user-buttons">
             <button
               className="follow-btn cursor a97"
@@ -149,7 +149,7 @@ export default function CurrentUser() {
             </button>
           </div>
         )}
-        {sessionUser.id !== boardUser.id && (
+        {sessionUser && sessionUser?.id !== boardUser?.id && (
           <div className="user-buttons">
             <button
               className="follow-btn2"
@@ -178,7 +178,7 @@ export default function CurrentUser() {
           </button>
         </div>
       </div>
-      {sessionUser.id === boardUser.id && showBoards && (
+      {sessionUser && sessionUser?.id === boardUser?.id && showBoards && (
         <div className="board-func-btns-container">
           <div
             className={

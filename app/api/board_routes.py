@@ -101,13 +101,17 @@ def get_board(id):
 
 
 @board_routes.route('/new', methods=['POST'])
+@login_required
 def create_board():
     form = BoardForm()
     users = User.query.all()
     user_choices = [(user.id, user.username)for user in users]
     form.collaborators.choices = user_choices
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
+
+    if not current_user:
+        return jsonify({"message": "Please log in to create a board"}), 408
+    if form.validate_on_submit() and current_user:
         new_board = Board(
             owner_id=current_user.id,
             name=form.data['name'],
