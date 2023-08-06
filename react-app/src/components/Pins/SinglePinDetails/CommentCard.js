@@ -16,7 +16,7 @@ function CommentCard({ comment }) {
   };
 
   const handleClickUser = async (e) => {
-    history.push(`/${sessionUser?.username}`);
+    history.push(`/${comment?.commenter?.username}`);
     window.scrollTo(0, 0);
   };
   return (

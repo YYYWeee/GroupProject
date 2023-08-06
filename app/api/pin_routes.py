@@ -168,7 +168,7 @@ def get_pin_comments_by_pinId(pinId):
     for comment in comments:
         comment_dict = comment.to_dict()
         comment_dict["commenter"] = {
-            "photo_url": comment.user.photo_url, "first_name": comment.user.first_name}
+            "photo_url": comment.user.photo_url, "first_name": comment.user.first_name, "username": comment.user.username}
         comments_list.append(comment_dict)
     return comments_list
 

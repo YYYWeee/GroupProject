@@ -1,5 +1,7 @@
 from app.models import db, Pin, environment, SCHEMA
 from sqlalchemy.sql import text
+from datetime import datetime, timedelta
+import random
 
 
 def seed_pins():
@@ -282,6 +284,22 @@ def seed_pins():
         "show_shopping_recommendations": True,
     },
     ]
+
+    today = datetime.now()
+    # define the range of 2 years ago from today
+    two_years_ago = today - timedelta(days=365*2)
+    # generate 31 elements for 31 pins with random datetimes within the 2-year range
+    randomCreatedAtDates = []
+    for _ in range(31):
+        created_at = datetime.fromtimestamp(random.randint(
+            int(two_years_ago.timestamp()), int(today.timestamp())))
+        randomCreatedAtDates.append(created_at)
+
+    randomCreatedAtDates.sort(reverse=True)
+
+    for i, pin in enumerate(pins):
+        pin["created_at"] = randomCreatedAtDates[i]
+        pin["updated_at"] = pin["created_at"]
 
     seed_pins = [db.session.add(Pin(**pin)) for pin in pins]
     db.session.commit()

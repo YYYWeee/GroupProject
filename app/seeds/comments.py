@@ -1,6 +1,7 @@
 from app.models import db, Comment, environment, SCHEMA
 from sqlalchemy.sql import text
 from datetime import datetime
+import random
 
 
 def seed_comments():
@@ -34,15 +35,11 @@ def seed_comments():
                  "created_at": datetime(2022, 9, 14, 8, 00),
                  "updated_at": datetime(2022, 9, 17, 13, 22),
                  },
-                {"pin_id": 1, "user_id": 3,
-                 "message": 'good'},
-                {"pin_id": 1, "user_id": 5,
+                {"pin_id": 1, "user_id": random.randint(1, 6),
                  "message": 'Sooooo good!!!'},
                 {"pin_id": 3, "user_id": 2,
                  "message": 'I would like to know the name of the paint color.'},
                 {"pin_id": 4, "user_id": 1, "message": 'All you need now is the perfect scent, Im thinking Jasmine Bamboo or Champagne Rose. What do you think?'},
-                {"pin_id": 5, "user_id": 2,
-                 "message": 'Where did you get the rug from?'},
                 {"pin_id": 5, "user_id": 2,
                  "message": 'Where did you get the rug from?'},
                 {"pin_id": 5, "user_id": 1,
@@ -64,6 +61,7 @@ def seed_comments():
                 {"pin_id": 5, "user_id": 2,
                  "message": 'I was lucky to have the flowers on the snake plants. It has a really strong smell.'},
                 {"pin_id": 5, "user_id": 5, "message": 'Mine just bloomed for the first time ever. I didn’t smell anything from the flowers. Do they just die and drop off, or should they be cut?'}]
+
     seed_boards = [db.session.add(Comment(**comment)) for comment in comments]
     db.session.commit()
 
