@@ -137,7 +137,7 @@ function PinsList({ targetUser, showFavs }) {
   }
 
   if (showFavs) {
-    pins = board?.associated_pins.filter(
+    pins = board?.associated_pins?.filter(
       (pin) => pin.sessionIsFavorited === true
     );
   }

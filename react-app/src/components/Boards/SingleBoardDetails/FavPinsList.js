@@ -12,7 +12,7 @@ function FavPinsList({ showFavs }) {
 
   let pins;
   if (showFavs) {
-    pins = board?.associated_pins.filter(
+    pins = board?.associated_pins?.filter(
       (pin) => pin.sessionIsFavorited === true
     );
   }
@@ -72,19 +72,25 @@ function FavPinsList({ showFavs }) {
   };
 
   return (
-    <div className="pin-container">
-      {pins.map((pin, index) => (
-        // <PinsListCard key={pin.id} pin={pin} />
-        <PinCard
-          key={index}
-          pin={pin}
-          index={index}
-          keysList={keysList}
-          handleImageLoad={handleImageLoad}
-          handleClickLink={handleClickLink}
-        />
-      ))}
-    </div>
+    <>
+      {pins?.length === 0 ? (
+        "No favorited Pins in this board yet, but there's tons of potential"
+      ) : (
+        <div className="pin-container">
+          {pins.map((pin, index) => (
+            // <PinsListCard key={pin.id} pin={pin} />
+            <PinCard
+              key={index}
+              pin={pin}
+              index={index}
+              keysList={keysList}
+              handleImageLoad={handleImageLoad}
+              handleClickLink={handleClickLink}
+            />
+          ))}
+        </div>
+      )}
+    </>
   );
 }
 

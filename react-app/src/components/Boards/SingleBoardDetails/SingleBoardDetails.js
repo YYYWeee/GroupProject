@@ -16,7 +16,7 @@ import FavPinsList from "./FavPinsList";
 export default function SingleBoardDetails() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { boardId } = useParams();
+  const { username, boardId } = useParams();
   const ulRef1 = useRef();
   const [showMenu, setShowMenu] = useState(false);
   const sessionUser = useSelector((state) => state.session.user);
@@ -170,14 +170,16 @@ export default function SingleBoardDetails() {
         </div>
         {hasAuthToEdit && (
           <div className="board-created-container">
-            <div className="board-created-btn">
-              <button
-                onClick={handleClickFavorite}
-                className={`board-created a97 ${!showPins ? "focuss" : ""}`}
-              >
-                Favorited
-              </button>
-            </div>
+            {sessionUser.username === username && (
+              <div className="board-created-btn">
+                <button
+                  onClick={handleClickFavorite}
+                  className={`board-created a97 ${!showPins ? "focuss" : ""}`}
+                >
+                  Favorited
+                </button>
+              </div>
+            )}
 
             <div className="board-created-btn">
               <button
