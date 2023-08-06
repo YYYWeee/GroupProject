@@ -250,8 +250,9 @@ const boardsReducer = (state = initialState, action) => {
       const pinFavAdded = newState.singleBoard.associated_pins.find(
         (pin) => pin.id === action.payload.pin_id
       );
-      pinFavAdded.favorites.push(action.user_id);
+      pinFavAdded.favorites.push(action.payload.user_id);
       // newState.singleBoard.associated_pins.favorites.push(action.user.id);
+      pinFavAdded.sessionIsFavorited = true;
       return newState;
     }
     case DELETE_PINFAVORITE: {
@@ -265,6 +266,7 @@ const boardsReducer = (state = initialState, action) => {
       );
       if (userIndexRemoved !== -1) {
         pinFavDeleted.favorites.splice(userIndexRemoved, 1);
+        pinFavDeleted.sessionIsFavorited = false;
       }
       return newState;
     }

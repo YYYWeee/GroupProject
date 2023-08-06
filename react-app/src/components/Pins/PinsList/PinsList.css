@@ -86,6 +86,10 @@
   }
 } */
 
+.zoom {
+  cursor: zoom-in !important;
+}
+
 .pin-card-img {
   max-width: 100%;
   width: 100%;

@@ -21,16 +21,18 @@ function FavoriteBoardPin({ pin, boardId, hasAuthToEdit }) {
       await dispatch(fetchAddFavoriteThunk(boardId, pin.id));
     }
   };
-
   return (
     <div className="numFavs-icons-out">
-      <p>{numFavorites > 0 ? numFavorites : ""}</p>
-      <div onClick={handleStarClick}>
-        {isFavorited ? (
-          <i id="s-stars" className="fa-solid fa-star"></i>
-        ) : (
-          <i id="s-stars" className="fa-regular fa-star"></i>
-        )}
+      <p className="pin-fav-title">{pin.title}</p>
+      <div className="stars-container">
+        <p>{numFavorites > 0 ? numFavorites : ""}</p>
+        <div onClick={handleStarClick}>
+          {isFavorited ? (
+            <i id="s-stars" className="fa-solid fa-star"></i>
+          ) : (
+            <i id="s-stars" className="fa-regular fa-star"></i>
+          )}
+        </div>
       </div>
     </div>
   );

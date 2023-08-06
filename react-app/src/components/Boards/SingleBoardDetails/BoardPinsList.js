@@ -55,31 +55,25 @@ function BoardPinsList({ pins, boardId, hasAuthToEdit }) {
 
   return (
     <div className="pin-container1">
-      <div>
-        {pins?.map((pin, index) => (
-          // <PinsListCard key={pin.id} pin={pin} />
-          <div key={index}>
-            <div
-              onClick={() => history.push(`/pins/${pin.id}`)}
-              className={`card-container ${keysList[index]}`}
-            >
-              <img
-                src={pin.image_url ? pin.image_url : "no preview img"}
-                alt="No pin preview"
-                onLoad={(e) => handleImageLoad(e, index)}
-                className="pin-card-img one"
-              ></img>
-            </div>{" "}
-            {hasAuthToEdit && (
-              <FavoriteBoardPin
-                pin={pin}
-                boardId={boardId}
-                hasAuthToEdit={hasAuthToEdit}
-              />
-            )}
-          </div>
-        ))}
-      </div>
+      {pins?.map((pin, index) => (
+        // <PinsListCard key={pin.id} pin={pin} />
+        <div key={index} className={`card-container1 ${keysList[index]}`}>
+          <img
+            src={pin.image_url ? pin.image_url : "no preview img"}
+            alt="No pin preview"
+            onLoad={(e) => handleImageLoad(e, index)}
+            className="pin-card-img one zoom"
+            onClick={() => history.push(`/pins/${pin.id}`)}
+          ></img>
+          {hasAuthToEdit && (
+            <FavoriteBoardPin
+              pin={pin}
+              boardId={boardId}
+              hasAuthToEdit={hasAuthToEdit}
+            />
+          )}
+        </div>
+      ))}
     </div>
   );
 }
