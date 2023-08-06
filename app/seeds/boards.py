@@ -1,5 +1,7 @@
 from app.models import db, Board, environment, SCHEMA
 from sqlalchemy.sql import text
+from datetime import datetime, timedelta
+import random
 
 
 def seed_boards():
@@ -56,6 +58,23 @@ def seed_boards():
          "description": 'Home Decor kitchen makeover kitchen cabinet kitchen design ideas', "is_secret": False},
 
     ]
+
+    today = datetime.now()
+    # define the range of 2 years ago from today
+    one_year_ago = today - timedelta(days=365*1)
+    # generate 16 elements for 16 pins with random datetimes within the 2-year range
+    randomCreatedAtDates = []
+    for _ in range(16):
+        created_at = datetime.fromtimestamp(random.randint(
+            int(one_year_ago.timestamp()), int(today.timestamp())))
+        randomCreatedAtDates.append(created_at)
+
+    randomCreatedAtDates.sort(reverse=True)
+
+    for i, board in enumerate(boards):
+        board["created_at"] = randomCreatedAtDates[i]
+        board["updated_at"] = board["created_at"]
+
     seed_boards = [db.session.add(Board(**board)) for board in boards]
     db.session.commit()
 
