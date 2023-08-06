@@ -45,6 +45,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width:400px
 }
 
 #edit-board-name-label p {
@@ -70,6 +71,7 @@
     align-items: center;
     justify-content: flex-start;
     margin-top: 10px;
+    width:400px
 }
 
 #edit-board-secret-label p:first-of-type {
@@ -87,7 +89,8 @@
 }
 
 #edit-board-secret-label input {
-    transform: scale(1.5)
+    transform: scale(1.5);
+    width: auto;
 
 
 }
@@ -207,16 +210,53 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    margin-top: 10px;
+    margin-top: 14px;
 }
 
 #edit-board-collaborator-modal-container i{
    color: #1a1a1a;
    font-size: 23px;
+   margin-bottom: 5px;
+
 }
 
 #edit-board-owner-auth-reminder{
     width: 400px;
     text-align: left;
     margin-top: 10px;
+}
+
+.edit-board-add-collaborator-button-container{
+    width:48px;
+    height:48px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+.edit-board-add-collaborator-button-container-red{
+    width:48px;
+    height:48px;
+    background-color:  rgb(230, 17, 17);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.edit-board-add-collaborator-button-container-red i{
+    color: white;
+}
+
+#detail-collaborator-modal-invite-button-container{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#detail-collaborator-modal-invite-button-container p{
+     margin-left: 10px;
 }

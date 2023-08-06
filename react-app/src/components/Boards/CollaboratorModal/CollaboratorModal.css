@@ -34,9 +34,11 @@ body.active-modal {
   line-height: 1.4;
   background: #f1f1f1;
   padding: 14px 28px;
-  border-radius: 3px;
+  border-radius: 20px;
   max-width: 600px;
   min-width: 300px;
+  z-index: 100;
+  opacity: 1;
 }
 
 .close-modal {
@@ -55,23 +57,16 @@ body.active-modal {
   border-bottom: 1px solid rgb(189, 183, 183);
 }
 
-
 .collaborator-container {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
 }
 
-
-.collaborator-info{
+.collaborator-info {
   margin-top: 10px;
 }
 
-.modal-content{
-  border-radius: 20px;
-
-}
-
-.sub-title-modal{
+.sub-title-modal {
   margin-top: 10px;
 }

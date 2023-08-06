@@ -24,3 +24,4 @@ class BoardUser(db.Model):
 
     users = db.relationship('User', back_populates='board_users')
     boards = db.relationship('Board', back_populates='board_users')
+

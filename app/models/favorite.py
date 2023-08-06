@@ -24,3 +24,12 @@ class Favorite(db.Model):
     user = db.relationship('User', back_populates='favorite')
     board = db.relationship('Board', back_populates='favorite')
     pin = db.relationship('Pin', back_populates='favorite')
+
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'board_id': self.board_id,
+            'pin_id': self.pin_id
+        }

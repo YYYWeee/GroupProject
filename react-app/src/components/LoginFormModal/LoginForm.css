@@ -25,6 +25,7 @@
   padding: 10px;
   cursor: pointer;
   margin-bottom: 1rem;
+  /* box-shadow: 2px 2px gray; */
 }
 
 .demo-btn:hover {
@@ -51,5 +52,7 @@
 }
 
 .not-on {
+  color: #111;
+  opacity: 1;
   margin-right: 0;
 }

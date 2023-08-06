@@ -1,13 +1,13 @@
-import React, {useState, useEffect, useRef} from "react";
-import {useDispatch} from "react-redux";
-import {useHistory} from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-import {logout} from "../../store/session";
+import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
-function ProfileButton({user}) {
+function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -63,13 +63,19 @@ function ProfileButton({user}) {
               <img
                 src={user.photo_url}
                 alt="No creator preview"
-                className="commenter-img"
+                className="sessionuser-img a85"
               ></img>
             ) : (
-              <img className="fas fa-user-circle" />
+              <img
+                className="nav-user-pic a85"
+                src="https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+              />
             )}
           </button>
-          <button onClick={openUserMenu} className="menu-arrow cursor">
+          <button
+            onClick={openUserMenu}
+            className="menu-arrow cursor btn-animation"
+          >
             <i
               className={`fa-solid fa-chevron-${profileArrowDirection} arrow`}
             ></i>

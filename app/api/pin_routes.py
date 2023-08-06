@@ -5,11 +5,14 @@ from flask_login import login_required, current_user
 from .AWS_helpers import upload_file_to_s3, get_unique_filename
 from .auth_routes import validation_errors_to_error_messages
 
-from app.models import db, Pin, Comment, Favorite, User, Board, BoardUser
+from app.models import db, Pin, Comment, Favorite, User, Board, BoardUser, PinBoard
 from app.forms.comment_form import CommentForm
 from app.forms.edit_comment_form import EditCommentForm
 from ..forms.pin_post_forms import PinForm
 from ..forms.pin_update_forms import EditPinForm
+from sqlalchemy import and_, case
+from sqlalchemy.sql import func
+
 
 pin_routes = Blueprint('pins', __name__)
 
@@ -32,12 +35,30 @@ def get_one_pin(pinId):
     if not pin:
         return jsonify({"message": "Pin not found"}), 404
     response = pin.to_dict()
+
+    # get all boards the session user have
     if current_user.is_authenticated:
+        # all_boards = Board.query \
+        #     .join(BoardUser) \
+        #     .filter(and_(BoardUser.user_id == current_user.id, BoardUser.role.in_(['owner', 'collaborator']))) \
+        #     .order_by(BoardUser.updated_at).all()
+
+        # sessionUserBoards = [board.to_dict_simple() for board in all_boards]
+        # response["sessionUserBoards"] = sessionUserBoards
+
         all_boards = Board.query \
             .join(BoardUser) \
-            .filter(BoardUser.user_id == current_user.id, BoardUser.role.in_(['owner', 'collaborator'])) \
-            .order_by(BoardUser.updated_at).all()
-        sessionUserBoards = [board.to_dict_simple() for board in all_boards]
+            .filter(and_(BoardUser.user_id == current_user.id, BoardUser.role.in_(['owner', 'collaborator']))) \
+            .all()
+
+        subquery = PinBoard.query.with_entities(
+            PinBoard.board_id).filter_by(pin_id=pinId).subquery()
+        sessionUserBoards = []
+        for board in all_boards:
+            singleBoard = board.to_dict_simple()
+            singleBoard["is_pin_existing"] = board.id in [row[0]
+                                                          for row in db.session.query(subquery)]
+            sessionUserBoards.append(singleBoard)
         response["sessionUserBoards"] = sessionUserBoards
     return response
     # response["creator"] = pin.user.to_dict()
@@ -57,6 +78,8 @@ def get_one_pin(pinId):
 @pin_routes.route('', methods=["POST"])
 @login_required
 def new_pin():
+    print('Backend now!!!!!!!', current_user)
+
     form = PinForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     # count = Pin.query.all().count
@@ -78,8 +101,19 @@ def new_pin():
         )
 
         db.session.add(new_pin)
+
+        # now we only allow new pin created in default board
+        # add new pin to default board of session user
+        default_board = Board.query.filter(and_(
+            Board.owner_id == current_user.id, Board.is_default == True)).first()
+        new_pin_in_board = PinBoard(
+            pin_id=new_pin.id,
+            board_id=default_board.id,
+        )
+        db.session.add(new_pin_in_board)
+        default_board.updated_at = func.now()
         db.session.commit()
-        # return {"new Pin": new_pin.to_dict()}
+        return {"new Pin": new_pin.to_dict()}
 
     print(form.errors)
     return {"errors": validation_errors_to_error_messages(form.errors)}

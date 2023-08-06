@@ -23,32 +23,47 @@ function SinglePinDetails() {
   const targetPin = useSelector((state) =>
     state.pins.singlePin ? state.pins.singlePin : {}
   );
+  const [selectedBoard, setSelectedBoard] = useState("");
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [selectedBoard, setSelectedBoard] = useState(null);
+
+  useEffect(() => {
+    let savedOnes =
+      (targetPin.sessionUserBoards &&
+        Object.values(targetPin.sessionUserBoards) &&
+        Object.values(targetPin.sessionUserBoards).filter(
+          (board) => board.is_pin_existing === true
+        )) ||
+      [];
+    savedOnes.sort((a, b) =>
+      a.is_default === b.is_default ? 0 : a.is_default ? 1 : -1
+    );
+    if (savedOnes.length > 0) {
+      setSelectedBoard(savedOnes[0]);
+    }
+  }, [targetPin]);
 
   const selectBoard = (board) => {
     setSelectedBoard(board);
   };
 
-  useEffect(() => {
-    (async () => {
-      console.log(selectedBoard);
-      await fetch(`/api/boards/${selectedBoard?.id}/pins/${targetPin?.id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    })();
-  }, [selectedBoard, targetPin]);
+  // useEffect(() => {
+  //   (async () => {
+  //     console.log(selectedBoard);
+  //     await fetch(`/api/boards/${selectedBoard?.id}/pins/${targetPin?.id}`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //   })();
+  // }, [selectedBoard, targetPin]);
 
   const { closeModal } = useModal();
 
   const openMenu = (e) => {
-    e.stopPropagation();
     if (showMenu) return;
     setShowMenu(true);
   };
@@ -60,13 +75,14 @@ function SinglePinDetails() {
     window.scroll(0, 0);
   };
 
-  // const handleClickSave =()=> {
-  //   const response = await fetch(`/api/${}`)
-  // }
-
   const boardLists =
     targetPin?.sessionUserBoards &&
-    Object.values(targetPin?.sessionUserBoards).sort((a, b) => a.id - b.id);
+    Object.values(targetPin?.sessionUserBoards).sort((a, b) => {
+      if (a.is_default !== b.is_default) {
+        return a.is_default ? -1 : 1;
+      }
+      return new Date(b.updated_at) - new Date(a.updated_at);
+    });
 
   useEffect(() => {
     if (!showMenu) return;
@@ -95,10 +111,15 @@ function SinglePinDetails() {
     setShowUpdateForm(true);
   };
 
+  // useEffect(() => {
+  //   dispatch(fetchOnePinThunk(pinId)).then(setIsLoaded(true));
+  //   window.scroll(0, 0);
+  // }, [dispatch, pinId]);
+
   useEffect(() => {
     dispatch(fetchOnePinThunk(pinId)).then(setIsLoaded(true));
     window.scroll(0, 0);
-  }, [dispatch, pinId]);
+  }, []);
 
   return showUpdateForm === true ? (
     <EditPin pin={targetPin} setShowUpdateForm2={setShowUpdateForm} />
@@ -106,9 +127,9 @@ function SinglePinDetails() {
     <section className="single-pin-container">
       <main className="single-pin-upper-container">
         <div className="for-you-container">
-          <NavLink exact to="/pins" className="for-you">
+          <NavLink exact to="/pins" className="for-you a90">
             <span>
-              <i className={"fa-solid fa-arrow-left arrow left-arrow "}></i>
+              <i className={"fa-solid fa-arrow-left arrow left-arrow a90"}></i>
             </span>
             {sessionUser && <span className="for-you"> For you</span>}
           </NavLink>
@@ -135,7 +156,7 @@ function SinglePinDetails() {
             <div className="btns-board">
               {sessionUser && targetPin.owner_id === sessionUser.id ? (
                 <button
-                  className="update-btn"
+                  className="update-btn a90"
                   onClick={() => handleUpdate(targetPin)}
                 >
                   <i className="fa-solid fa-pen-to-square fa-lg"></i>
@@ -156,29 +177,22 @@ function SinglePinDetails() {
                 </div>
               )}
               {sessionUser && (
-                <div>
-                  <button onClick={openMenu} className="nav-create cursor">
+                <div className="save-trick">
+                  <button onClick={openMenu} className="nav-create1 cursor">
                     <span className="pin-board-name">
-                      {selectedBoard?.name}
+                      {selectedBoard.name || "Boards"}
                     </span>{" "}
                     <i
                       className={`fa-solid fa-chevron-${profileArrowDirection} arrow`}
                     ></i>
                   </button>
-                  <div
-                    className={ulClassName}
-                    ref={ulRef}
-                    // onClick={handleGetUserAllBoards}
-                  >
+                  <button className="save cursor a95" onClick={openMenu}>
+                    Save
+                  </button>
+                  <div className={ulClassName} ref={ulRef}>
                     <div className="save-to-board-container">
                       <div>
-                        <div
-                          className="save-to-board"
-                          // onClick={handleClickSave}
-                        >
-                          Save
-                        </div>
-                        (
+                        <div className="save-to-board">Save</div>
                         <div className={`save-to-board-context`}>
                           {boardLists &&
                             boardLists.length > 0 &&
@@ -187,11 +201,10 @@ function SinglePinDetails() {
                                 key={board?.id}
                                 onClick={() => selectBoard(board)}
                               >
-                                <SaveToBoardCard board={board} />
+                                <SaveToBoardCard board={board} pinId={pinId} />
                               </div>
                             ))}
                         </div>
-                        )
                       </div>
                     </div>
                     <div
@@ -208,12 +221,12 @@ function SinglePinDetails() {
                       </div>
                     </div>
                   </div>
-                  <button
+                  {/* <button
                     className="save cursor"
                     // onClick={handleAddPinToBoard}
                   >
                     Save
-                  </button>
+                  </button> */}
                 </div>
               )}
             </div>
@@ -233,7 +246,7 @@ function SinglePinDetails() {
                     src={
                       targetPin?.creator?.photo_url
                         ? targetPin?.creator?.photo_url
-                        : "no preview img"
+                        : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
                     }
                     alt="No creator preview"
                     className="creator-img cursor"
@@ -249,7 +262,12 @@ function SinglePinDetails() {
                 </div>
                 <div>
                   {sessionUser && (
-                    <button className="follow-btn cursor">Follow</button>
+                    <button
+                      className="follow-btn cursor"
+                      onClick={() => alert("Feature coming soon!")}
+                    >
+                      Follow
+                    </button>
                   )}
                 </div>
               </div>
@@ -259,10 +277,7 @@ function SinglePinDetails() {
           </div>
         </div>
       </main>
-      <div className="more-like-this">More like this</div>
-      <div className="more-like-this">More like this</div>
-      <div className="more-like-this">More like this</div>
-      <div className="more-like-this">More like this</div>
+      <div className="more-like-this"></div>
     </section>
   );
 }

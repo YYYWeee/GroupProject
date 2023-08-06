@@ -15,8 +15,17 @@ function OpenModalButton({
     if (onButtonClick) onButtonClick();
   };
 
-  const btnClassName =
-    buttonText === "Log In" ? "login cursor" : "signup cursor";
+  let btnClassName;
+  if (buttonText === "Log In") {
+    btnClassName = "login cursor";
+  } else if (buttonText === "Save") {
+    btnClassName = "save cursor";
+  } else {
+    btnClassName = "signup cursor";
+  }
+
+  // const btnClassName =
+  //   buttonText === "Log In" ? "login cursor" : "signup cursor";
   return (
     <button onClick={onClick} className={btnClassName}>
       {buttonText}

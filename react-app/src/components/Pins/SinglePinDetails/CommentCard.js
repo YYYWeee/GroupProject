@@ -31,7 +31,12 @@ function CommentCard({ comment }) {
             onClick={handleClickUser}
           ></img>
         ) : (
-          <i className="fas fa-user-circle" />
+          <img
+            src="https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+            alt="No creator preview"
+            className="commenter-img cursor"
+            onClick={handleClickUser}
+          ></img>
         )}
       </div>
       <div className="comment-card-right">

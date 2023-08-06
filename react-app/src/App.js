@@ -13,6 +13,8 @@ import PostPinForm from "./components/PostPinForm";
 import CurrentUser from "./components/CurrentUser/CurrentUser";
 import SingleBoardDetails from "./components/Boards/SingleBoardDetails/SingleBoardDetails";
 import CreateBoard from "./components/Boards/CreateBoard/CreateBoard";
+import Footer from "./components/Footer";
+import Favorite from "./components/Favorite";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      <div>
+      <div className="main-body">
         {isLoaded && (
           <Switch>
             <Route exact path="/">
@@ -48,6 +50,9 @@ function App() {
             <Route exact path="/:username/board-builder">
               <CreateBoard />
             </Route>
+            <Route exact path="/:username/board/:boardId/favorite">
+              <Favorite />
+            </Route>
             <Route exact path="/:username/board/:boardId">
               <SingleBoardDetails />
             </Route>
@@ -56,6 +61,7 @@ function App() {
             </Route>
           </Switch>
         )}
+        <Footer />
       </div>
     </>
   );

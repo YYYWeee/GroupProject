@@ -24,6 +24,8 @@
 
 .single-pin-container {
   padding: 12px 16px;
+  padding-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 .single-pin-upper-container {
@@ -67,6 +69,7 @@
   display: flex;
   padding-bottom: 32px;
   position: relative;
+  /* overflow: hidden; */
 }
 
 .pin-img-container {
@@ -128,7 +131,7 @@
 /* right */
 .pin-right-container {
   padding: 0 32px;
-  max-height: 1200px;
+  max-height: 1100px;
   width: 496px;
 }
 
@@ -151,7 +154,7 @@
   justify-content: flex-end;
 }
 
-.save {
+.save-log-out {
   color: var(--white);
   background-color: #e60023;
   border: none;
@@ -164,6 +167,7 @@
 }
 
 .update-btn {
+  color: #111111;
   background-color: transparent;
   border-radius: 50%;
   border: none;
@@ -177,7 +181,39 @@
   border-radius: 50%;
 }
 
+.save {
+  color: white;
+  background-color: #e60023;
+  /* border: none; */
+  font-weight: 600;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 60px;
+  min-width: 60px;
+  min-height: 48px;
+  border: 1px solid #e60023;
+  margin-right: 12px;
+}
+
 .save:hover {
+  background-color: #ad081b;
+}
+
+.save4 {
+  color: white;
+  background-color: #e60023;
+  /* border: none; */
+  font-weight: 600;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 60px;
+  min-width: 60px;
+  min-height: 48px;
+  border: 1px solid #e60023;
+  /* margin-right: 12px; */
+}
+
+.save4:hover {
   background-color: #ad081b;
 }
 
@@ -214,9 +250,6 @@
   -webkit-line-clamp: 1;
   line-clamp: 1;
   -webkit-box-orient: vertical; */
-
-  overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
@@ -314,6 +347,7 @@
   height: 32px;
   border-radius: 50%;
   border: 1px solid grey;
+  object-fit: cover;
 }
 
 .commenter-bold {
@@ -353,11 +387,11 @@
 /* reactions & add a comment */
 .comments-container {
   position: sticky;
-  bottom: 0px;
-  z-index: 1;
+  bottom: 50px;
+  z-index: 0;
   background-color: white;
   padding-top: 8px;
-  padding-bottom: 4px;
+  padding-bottom: 11px;
 }
 
 .comment-stats-container {
@@ -419,7 +453,6 @@
 .comment-input-box:focus-within {
   border-color: #d3d3d3 !important;
   background-color: white;
-  cursor: text;
   outline: none;
 }
 
@@ -438,6 +471,7 @@
   resize: none;
   /* overflow: hidden; */
   vertical-align: center;
+  cursor: pointer;
 }
 
 .comment-btn {
@@ -469,6 +503,7 @@
 
 .more-like-this {
   text-align: center;
+  margin-bottom: 32px;
 }
 
 /* emoji  */

@@ -22,7 +22,7 @@ def seed_pins():
     },
         {  # 3 board7
         "owner_id": 1,
-        "image_url": 'https://media.discordapp.net/attachments/1134270927769698500/1134703078436765777/5.jpg',
+        "image_url": 'https://i.pinimg.com/564x/43/35/3a/43353a88ecd2afb61d25876bcd574899.jpg',
         "title": 'Spring Tour: Part II-- Family Room — Design Loves Detail',
         "description": 'Finding your design style can be hard, but it doesn\'t have to be. Start by taking this design style quiz',
         "link": 'https://www.designlovesdetail.com/recentposts/spring-tour-part-ii-family-room/',

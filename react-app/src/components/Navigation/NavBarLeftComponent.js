@@ -58,7 +58,11 @@ function NavBarLeftComponent({ user }) {
       {user ? (
         <div className="header-left-container">
           <button onClick={handleClick} className="logo cursor">
-            <img src='https://cdn.discordapp.com/attachments/1134270927769698500/1136745653691764736/pinlogo_copy.png' alt="PinThis" id="navigation-title-img"/>
+            <img
+              src="https://cdn.discordapp.com/attachments/1134270927769698500/1136745653691764736/pinlogo_copy.png"
+              alt="PinThis"
+              id="navigation-title-img1"
+            />
           </button>
           <NavLink exact to="/pins" className="nav-home cursor">
             Home
@@ -79,7 +83,10 @@ function NavBarLeftComponent({ user }) {
               </div>
             </div>
           </div>
-          <div className="nav-search">
+          <div
+            className="nav-search"
+            onClick={() => alert("Feature coming soon!")}
+          >
             <i className="fas fa-search"></i>
             <input className="search-input" placeholder="Search" />
           </div>
@@ -87,7 +94,11 @@ function NavBarLeftComponent({ user }) {
       ) : (
         <div className="header-left-container">
           <button onClick={handleClickLanding} className="logo cursor">
-            PinThis
+            <img
+              src="https://cdn.discordapp.com/attachments/1134270927769698500/1136745653691764736/pinlogo_copy.png"
+              alt="PinThis"
+              id="navigation-title-img1"
+            />
           </button>
           <NavLink exact to="/pins" className="nav-home">
             Explore
