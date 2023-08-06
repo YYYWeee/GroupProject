@@ -23,6 +23,9 @@ def seed_board_users():
         {"user_id": 5, "board_id": 15, "role": 'owner'},
         {"user_id": 6, "board_id": 16, "role": 'owner'},
 
+        {"user_id": 2, "board_id": 7, "role": 'collaborator'},
+        {"user_id": 4, "board_id": 7, "role": 'collaborator'},
+        {"user_id": 6, "board_id": 7, "role": 'collaborator'},
         {"user_id": 1, "board_id": 12, "role": 'collaborator'},
         {"user_id": 1, "board_id": 15, "role": 'collaborator'},
         {"user_id": 2, "board_id": 15, "role": 'collaborator'},

@@ -10,7 +10,8 @@ favorite_routes = Blueprint('favorites', __name__)
 @favorite_routes.route('/<int:boardId>/<int:pinId>', methods=['DELETE'])
 @login_required
 def unfavorite_pin(pinId, boardId):
-    fav_pin = Favorite.query.filter_by(pin_id=pinId, board_id=boardId).first()
+    fav_pin = Favorite.query.filter_by(
+        pin_id=pinId, board_id=boardId, user_id=current_user.id).first()
 
     if fav_pin:
         db.session.delete(fav_pin)
@@ -18,7 +19,7 @@ def unfavorite_pin(pinId, boardId):
         # return {"Response": "Successfully unfavorited this pin"}
         return {"board_id": boardId, "pin_id": pinId, "user_id": current_user.id}
     else:
-        return {"Response": "Could not unfavorite this pin"}
+        return {"Response": "Could not unfavorite this pin as you never favorited it in this board"}
 
 # unfavoriate a pin in a board
 
@@ -30,9 +31,10 @@ def favorite_pin(boardId, pinId):
     if not pin:
         return jsonify({"error": "Pin not found"}), 404
 
-    favorite = Favorite.query.filter_by(board_id=boardId, pin_id=pinId).first()
+    favorite = Favorite.query.filter_by(
+        board_id=boardId, pin_id=pinId, user_id=current_user.id).first()
     if favorite:
-        return jsonify({"error": "Pin is already favorited"}), 400
+        return jsonify({"error": "You already favorited this pin in this board"}), 408
 
     new_favorite = Favorite(
         board_id=boardId, pin_id=pinId, user_id=current_user.id)
