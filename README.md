@@ -14,12 +14,12 @@ The file explorer is accessible using the button in left corner of the navigatio
  2. Install dependencies
 - Backend
 ```bash
-      pipenv install`
+      pipenv install
   ```
   
  - Frontend
 ```bash
-      npm start
+      npm install
   ```
 
 3. Create a  **.env**  file based on the example with proper settings for your development environment, you should have these key in the  **.env**  file .
