@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllPinsThunk } from "../../../store/pins";
+import PinCard from "../../Pins/PinsList/PinCard";
 
-import FavoriteBoardPin from "./FavoriteBoardPin";
-
-function BoardPinsList({ pins, boardId, hasAuthToEdit }) {
+function FavPinsList({ showFavs }) {
+  const dispatch = useDispatch();
   const history = useHistory();
-  const sessionUser = useSelector((state) => state.session.user);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const board = useSelector((state) => state.boards.singleBoard);
+
+  let pins;
+  if (showFavs) {
+    pins = board?.associated_pins.filter(
+      (pin) => pin.sessionIsFavorited === true
+    );
+  }
+
   pins?.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
   // calculate the height/width ratio for all images
@@ -34,7 +44,6 @@ function BoardPinsList({ pins, boardId, hasAuthToEdit }) {
   };
 
   const defaultRatios = [0.75, 1, 1.25, 1.5, 1.78, 1.83, 2, 2.3];
-
   const closestRatios = [];
   for (let goal of imageRatios) {
     const closest = defaultRatios.reduce(function (prev, curr) {
@@ -53,29 +62,30 @@ function BoardPinsList({ pins, boardId, hasAuthToEdit }) {
   // console.log("closestRatios", closestRatios);
   // console.log("keysList", keysList);
 
+  useEffect(() => {
+    dispatch(fetchAllPinsThunk()).then(setIsLoaded(true));
+    window.scroll(0, 0);
+  }, [dispatch]);
+
+  const handleClickLink = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className="pin-container1">
-      {pins?.map((pin, index) => (
+    <div className="pin-container">
+      {pins.map((pin, index) => (
         // <PinsListCard key={pin.id} pin={pin} />
-        <div key={index} className={`card-container1 ${keysList[index]}`}>
-          <img
-            src={pin.image_url ? pin.image_url : "no preview img"}
-            alt="No pin preview"
-            onLoad={(e) => handleImageLoad(e, index)}
-            className="pin-card-img one zoom"
-            onClick={() => history.push(`/pins/${pin.id}`)}
-          ></img>
-          {hasAuthToEdit && (
-            <FavoriteBoardPin
-              pin={pin}
-              boardId={boardId}
-              hasAuthToEdit={hasAuthToEdit}
-            />
-          )}
-        </div>
+        <PinCard
+          key={index}
+          pin={pin}
+          index={index}
+          keysList={keysList}
+          handleImageLoad={handleImageLoad}
+          handleClickLink={handleClickLink}
+        />
       ))}
     </div>
   );
 }
 
-export default BoardPinsList;
+export default FavPinsList;

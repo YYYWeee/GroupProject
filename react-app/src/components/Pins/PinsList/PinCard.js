@@ -3,7 +3,14 @@ import { useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 import EditPin from "../EditPin";
 
-function PinCard({ pin, index, keysList, handleImageLoad, handleClickLink }) {
+function PinCard({
+  pin,
+  index,
+  keysList,
+  handleImageLoad,
+  handleClickLink,
+  forFavBoardPins,
+}) {
   const sessionUser = useSelector((state) => state.session.user);
   const history = useHistory();
   const [showUpdateForm, setShowUpdateForm] = useState(false);
@@ -21,7 +28,7 @@ function PinCard({ pin, index, keysList, handleImageLoad, handleClickLink }) {
           src={pin.image_url ? pin.image_url : "no preview img"}
           alt="No pin preview"
           onLoad={(e) => handleImageLoad(e, index)}
-          className="pin-card-img"
+          className={`pin-card-img ${forFavBoardPins ? "zoom" : ""}`}
         ></img>
         {/* {imageRatios[index] && <p>h/w Ratio: {imageRatios[index]}</p>} */}
         {pin?.link && (
