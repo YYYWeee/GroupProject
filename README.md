@@ -1,6 +1,6 @@
 # Welcome to PinThis!
 
-PinThis is a Pinterest clone where users have full CRUD on Pin, Board, Comments functions, and partial CRUD on Favorite function. The backend of PinThis is built on Python with a PostgreSQL database. Frontend rendering is handled with React.
+PinThis is a Pinterest clone where users have full CRUD on Pin, Board, Comments and favorite functions. The backend of PinThis is built on Python with a PostgreSQL database. Frontend rendering is handled with React.
 Check out a live version of PinThis [here](https://pinthis.onrender.com/)
 
 ## Technologies Used
@@ -8,7 +8,6 @@ Check out a live version of PinThis [here](https://pinthis.onrender.com/)
 
 
 ## Getting started
-The file explorer is accessible using the button in left corner of the navigation bar. You can create a new file by clicking the **New file** button in the file explorer. You can also create folders by clicking the **New folder** button.
 
  1. Clone this repository
  2. Install dependencies
