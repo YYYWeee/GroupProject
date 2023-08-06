@@ -57,3 +57,61 @@ The file explorer is accessible using the button in left corner of the navigatio
     -   `pipenv run flask run`
 -   frontend :
     -   `npm start`
+ 
+   
+## Landing Page
+![2023-08-05 23 17 58](https://github.com/YYYWeee/GroupProject/assets/63111667/abc3190d-c994-45f5-997e-d85cbdc24681)
+
+
+## Sign up & Log in 
+![2023-08-05 23 32 35](https://github.com/YYYWeee/GroupProject/assets/63111667/3a51d653-638d-4005-99fd-22a54b71c737)
+
+
+## Home Page
+![Screenshot 2023-08-05 at 11 37 14 PM](https://github.com/YYYWeee/GroupProject/assets/63111667/ce9dad08-8fed-4ef9-8b75-5dc772b16a31)
+
+
+## Pin detail page
+![2023-08-05 23 36 00](https://github.com/YYYWeee/GroupProject/assets/63111667/00cac2a8-b4cf-409c-8bbc-45aeafed7ca5)
+
+
+## Create Pin page
+
+![2023-08-05 23 39 50](https://github.com/YYYWeee/GroupProject/assets/63111667/dc15357b-0977-451c-852c-ec3700930d88)
+
+
+## All Boards belong to  specific user page
+
+
+
+## Board detail page
+
+
+
+
+
+## Features
+### Pins
+* Users should be able to view all posted Pins.
+* Users should be able to create new posts.
+* Users should be able to update their posts
+* Users should be able to delete their posts.
+
+  
+### Boards
+* Users should be able to view all boards on a user's profile.
+* Users should be able to create new boards and add/remove Pins.
+* Users should be able to update their boards.
+* Users should be able to delete their boards.
+
+
+### Comments 
+* Users should be able to view all comments on a pin.
+* Users should be able to create new comments on a pin.
+* Users should be able to delete their comment from a pin.
+
+
+### Favorites (partial CRUD)
+* Users should be able to see all Pins they favorited.
+* Users should be able to favorite Pins.
+* Users should be able to unfavorite Pins.
