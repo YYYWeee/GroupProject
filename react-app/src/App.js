@@ -50,9 +50,9 @@ function App() {
             <Route exact path="/:username/board-builder">
               <CreateBoard />
             </Route>
-            <Route exact path="/:username/board/:boardId/favorite">
+            {/* <Route exact path="/:username/board/:boardId/favorite">
               <Favorite />
-            </Route>
+            </Route> */}
             <Route exact path="/:username/board/:boardId">
               <SingleBoardDetails />
             </Route>
