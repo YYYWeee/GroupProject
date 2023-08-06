@@ -7,9 +7,11 @@ import OpenModalButton from "../../OpenModalButton";
 import EditBoard from "../EditBoard";
 import DeleteBoard from "../DeleteBoard";
 import CollaboratorModal from "../CollaboratorModal";
+import PinsList from "../../Pins/PinsList/PinsList";
 
 import "./SingleBoard.css";
 import BoardPinsList from "./BoardPinsList";
+import FavPinsList from "./FavPinsList";
 
 export default function SingleBoardDetails() {
   const dispatch = useDispatch();
@@ -84,115 +86,133 @@ export default function SingleBoardDetails() {
   if (!singleBoard) return null;
   if (!singleBoard.collaborators) return null;
 
+  // const favPins = singleBoard?.associated_pins.filter(
+  //   (pin) => pin.sessionIsFavorited === true
+  // );
+
   return (
-    <div className="b-details">
-      <div className="b-title">
-        <div className="b-title-container truncate">
-          {singleBoard.name}
-          <div className="combine-btn-dropdown">
-            {!singleBoard.is_default && hasAuthToEdit && (
-              <i
-                className="fa-solid fa-ellipsis dots-btn a87"
-                onClick={openMenu}
-              ></i>
-            )}
-            <div
-              className={"dropdown-menu" + (showMenu ? "" : " hidden")}
-              ref={ulRef1}
-            >
-              <div className="dropdown-title">Board options</div>
-              <div className="create-item" onClick={closeMenu}>
-                {hasAuthToEdit && (
-                  <OpenModalButton
-                    buttonText="Edit Board"
-                    onItemClick={closeMenu}
-                    modalComponent={<EditBoard board={singleBoard} />}
-                  />
-                )}
-              </div>
-              <div className="create-item" onClick={closeMenu}>
-                {isOwner && (
-                  <OpenModalButton
-                    buttonText="Delete Board"
-                    onItemClick={closeMenu}
-                    modalComponent={<DeleteBoard board={singleBoard} />}
-                  />
-                )}
+    <>
+      <div className="b-details">
+        <div className="b-title">
+          <div className="b-title-container truncate">
+            {singleBoard.name}
+            <div className="combine-btn-dropdown">
+              {!singleBoard.is_default && hasAuthToEdit && (
+                <i
+                  className="fa-solid fa-ellipsis dots-btn a87"
+                  onClick={openMenu}
+                ></i>
+              )}
+              <div
+                className={"dropdown-menu" + (showMenu ? "" : " hidden")}
+                ref={ulRef1}
+              >
+                <div className="dropdown-title">Board options</div>
+                <div className="create-item" onClick={closeMenu}>
+                  {hasAuthToEdit && (
+                    <OpenModalButton
+                      buttonText="Edit Board"
+                      onItemClick={closeMenu}
+                      modalComponent={<EditBoard board={singleBoard} />}
+                    />
+                  )}
+                </div>
+                <div className="create-item" onClick={closeMenu}>
+                  {isOwner && (
+                    <OpenModalButton
+                      buttonText="Delete Board"
+                      onItemClick={closeMenu}
+                      modalComponent={<DeleteBoard board={singleBoard} />}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="user-list">
-          <div className="profile-pic-list" onClick={toggleModal}>
-            {!singleBoard.is_default && (
-              <div className="collaborator-list a87" onClick={toggleModal}>
-                {singleBoard.collaborators.map((user, index) => (
-                  <div key={index} className="creator-img1 ">
-                    <img
-                      src={
-                        user.photo_url
-                          ? user.photo_url
-                          : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
-                      }
-                      alt="No pin preview"
-                      className="creator-img2 "
-                    ></img>
-                  </div>
-                ))}
-                {isOwner && (
-                  <div className="creator-img1">
-                    <i class="fa-solid fa-plus plus-collab"></i>
-                  </div>
-                )}
-              </div>
-            )}
+          <div className="user-list">
+            <div className="profile-pic-list" onClick={toggleModal}>
+              {!singleBoard.is_default && (
+                <div className="collaborator-list a87" onClick={toggleModal}>
+                  {singleBoard.collaborators.map((user, index) => (
+                    <div key={index} className="creator-img1 ">
+                      <img
+                        src={
+                          user.photo_url
+                            ? user.photo_url
+                            : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+                        }
+                        alt="No pin preview"
+                        className="creator-img2 "
+                      ></img>
+                    </div>
+                  ))}
+                  {isOwner && (
+                    <div className="creator-img1">
+                      <i class="fa-solid fa-plus plus-collab"></i>
+                    </div>
+                  )}
+                </div>
+              )}
 
-            {modal && (
-              <CollaboratorModal isOpen={modal} onClose={toggleModal} />
-            )}
+              {modal && (
+                <CollaboratorModal isOpen={modal} onClose={toggleModal} />
+              )}
+            </div>
           </div>
+          <div className="board-des">
+            <div className="board-description">{singleBoard.description}</div>
+          </div>
+          {singleBoard.is_secret === true && (
+            <div className="secret-text">
+              <i className="fa-solid fa-lock secret2"></i>Secret Board
+            </div>
+          )}
         </div>
-        <div className="board-des">
-          <div className="board-description">{singleBoard.description}</div>
-        </div>
-        {singleBoard.is_secret === true && (
-          <div className="secret-text">
-            <i className="fa-solid fa-lock secret2"></i>Secret Board
+        {hasAuthToEdit && (
+          <div className="board-created-container">
+            <div className="board-created-btn">
+              <button
+                onClick={handleClickFavorite}
+                className={`board-created a97 ${!showPins ? "focuss" : ""}`}
+              >
+                Favorited
+              </button>
+            </div>
+
+            <div className="board-created-btn">
+              <button
+                onClick={handleClickAllPins}
+                className={`board-created a97 ${showPins ? "focuss" : ""}`}
+              >
+                Saved
+              </button>
+            </div>
           </div>
         )}
-      </div>
-      {hasAuthToEdit && (
-        <div className="board-created-container">
-          <div className="board-created-btn">
-            <button
-              onClick={handleClickFavorite}
-              className={`board-created a97 ${!showPins ? "focuss" : ""}`}
-            >
-              Favorites
-            </button>
-          </div>
-
-          <div className="board-created-btn">
-            <button
-              onClick={handleClickAllPins}
-              className={`board-created a97 ${showPins ? "focuss" : ""}`}
-            >
-              Saved
-            </button>
-          </div>
-        </div>
-      )}
-      <div className="num-board-pins">
-        {singleBoard?.associated_pins?.length}{" "}
-        {singleBoard?.associated_pins?.length === 1 ? "Pin" : "Pins"}
-      </div>
-      <div className="user-pins-masonary">
-        {singleBoard?.associated_pins?.length === 0 ? (
-          "There aren't any Pins on this board yet"
+        {showPins ? (
+          <>
+            <div className="num-board-pins">
+              {singleBoard?.associated_pins?.length}{" "}
+              {singleBoard?.associated_pins?.length === 1 ? "Pin" : "Pins"}
+            </div>
+            <div className="user-pins-masonary">
+              {singleBoard?.associated_pins?.length === 0 ? (
+                "There aren't any Pins on this board yet"
+              ) : (
+                <BoardPinsList
+                  pins={singleBoard?.associated_pins}
+                  boardId={singleBoard?.id}
+                  hasAuthToEdit={hasAuthToEdit}
+                />
+              )}
+            </div>
+          </>
         ) : (
-          <BoardPinsList pins={singleBoard?.associated_pins} />
+          <div className="user-pins-masonary">
+            <FavPinsList showFavs={true} />
+          </div>
         )}
       </div>
-    </div>
+    </>
   );
 }

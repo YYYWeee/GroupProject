@@ -7,9 +7,23 @@ const RECEIVE_BOARD = "board/RECEIVE_BOARD";
 
 const EDIT_BOARD = "board/EDIT_BOARD";
 
-const ADD_BOARD_COLLABORATOR = 'board/ADD_BOARD_COLLABORATOR'
+const ADD_BOARD_COLLABORATOR = "board/ADD_BOARD_COLLABORATOR";
 
 const DELETE_BOARD = "boards/DELETE_BOARD";
+
+const ADD_PINFAVORITE = "boards/ADD_PINFAVORITE";
+const DELETE_PINFAVORITE = "boards/DELETE_PINFAVORITE";
+
+/**  Action Creators: */
+const addFavorite = (payload) => ({
+  type: ADD_PINFAVORITE,
+  payload,
+});
+
+const deleteFavorite = (payload) => ({
+  type: DELETE_PINFAVORITE,
+  payload,
+});
 
 /**  Action Creators: */
 export const loadAllBoards = (payload) => ({
@@ -33,9 +47,9 @@ export const editBoard = (board) => ({
 });
 
 export const addBoardCollaborator = (board) => ({
-  type:ADD_BOARD_COLLABORATOR,
-  board
-})
+  type: ADD_BOARD_COLLABORATOR,
+  board,
+});
 
 export const deleteBoard = (boardId) => ({
   type: DELETE_BOARD,
@@ -101,23 +115,23 @@ export const fetchEditBoardThunk = (board) => async (dispatch) => {
   }
 };
 
-export const fetchAddBoardCollaborator = (board) => async(dispatch)=> {
-  const res = await fetch(`/api/boards/${board.id}/collaborator/new`,{
-    method:'POST',
-    headers:{
-      'Content-Type': 'application/json'
-  },
-  body:JSON.stringify(board)
-  })
-  if(res.ok){
+export const fetchAddBoardCollaborator = (board) => async (dispatch) => {
+  const res = await fetch(`/api/boards/${board.id}/collaborator/new`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(board),
+  });
+  if (res.ok) {
     const data = await res.json();
     dispatch(addBoardCollaborator(data));
     return data;
-  }else{
+  } else {
     const data = await res.json();
     throw data;
   }
-}
+};
 
 export const fetchDeleteBoardThunk = (boardId) => async (dispatch) => {
   const res = await fetch(`/api/boards/${boardId}`, {
@@ -149,6 +163,43 @@ export const addPinToBoardThunk = (pinId, boardId) => async (dispatch) => {
   }
 };
 
+// Favorites thunks
+export const fetchDeleteFavThunk = (boardId, pinId) => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/favorites/${boardId}/${pinId}`, {
+      method: "DELETE",
+    });
+    console.log("del fav thunk went to backend");
+    if (res.ok) {
+      const unfavorite = await res.json();
+      dispatch(deleteFavorite(unfavorite));
+    }
+  } catch (err) {
+    console.log("There was something wrong with unfavoriting this pin", err);
+  }
+};
+
+export const fetchAddFavoriteThunk = (boardId, pinId) => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/favorites/${boardId}/${pinId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.ok) {
+      const favorite = await res.json();
+      console.log(favorite);
+      dispatch(addFavorite(favorite));
+    } else {
+      console.log("Failed to add favorite pin");
+    }
+  } catch (err) {
+    console.log("There was something wrong with adding the favorite pin", err);
+  }
+};
+
 /** Boards Reducer: */
 const initialState = { allBoards: {}, singleBoard: {}, boardUser: {} };
 
@@ -175,8 +226,8 @@ const boardsReducer = (state = initialState, action) => {
     case EDIT_BOARD: {
       return { ...state, singleBoard: { ...action.board } };
     }
-    case ADD_BOARD_COLLABORATOR:{
-      return {...state,singleBoard:{...action.board}}
+    case ADD_BOARD_COLLABORATOR: {
+      return { ...state, singleBoard: { ...action.board } };
     }
     case DELETE_BOARD: {
       const newState = {
@@ -186,6 +237,35 @@ const boardsReducer = (state = initialState, action) => {
       };
       delete newState.allBoards[action.boardId];
       delete newState.singleBoard[action.boardId];
+      return newState;
+    }
+    case ADD_PINFAVORITE: {
+      //need pinId, userId
+      // const newState ={
+      //   ...state,
+      //   allBoards: { ...state.allBoards },
+      //   singleBoard: {...state.singleBoard, }
+      // }
+      const newState = { ...state };
+      const pinFavAdded = newState.singleBoard.associated_pins.find(
+        (pin) => pin.id === action.payload.pin_id
+      );
+      pinFavAdded.favorites.push(action.user_id);
+      // newState.singleBoard.associated_pins.favorites.push(action.user.id);
+      return newState;
+    }
+    case DELETE_PINFAVORITE: {
+      const newState = { ...state };
+      const pinFavDeleted = newState.singleBoard.associated_pins.find(
+        (pin) => pin.id === action.payload.pin_id
+      );
+
+      const userIndexRemoved = pinFavDeleted.favorites.indexOf(
+        action.payload.user_id
+      );
+      if (userIndexRemoved !== -1) {
+        pinFavDeleted.favorites.splice(userIndexRemoved, 1);
+      }
       return newState;
     }
 

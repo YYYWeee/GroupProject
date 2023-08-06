@@ -78,13 +78,25 @@ def get_board(id):
         filter(BoardUser.board_id == id).all()
     response['collaborators'] = [col.to_dict() for col in collaborators]
 
-    # fnding all pins for this board
+    # finding all pins for this board
     associated_pins = db.session.query(Pin).\
         join(PinBoard, Pin.id == PinBoard.pin_id).\
         filter(PinBoard.board_id == id).all()
     # associated_pins = board.pins  # a list of associated pin
-    response['associated_pins'] = [col.to_dict()
-                                   for col in associated_pins]
+    # response['associated_pins'] = [col.to_dict()
+    #                                for col in associated_pins]
+
+    # start finding all favorites userIds for each pin
+    response["associated_pins"] = []
+    for pin in associated_pins:
+        pin_dict = pin.to_dict()
+        favorites = db.session.query(Favorite.user_id).filter_by(
+            board_id=id, pin_id=pin.id).all()
+        pin_dict["favorites"] = [fav.user_id for fav in favorites]
+        if current_user:
+            pin_dict["sessionIsFavorited"] = True if current_user.id in pin_dict["favorites"] else False
+        response["associated_pins"].append(pin_dict)
+    # END
     return response
 
 

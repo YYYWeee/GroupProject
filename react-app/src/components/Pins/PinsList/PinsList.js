@@ -123,16 +123,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllPinsThunk } from "../../../store/pins";
 import PinCard from "./PinCard";
 
-function PinsList({ targetUser }) {
+function PinsList({ targetUser, showFavs }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
+  const board = useSelector((state) => state.boards.singleBoard);
   let pins = Object.values(
     useSelector((state) => (state.pins.allPins ? state.pins.allPins : {}))
   );
 
   if (targetUser) {
     pins = pins?.filter((pin) => pin.owner_id === targetUser.id);
+  }
+
+  if (showFavs) {
+    pins = board?.associated_pins.filter(
+      (pin) => pin.sessionIsFavorited === true
+    );
   }
 
   pins?.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));

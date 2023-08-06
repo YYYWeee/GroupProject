@@ -15,7 +15,8 @@ def unfavorite_pin(pinId, boardId):
     if fav_pin:
         db.session.delete(fav_pin)
         db.session.commit()
-        return {"Response": "Successfully unfavorited this pin"}
+        # return {"Response": "Successfully unfavorited this pin"}
+        return {"board_id": boardId, "pin_id": pinId, "user_id": current_user.id}
     else:
         return {"Response": "Could not unfavorite this pin"}
 
