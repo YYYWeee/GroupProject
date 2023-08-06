@@ -47,7 +47,7 @@ export default function SingleBoardDetails() {
   }, [dispatch, boardId]);
 
   let isOwner;
-  if (sessionUser.id === singleBoard?.owner_id) {
+  if (sessionUser && sessionUser?.id === singleBoard?.owner_id) {
     isOwner = true;
   } else {
     isOwner = false;
