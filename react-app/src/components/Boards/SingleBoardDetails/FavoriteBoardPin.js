@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   fetchAddFavoriteThunk,
   fetchDeleteFavThunk,
@@ -7,6 +8,8 @@ import {
 
 function FavoriteBoardPin({ pin, boardId, hasAuthToEdit }) {
   const dispatch = useDispatch();
+  const { username } = useParams();
+
   const sessionUser = useSelector((state) => state.session.user);
   const [numFavorites, setNumFavorites] = useState(pin.favorites.length);
   const [isFavorited, setIsFavorited] = useState(pin.sessionIsFavorited);

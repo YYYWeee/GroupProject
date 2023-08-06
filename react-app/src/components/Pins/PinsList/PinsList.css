@@ -49,6 +49,7 @@
   transform: translateX(-50%);
   justify-content: center;
   box-sizing: border-box;
+  z-index: -1;
 }
 
 .card-container {
@@ -100,7 +101,7 @@
   object-fit: cover;
   resize: none;
   border-radius: 16px;
-
+  z-index: -1 !important;
   visibility: hidden;
   /* opacity: 0;
   -webkit-animation: pin-card-img ease-in 1;
