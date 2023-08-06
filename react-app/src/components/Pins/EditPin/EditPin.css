@@ -108,6 +108,10 @@ input {
   border-radius: 60px;
 }
 
+.save-button:hover {
+  background-color: var(--btn-red-hover);
+}
+
 .cancel-button,
 .delete-pin {
   width: 70px;
@@ -122,6 +126,10 @@ input {
   z-index: 1000;
 }
 
+.cancel-button:hover {
+  background-color: var(--btn-grey-hover);
+}
+
 .button-container {
   display: flex;
   flex-direction: row;
@@ -131,8 +139,8 @@ input {
   width: 270px;
   height: 400px;
   border-radius: 8px;
-  border: 1px solid rgb(238, 238, 238);
-  background-color: rgb(238, 238, 238);
+  /* border: 1px solid rgb(238, 238, 238);
+  background-color: rgb(238, 238, 238); */
   margin-left: 10px;
   margin-right: 10px;
   padding: 20px 15px;

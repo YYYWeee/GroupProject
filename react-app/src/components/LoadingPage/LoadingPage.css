@@ -1,0 +1,14 @@
+.spinner {
+  width: 100%;
+  position: absolute;
+  top: 18%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.loading-text {
+  font-size: 24px !important;
+  color: #111;
+}

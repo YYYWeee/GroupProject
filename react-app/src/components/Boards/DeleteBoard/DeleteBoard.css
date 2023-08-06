@@ -21,7 +21,7 @@
   padding: 5px;
   border-radius: 20px;
   color: white;
-  background-color: red;
+  background-color: var(--pinterest-red);
   border: none;
   margin-left: 1rem;
   width: 5rem;

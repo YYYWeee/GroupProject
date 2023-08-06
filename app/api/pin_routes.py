@@ -113,7 +113,7 @@ def new_pin():
         db.session.add(new_pin_in_board)
         default_board.updated_at = func.now()
         db.session.commit()
-        return {"new Pin": new_pin.to_dict()}
+        return new_pin.to_dict()
 
     print(form.errors)
     return {"errors": validation_errors_to_error_messages(form.errors)}
@@ -142,6 +142,22 @@ def edit_pin(pinId):
 
         db.session.commit()
         response = target_pin.to_dict()
+
+        if current_user.is_authenticated:
+            all_boards = Board.query \
+                .join(BoardUser) \
+                .filter(and_(BoardUser.user_id == current_user.id, BoardUser.role.in_(['owner', 'collaborator']))) \
+                .all()
+
+            subquery = PinBoard.query.with_entities(
+                PinBoard.board_id).filter_by(pin_id=pinId).subquery()
+            sessionUserBoards = []
+            for board in all_boards:
+                singleBoard = board.to_dict_simple()
+                singleBoard["is_pin_existing"] = board.id in [row[0]
+                                                              for row in db.session.query(subquery)]
+                sessionUserBoards.append(singleBoard)
+            response["sessionUserBoards"] = sessionUserBoards
         return response
     if form.errors:
         print(form.errors)

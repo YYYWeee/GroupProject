@@ -46,7 +46,7 @@ export const fetchOnePinThunk = (pinId) => async (dispatch) => {
   if (res.ok) {
     const data = await res.json();
     dispatch(loadOnePinAction(data));
-    return data;
+    // return data;
   } else {
     const errors = await res.json();
     return errors;
@@ -61,10 +61,11 @@ export const createNewPinThunk = (pin) => async (dispatch) => {
   console.log("RESPONSE FROM SERVER", response);
 
   if (response.ok) {
-    const { newPin } = await response.json();
+    const newPin = await response.json();
     console.log("NEW PIN DATA", newPin);
     // dispatch(addPin(newPin));
     dispatch(loadOnePinAction(newPin));
+    return newPin;
   } else {
     console.log("There was an error making your pin!");
   }

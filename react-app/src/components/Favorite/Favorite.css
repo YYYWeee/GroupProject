@@ -6,7 +6,7 @@
 .pin-fav-img {
   width: 10rem;
   margin: 1rem;
-  border: 1px solid red;
+  border: 1px solid var(--pinterest-red);
   height: 13rem;
   object-fit: cover;
   border-radius: 24px;

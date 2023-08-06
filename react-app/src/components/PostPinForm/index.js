@@ -103,7 +103,7 @@ function PostPinForm() {
     }
     console.log("formData", formDataObject);
 
-    await dispatch(createNewPinThunk(formData));
+    const data = await dispatch(createNewPinThunk(formData));
 
     setTitle("");
     setDescription("");
@@ -112,7 +112,8 @@ function PostPinForm() {
     setImage("");
     setValidationErrors([]);
     setHasSubmitted(false);
-    history.push("/pins");
+    // history.push("/pins");
+    history.push(`/pins/${data.id}`);
   };
 
   return (
@@ -153,7 +154,7 @@ function PostPinForm() {
 
             <div className="rightContainer">
               <div className="saveButton-container">
-                <button type="submit" className="saveButton">
+                <button type="submit" className="saveButton a95">
                   Save
                 </button>
               </div>

@@ -5,6 +5,8 @@ import { fetchAllBoardsThunk } from "../../store/boards";
 import BoardCard from "./BoardCard";
 import "./CurrentUser.css";
 import PinsList from "../Pins/PinsList/PinsList";
+import PageNotFound from "../PageNotFound";
+import LoadingPage from "../LoadingPage";
 
 export default function CurrentUser() {
   const dispatch = useDispatch();
@@ -17,10 +19,9 @@ export default function CurrentUser() {
   const boardUser = useSelector((state) => {
     return state.boards.boardUser;
   });
-  const boards = useSelector((state) => {
+  let boards = useSelector((state) => {
     return Object.values(state.boards.allBoards);
   });
-
   const handleClickCreated = () => {
     if (!showBoards) return;
     setShowBoards(false);
@@ -55,6 +56,11 @@ export default function CurrentUser() {
 
     return () => document.removeEventListener("click", closeMenu1);
   }, [showMenu1]);
+
+  // hide those private boards if session user is not current boardUser.
+  if (sessionUser.id !== boardUser.id) {
+    boards = boards.filter((board) => !board.is_secret);
+  }
 
   // sort all the boards: default board All pins always show at first,
   // then sort feature boards by updated_at
@@ -116,7 +122,11 @@ export default function CurrentUser() {
     dispatch(fetchAllBoardsThunk(username));
   }, [dispatch, username]);
 
-  if (!boards) return null;
+  if (!boardUser || (boardUser && Object.keys(boardUser).length === 0)) {
+    return <LoadingPage />;
+  }
+  // if (allUsers && !allUsers.some((user) => user.username === username))
+  //   return <PageNotFound />;
 
   return (
     <div className="curr-user-wrap">

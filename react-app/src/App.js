@@ -14,7 +14,8 @@ import CurrentUser from "./components/CurrentUser/CurrentUser";
 import SingleBoardDetails from "./components/Boards/SingleBoardDetails/SingleBoardDetails";
 import CreateBoard from "./components/Boards/CreateBoard/CreateBoard";
 import Footer from "./components/Footer";
-import Favorite from "./components/Favorite";
+// import Favorite from "./components/Favorite";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,9 @@ function App() {
             </Route>
             <Route exact path="/:username">
               <CurrentUser />
+            </Route>
+            <Route path="*">
+              <PageNotFound />
             </Route>
           </Switch>
         )}

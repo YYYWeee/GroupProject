@@ -181,11 +181,11 @@ export default function EditBoard({ board }) {
                 ))}
               </div>
               {!isOwner && (
-                <div id="edit-board-collaborator-modal-container">
+                <div id="edit-board-collaborator-modal-container a85">
                   <EditBoardModalHelper
                     className="open-collaborator-invite"
                     itemText={
-                      <div className="edit-board-add-collaborator-button-container">
+                      <div className="edit-board-add-collaborator-button-container a90">
                         <i class="fa-solid fa-plus"></i>
                       </div>
                     }
@@ -236,6 +236,7 @@ export default function EditBoard({ board }) {
                 type="button"
                 onClick={() => handleNotOwnerSubmit()}
                 id="edit-board-submit-button"
+                className="a90"
               >
                 Done
               </button>

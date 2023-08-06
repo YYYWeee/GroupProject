@@ -69,7 +69,7 @@ export default function InviteCollaborator({ board, isInDetailPage }) {
           className="open-edit-board"
           itemText={
             <div id="invite-collaborator-back-icon">
-              <i className="fa-solid fa-chevron-left"></i>
+              <i className="fa-solid fa-chevron-left go-back-invite"></i>
             </div>
           }
           // onModalClose = {handleCollaboratorDataFromModal}
@@ -128,7 +128,7 @@ export default function InviteCollaborator({ board, isInDetailPage }) {
               type="button"
               onClick={() => handleAddCollaborator(user)}
               disabled={InvitedUsers[user.id]}
-              className="collaborator-invite-button"
+              className="collaborator-invite-button a85"
             >
               {InvitedUsers[user.id] ? "Invited" : "Invite"}
             </button>

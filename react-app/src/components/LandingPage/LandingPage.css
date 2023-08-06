@@ -90,7 +90,8 @@ html {
 } */
 
 #second-container {
-  background: url("https://s.pinimg.com/webapp/shop-bd0c8a04.png") no-repeat center center;
+  background: url("https://s.pinimg.com/webapp/shop-bd0c8a04.png") no-repeat
+    center center;
   background-size: cover;
   display: flex;
   flex-direction: row;
@@ -111,7 +112,7 @@ html {
 
 /* in case the text also get reduced opacity. */
 #third-container::before {
-  background-image: url('https://media.discordapp.net/attachments/1134270927769698500/1137080048885715026/Screenshot_2023-08-04_at_12.47.32_PM.png');
+  background-image: url("https://media.discordapp.net/attachments/1134270927769698500/1137080048885715026/Screenshot_2023-08-04_at_12.47.32_PM.png");
   background-size: cover;
   position: absolute;
   content: "";
@@ -146,7 +147,6 @@ html {
   margin-right: 20px;
 }
 
-
 /* #first-container {
   background-color: #e34f26;
 }
@@ -158,7 +158,6 @@ html {
 #third-container {
   background-color: #333;
 }
-
 
 #third-container {
   display: flex;
@@ -177,10 +176,9 @@ html {
   font-size: 8vh;
 }
 
-
 .explore {
   color: white;
-  background-color: red;
+  background-color: #e60023;
   font-weight: 600;
   text-decoration: none;
   padding: 16px;
@@ -189,7 +187,6 @@ html {
   margin-left: 20px;
   padding-bottom: 20px;
   border-top: 20px;
-
 }
 
 .right {
