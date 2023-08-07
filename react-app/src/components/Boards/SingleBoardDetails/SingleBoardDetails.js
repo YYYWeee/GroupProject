@@ -23,6 +23,9 @@ export default function SingleBoardDetails() {
   const [showMenu, setShowMenu] = useState(false);
   const sessionUser = useSelector((state) => state.session.user);
   const [modal, setModal] = useState(false);
+  const targetPins = useSelector(
+    (state) => state.boards.singleBoard.associated_pins
+  );
 
   const [showPins, setShowPins] = useState(true);
   const handleClickFavorite = () => {

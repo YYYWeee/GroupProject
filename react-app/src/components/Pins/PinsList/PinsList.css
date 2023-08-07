@@ -58,7 +58,7 @@
   margin-left: 8px;
   margin-right: 8px;
   border-radius: 16px;
-  /* position: relative; */
+  position: relative;
   /* background-color: transparent; */
 }
 
@@ -102,8 +102,8 @@
   object-fit: cover;
   resize: none;
   border-radius: 16px;
-  /* z-index: 5 !important; */
-  /* visibility: hidden; */
+  z-index: -1 !important;
+  visibility: hidden;
   /* opacity: 0;
   -webkit-animation: pin-card-img ease-in 1;
   -moz-animation: pin-card-img ease-in 1;
@@ -215,6 +215,6 @@
   background-color: #d3d3d3;
 }
 
-.card-container:hover .aa1 {
+.card-container.aa1:hover {
   opacity: 1;
 }

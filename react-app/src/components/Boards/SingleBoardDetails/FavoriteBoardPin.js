@@ -11,8 +11,8 @@ function FavoriteBoardPin({ pin, boardId, hasAuthToEdit }) {
   const { username } = useParams();
 
   const sessionUser = useSelector((state) => state.session.user);
-  const [numFavorites, setNumFavorites] = useState(pin.favorites.length);
-  const [isFavorited, setIsFavorited] = useState(pin.sessionIsFavorited);
+  const [numFavorites, setNumFavorites] = useState(pin?.favorites?.length);
+  const [isFavorited, setIsFavorited] = useState(pin?.sessionIsFavorited);
   const handleStarClick = async (e) => {
     if (isFavorited) {
       setIsFavorited(false);
