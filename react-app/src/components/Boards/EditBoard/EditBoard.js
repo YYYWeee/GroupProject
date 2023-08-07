@@ -127,7 +127,7 @@ export default function EditBoard({ board }) {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Like:'Place to Go' or 'Recipes to Make"
+                  placeholder='Like: "Place to Go" or "Recipes to Make"'
                 ></input>
                 {errors.name && <div className="errors">{errors.name}</div>}
               </label>
@@ -181,11 +181,11 @@ export default function EditBoard({ board }) {
                 ))}
               </div>
               {!isOwner && (
-                <div id="edit-board-collaborator-modal-container">
+                <div id="edit-board-collaborator-modal-container a85">
                   <EditBoardModalHelper
                     className="open-collaborator-invite"
                     itemText={
-                      <div className="edit-board-add-collaborator-button-container">
+                      <div className="edit-board-add-collaborator-button-container a90">
                         <i class="fa-solid fa-plus"></i>
                       </div>
                     }
@@ -231,11 +231,12 @@ export default function EditBoard({ board }) {
             </div>
           )}
           {!isOwner && (
-            <div id="edit-board-submit-button-container">
+            <div id="edit-board-submit-button-container" className="a87">
               <button
                 type="button"
                 onClick={() => handleNotOwnerSubmit()}
                 id="edit-board-submit-button"
+                className="a87"
               >
                 Done
               </button>

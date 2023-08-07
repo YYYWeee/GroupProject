@@ -12,6 +12,8 @@ import SaveToBoardCard from "./SaveToBoardCard";
 import OpenModalButton from "../../OpenModalButton";
 import LoginFormModal from "../../LoginFormModal";
 import { useModal } from "../../../context/Modal";
+import PageNotFound from "../../PageNotFound";
+import LoadingPage from "../../LoadingPage";
 
 function SinglePinDetails() {
   const { pinId } = useParams();
@@ -108,7 +110,13 @@ function SinglePinDetails() {
     window.scrollTo(0, 0);
   };
   const handleUpdate = (pin) => {
+    setShowMenu(false);
     setShowUpdateForm(true);
+  };
+
+  const handleClickGoBack = () => {
+    setShowMenu(false);
+    window.history.back();
   };
 
   // useEffect(() => {
@@ -117,9 +125,13 @@ function SinglePinDetails() {
   // }, [dispatch, pinId]);
 
   useEffect(() => {
-    dispatch(fetchOnePinThunk(pinId)).then(setIsLoaded(true));
+    const res = dispatch(fetchOnePinThunk(pinId));
     window.scroll(0, 0);
   }, []);
+
+  if (!targetPin || (targetPin && Object.keys(targetPin).length === 0)) {
+    return <LoadingPage />;
+  }
 
   return showUpdateForm === true ? (
     <EditPin pin={targetPin} setShowUpdateForm2={setShowUpdateForm} />
@@ -127,12 +139,10 @@ function SinglePinDetails() {
     <section className="single-pin-container">
       <main className="single-pin-upper-container">
         <div className="for-you-container">
-          <NavLink exact to="/pins" className="for-you a90">
-            <span>
-              <i className={"fa-solid fa-arrow-left arrow left-arrow a90"}></i>
-            </span>
-            {sessionUser && <span className="for-you"> For you</span>}
-          </NavLink>
+          <span className="for-you a85 cursor" onClick={handleClickGoBack}>
+            <i className={"fa-solid fa-arrow-left arrow left-arrow a85"}></i>
+          </span>
+          {sessionUser && <span className="for-you"> For you</span>}
         </div>
         <div className="pin-main-container">
           <div className="pin-img-container">
@@ -211,7 +221,7 @@ function SinglePinDetails() {
                       className="cursor create-item2"
                       onClick={handleCreateBoardInPin}
                     >
-                      <div className="single-save-board-left">
+                      <div className="single-save-board-left a99">
                         <div className="save-board-img-container plus">
                           <i className="fa-solid fa-plus"></i>
                         </div>

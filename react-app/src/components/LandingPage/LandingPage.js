@@ -1,9 +1,8 @@
-
 import SignupFormModal from "../SignupFormModal";
 import OpenModalButton from "../OpenModalButton";
 import { useHistory } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
-import Splash from "./Splash"
+import Splash from "./Splash";
 import "./LandingPage.css";
 
 function LandingPage() {
@@ -12,13 +11,12 @@ function LandingPage() {
   const handleExplore = async (e) => {
     e.preventDefault();
     history.push(`/pins`);
-    console.log('button')
+    console.log("button");
   };
 
   return (
-    <>
-
-      <nav class="navbar-Landing">
+    <div className="landing">
+      <nav class="navbar-Landing land">
         <ul>
           {/* <li>1</li>
           <li>2</li>
@@ -31,19 +29,23 @@ function LandingPage() {
         </button>
       </nav>
 
-      <div className="intro">
+      <section className="intro">
         <Splash />
-      </div>
+      </section>
       {/* <div id="first-container" className="container"><h2>Save ideas you like</h2></div> */}
-      <div id="second-container" className="container">
-        <h2>See it, make it, try it, do it<a href="/pins" className="explore">explore</a></h2>
+      <section id="second-container" className="container">
+        <h2>
+          See it, make it, try it, do it
+          <a href="/pins" className="explore">
+            Explore
+          </a>
+        </h2>
         <div className="button-container">
           {/* <button type="submit" className="explore" onClick={handleExplore}>Explore</button> */}
           {/* <a href="/pins" className="explore">explore</a> */}
-
         </div>
-      </div>
-      <div id="third-container" className="container">
+      </section>
+      <section id="third-container" className="container">
         <div className="left">
           <div className="sign-up-left-text">
             {/* <div className="signup1">Sign up to get your idea</div> */}
@@ -53,10 +55,9 @@ function LandingPage() {
         <div className="right">
           <SignupFormModal />
         </div>
-      </div>
-
-    </>
-  )
+      </section>
+    </div>
+  );
 }
 
 export default LandingPage;

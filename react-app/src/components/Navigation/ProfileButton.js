@@ -31,7 +31,10 @@ function ProfileButton({ user }) {
     window.scrollTo(0, 0);
   };
 
-  const closeMenu = () => setShowMenu(false);
+  const closeMenu = () => {
+    setShowMenu(false);
+    window.scrollTo(0, 0);
+  };
 
   const profileArrowDirection = showMenu ? "up" : "down";
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");

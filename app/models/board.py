@@ -63,6 +63,7 @@ class Board(db.Model):
 
         return {
             'id': self.id,
+            'owner_id': self.owner_id,
             'name': self.name,
             'is_default': self.is_default,
             'is_secret': self.is_secret,

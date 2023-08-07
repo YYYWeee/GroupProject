@@ -431,6 +431,7 @@
   height: 48px;
   border-radius: 50%;
   border: 1px solid grey;
+  object-fit: cover;
 }
 
 .comment-input-box {

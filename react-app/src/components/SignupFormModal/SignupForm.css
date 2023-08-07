@@ -15,7 +15,7 @@
 }
 
 .the-errors {
-  color: red;
+  color: var(--pinterest-red);
 }
 
 .sign-label {
@@ -86,7 +86,7 @@
 }
 
 .sign-err {
-  color: red;
+  color: var(--pinterest-red);
 }
 
 .pwicon {
@@ -95,4 +95,15 @@
   left: 11rem;
   transform: translateY(-50%);
   cursor: pointer;
+}
+
+.switch-login button {
+  border-radius: 16px;
+  background-color: white !important;
+  font-weight: 600;
+}
+
+.switch-login button:hover {
+  background-color: white !important;
+  opacity: 1;
 }

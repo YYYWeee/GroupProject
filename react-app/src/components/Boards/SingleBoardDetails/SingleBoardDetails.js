@@ -8,10 +8,12 @@ import EditBoard from "../EditBoard";
 import DeleteBoard from "../DeleteBoard";
 import CollaboratorModal from "../CollaboratorModal";
 import PinsList from "../../Pins/PinsList/PinsList";
+import PageNotFound from "../../PageNotFound";
 
 import "./SingleBoard.css";
 import BoardPinsList from "./BoardPinsList";
 import FavPinsList from "./FavPinsList";
+import LoadingPage from "../../LoadingPage";
 
 export default function SingleBoardDetails() {
   const dispatch = useDispatch();
@@ -39,6 +41,9 @@ export default function SingleBoardDetails() {
   const singleBoard = useSelector((state) => {
     return state.boards.singleBoard;
   });
+  const boardUser = useSelector((state) => {
+    return state.boards.boardUser;
+  });
 
   console.log("this is single board!@!!", singleBoard);
 
@@ -55,8 +60,9 @@ export default function SingleBoardDetails() {
 
   let hasAuthToEdit;
   if (
+    sessionUser &&
     singleBoard?.collaborators?.find(
-      (collaborator) => collaborator.id === sessionUser.id
+      (collaborator) => collaborator?.id === sessionUser?.id
     )
   ) {
     hasAuthToEdit = true;
@@ -83,8 +89,19 @@ export default function SingleBoardDetails() {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
-  if (!singleBoard) return null;
-  if (!singleBoard.collaborators) return null;
+  if (!singleBoard || Object.keys(singleBoard).length === 0) {
+    return <LoadingPage />;
+  }
+
+  // if (singleBoard && singleBoard.errors) return <PageNotFound />;
+  // if (
+  //   singleBoard?.collaborators &&
+  //   boardUser &&
+  //   !singleBoard.collaborators?.some(
+  //     (collaborator) => collaborator.username === boardUser.username
+  //   )
+  // )
+  //   return <PageNotFound />;
 
   // const favPins = singleBoard?.associated_pins.filter(
   //   (pin) => pin.sessionIsFavorited === true
@@ -133,7 +150,7 @@ export default function SingleBoardDetails() {
             <div className="profile-pic-list" onClick={toggleModal}>
               {!singleBoard.is_default && (
                 <div className="collaborator-list a87" onClick={toggleModal}>
-                  {singleBoard.collaborators.map((user, index) => (
+                  {singleBoard?.collaborators?.map((user, index) => (
                     <div key={index} className="creator-img1 ">
                       <img
                         src={
@@ -148,7 +165,7 @@ export default function SingleBoardDetails() {
                   ))}
                   {isOwner && (
                     <div className="creator-img1">
-                      <i class="fa-solid fa-plus plus-collab"></i>
+                      <i className="fa-solid fa-plus plus-collab"></i>
                     </div>
                   )}
                 </div>

@@ -2,6 +2,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
+}
+
+.collaborator-user-image:hover {
+  filter: brightness(87%);
 }
 
 #collaborators-modal-container {
@@ -23,9 +28,27 @@
   z-index: 1000;
 }
 
+.collaborator-user-image-container p:hover {
+  text-decoration: underline;
+}
+
+#invite-collaborator-back-icon {
+  background-color: transparent;
+  width: max-content;
+  height: fit-content;
+  border-radius: 50%;
+  padding: 3px;
+}
+
+#invite-collaborator-back-icon:hover {
+  background-color: var(--btn-grey);
+  cursor: pointer;
+}
+
 .edit-board-user-image {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 #collaborators-list {
@@ -59,23 +82,26 @@
 }
 
 .collaborator-invite-button {
-  background-color: rgb(230, 17, 17);
+  background-color: var(--pinterest-red);
   border-radius: 20px;
   color: #fff;
-  cursor: pointer;
   padding: 10px 15px;
   margin-bottom: 20px;
   border: none;
+}
+
+.collaborator-invite-button:hover {
+  cursor: pointer;
 }
 
 .collaborator-invite-button:disabled {
   background-color: rgb(184, 184, 184);
   border-radius: 20px;
   color: #fff;
-  cursor: pointer;
   padding: 10px 15px;
   margin-bottom: 20px;
   border: none;
+  cursor: auto;
 }
 
 #invite-collaborator-title-container {

@@ -28,7 +28,9 @@ function PinCard({
           src={pin.image_url ? pin.image_url : "no preview img"}
           alt="No pin preview"
           onLoad={(e) => handleImageLoad(e, index)}
-          className={`pin-card-img ${forFavBoardPins ? "zoom" : ""}`}
+          className={`pin-card-img ${forFavBoardPins ? "zoom" : ""} ${
+            keysList[index]
+          }`}
         ></img>
         {/* {imageRatios[index] && <p>h/w Ratio: {imageRatios[index]}</p>} */}
         {pin?.link && (

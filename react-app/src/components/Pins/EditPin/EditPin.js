@@ -84,6 +84,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
     await dispatch(updatePinThunk(payload, targetPin.id));
     setShowUpdateForm(false);
     setShowUpdateForm2(false);
+    history.push(`/pins/${targetPin.id}`);
   };
   const handleCancel = async (e) => {
     history.push(`/pins/${targetPin.id}`);
@@ -207,14 +208,6 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                   </div>
                   <div className="button-container">
                     <div className="left-btn" ref={ulRef1}>
-                      {/* <button
-                        className="delete-pin"
-                        type="submit"
-                        onClick={handleDelete}
-                      >
-                        Delete
-                      </button> */}
-
                       <OpenModalButton
                         buttonText="Delete"
                         onItemClick={closeMenu}
@@ -224,14 +217,14 @@ function EditPin({ pin, setShowUpdateForm2 }) {
 
                     <div className="right-btn">
                       <button
-                        className="cancel-button"
+                        className="cancel-button cursor a90"
                         type="submit"
                         onClick={handleCancel}
                       >
                         Cancel
                       </button>
                       <button
-                        className="save-button"
+                        className="save-button cursor a90"
                         type="submit"
                         onClick={handleSubmit}
                         disabled={errors.length > 0}
