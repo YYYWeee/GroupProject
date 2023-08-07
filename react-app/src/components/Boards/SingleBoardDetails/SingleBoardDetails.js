@@ -60,8 +60,9 @@ export default function SingleBoardDetails() {
 
   let hasAuthToEdit;
   if (
+    sessionUser &&
     singleBoard?.collaborators?.find(
-      (collaborator) => collaborator.id === sessionUser.id
+      (collaborator) => collaborator?.id === sessionUser?.id
     )
   ) {
     hasAuthToEdit = true;

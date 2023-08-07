@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
-import {useDispatch} from "react-redux";
-import {useHistory} from "react-router-dom";
-import {useModal} from "../../context/Modal";
-import {signUp} from "../../store/session";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useModal } from "../../context/Modal";
+import { signUp } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 
 import "./SignupForm.css";
@@ -22,7 +22,7 @@ function SignupFormModal() {
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [passwordErr, setPasswordErr] = useState({});
-  const {closeModal} = useModal();
+  const { closeModal } = useModal();
 
   useEffect(() => {
     const errorsObj = {};
@@ -202,10 +202,12 @@ function SignupFormModal() {
         </button>
         <div className="on-pinthis">
           <div className="not-on">Already a member? </div>
-          <OpenModalButton
-            buttonText="Log in"
-            modalComponent={<LoginFormModal />}
-          />
+          <div className="switch-login">
+            <OpenModalButton
+              buttonText="Log in"
+              modalComponent={<LoginFormModal />}
+            />
+          </div>
         </div>
       </form>
     </div>

@@ -93,7 +93,7 @@ def get_board(id):
         favorites = db.session.query(Favorite.user_id).filter_by(
             board_id=id, pin_id=pin.id).all()
         pin_dict["favorites"] = [fav.user_id for fav in favorites]
-        if current_user:
+        if current_user.is_authenticated:
             pin_dict["sessionIsFavorited"] = True if current_user.id in pin_dict["favorites"] else False
         response["associated_pins"].append(pin_dict)
     # END

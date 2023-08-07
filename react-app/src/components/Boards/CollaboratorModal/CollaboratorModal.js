@@ -27,7 +27,7 @@ function CollaboratorModal({ isOpen, onClose }) {
   }, []);
 
   let isOwner;
-  if (sessionUser.id === board?.owner_id) {
+  if (sessionUser && sessionUser?.id === board?.owner_id) {
     isOwner = true;
   } else {
     isOwner = false;

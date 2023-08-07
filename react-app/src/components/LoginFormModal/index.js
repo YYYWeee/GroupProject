@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
-import {login} from "../../store/session";
-import {useDispatch} from "react-redux";
-import {useHistory} from "react-router-dom";
-import {useModal} from "../../context/Modal";
+import React, { useState, useEffect } from "react";
+import { login } from "../../store/session";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useModal } from "../../context/Modal";
 import OpenModalButton from "../OpenModalButton";
 import SignupFormModal from "../SignupFormModal";
 import "./LoginForm.css";
@@ -17,7 +17,7 @@ function LoginFormModal() {
   const [formErr, setFormErr] = useState({});
   const [didSubmit, setDidSubmit] = useState(false);
   const [visible1, setVisible1] = useState(false);
-  const {closeModal} = useModal();
+  const { closeModal } = useModal();
 
   useEffect(() => {
     const errorsObj = {};
@@ -37,7 +37,7 @@ function LoginFormModal() {
     e.preventDefault();
     setDidSubmit(true);
     if (Object.keys(formErr).length === 0) {
-      const data = await dispatch(login({email, password}));
+      const data = await dispatch(login({ email, password }));
       if (data) {
         const flattenedData = {};
         data.forEach((item) => {
@@ -62,7 +62,7 @@ function LoginFormModal() {
     setFormErr({});
     setDidSubmit(true);
 
-    await dispatch(login({email, password}));
+    await dispatch(login({ email, password }));
 
     setErrors([]);
     closeModal();

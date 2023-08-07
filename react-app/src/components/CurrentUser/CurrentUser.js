@@ -58,7 +58,7 @@ export default function CurrentUser() {
   }, [showMenu1]);
 
   // hide those private boards if session user is not current boardUser.
-  if (sessionUser.id !== boardUser.id) {
+  if (sessionUser?.id !== boardUser?.id) {
     boards = boards.filter((board) => !board.is_secret);
   }
 
