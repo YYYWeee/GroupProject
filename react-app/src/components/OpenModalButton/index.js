@@ -14,14 +14,16 @@ function OpenModalButton({
     setModalContent(modalComponent);
     if (onButtonClick) onButtonClick();
   };
-
+  console.log(buttonText);
   let btnClassName;
   if (buttonText === "Log In") {
     btnClassName = "login cursor";
   } else if (buttonText === "Save") {
     btnClassName = "save cursor";
-  } else {
+  } else if (buttonText === "Sign Up") {
     btnClassName = "signup cursor";
+  } else {
+    btnClassName = "edit cursor";
   }
 
   // const btnClassName =

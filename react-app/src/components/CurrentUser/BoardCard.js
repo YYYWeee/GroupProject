@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./CurrentUser.css";
 import { calculatedTimePassed } from "../../utils/helper-functions";
+import OpenModalButton from "../OpenModalButton";
+import EditBoard from "../Boards/EditBoard";
 
 export default function BoardCard({ board, boardUser }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -68,8 +70,14 @@ export default function BoardCard({ board, boardUser }) {
           boardUser.id === sessionUser?.id &&
           board?.is_secret && <i className="fa-solid fa-lock secret1"></i>}
         {boardUser?.id === sessionUser?.id && (
-          <div className="aa a83">
-            <i className="fa-solid fa-pen-to-square fa-lg"></i>
+          <div className="aa2 a83">
+            {/* <i className="fa-solid fa-pen-to-square fa-lg"></i>*/}
+            <OpenModalButton
+              buttonText={
+                <i className="fa-solid fa-pen-to-square fa-lg fa-lg3"></i>
+              }
+              modalComponent={<EditBoard board={board} />}
+            />
           </div>
         )}
         <div className="feature-board-left-container">

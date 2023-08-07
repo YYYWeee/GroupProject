@@ -57,7 +57,7 @@ html body {
 }
 
 .a85 {
-  transition: transform 0.2s ease;
+  transition: transform 1s ease;
 }
 
 .a85:active {

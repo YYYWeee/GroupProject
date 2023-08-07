@@ -231,12 +231,12 @@ export default function EditBoard({ board }) {
             </div>
           )}
           {!isOwner && (
-            <div id="edit-board-submit-button-container">
+            <div id="edit-board-submit-button-container" className="a87">
               <button
                 type="button"
                 onClick={() => handleNotOwnerSubmit()}
                 id="edit-board-submit-button"
-                className="a90"
+                className="a87"
               >
                 Done
               </button>

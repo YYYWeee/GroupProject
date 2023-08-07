@@ -178,7 +178,7 @@ html {
 
 .explore {
   color: white;
-  background-color: #e60023;
+  background-color: red;
   font-weight: 600;
   text-decoration: none;
   padding: 16px;
@@ -191,4 +191,18 @@ html {
 
 .right {
   border-radius: 25px;
+}
+
+.landing {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+  width: 101%;
+  position: relative;
+}
+
+section {
+  height: 100vh;
+  scroll-snap-align: start;
+  position: sticky;
 }

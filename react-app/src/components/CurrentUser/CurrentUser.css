@@ -297,8 +297,45 @@
   background-color: #d3d3d3;
 }
 
-.feature-board-container:hover .aa {
+.aa2 {
+  /* padding: 7px !important; */
+  background-color: white !important;
+  position: absolute;
+  bottom: 9px;
+  right: 9px;
+  border-radius: 50%;
+  visibility: hidden;
+}
+
+/* .fa-solid.fa-pen-to-square.fa-lg.fa-lg3 {
+  background-color: white !important;
+  opacity: 1;
+  width: 20px;
+  z-index: 1;
+  position: relative;
+  width: 10px;
+} */
+
+.edit {
+  padding: 8px;
+  background-color: white !important;
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  opacity: 1;
+}
+
+.edit:hover {
+  background-color: var(--btn-grey-hover) !important;
+}
+
+.feature-board-container:hover .aa2 {
   visibility: visible;
+}
+
+.feature-board-container.aa2 i {
+  background-color: white !important;
+  z-index: 1;
 }
 
 .feature-board-container:hover {

@@ -59,6 +59,7 @@
   margin-right: 8px;
   border-radius: 16px;
   position: relative;
+  background-color: transparent;
 }
 
 /* Keyframes for the fade-in */
