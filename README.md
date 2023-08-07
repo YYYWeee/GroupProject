@@ -82,7 +82,9 @@ Check out a live version of PinThis [here](https://pinthis.onrender.com/)
 
 ![2023-08-06 00 14 18](https://github.com/YYYWeee/GroupProject/assets/63111667/272e8267-3a1f-44a4-a597-ca8e69e23f5f)
 
+## Favorite a specific pin 
 
+![2023-08-06 22 32 11](https://github.com/YYYWeee/GroupProject/assets/63111667/7c4b02b3-4ad9-488e-a305-2ae211dc2281)
 
 
 ## Features
@@ -106,7 +108,7 @@ Check out a live version of PinThis [here](https://pinthis.onrender.com/)
 * Users should be able to delete their comment from a pin.
 
 
-### Favorites (partial CRUD)
+### Favorites 
 * Users should be able to see all Pins they favorited.
 * Users should be able to favorite Pins.
 * Users should be able to unfavorite Pins.
