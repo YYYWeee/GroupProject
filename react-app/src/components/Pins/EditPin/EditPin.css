@@ -61,7 +61,7 @@ input {
   background-color: #fff;
   border-radius: 25px;
   width: 850px;
-  height: 800px;
+  height: 720px;
 }
 
 .update-form-container {
@@ -161,6 +161,7 @@ input {
   display: flex;
   flex-direction: row;
   /* justify-content: space-evenly; */
+  outline: none;
 }
 
 input,
@@ -169,6 +170,9 @@ textarea {
   box-sizing: border-box;
   background-color: white;
   /* border: 2px solid red; */
+  padding-left: 8px;
+  padding-top: 12px;
+  outline: none;
 }
 
 .text-input-box,
@@ -191,13 +195,18 @@ label {
   display: flex;
 }
 
+.comment-toggle {
+  padding-top: 12px;
+  align-self: flex-start;
+  display: flex;
+  gap: 12px;
+}
+
 textarea[name="description"]::placeholder {
-  padding-top: 10px;
   text-align: left;
 }
 
 textarea[name="altText"]::placeholder {
-  padding-top: 10px;
   text-align: left;
 }
 
@@ -251,4 +260,9 @@ textarea[name="altText"]::placeholder {
 
 .errors {
   color: #cc0000;
+}
+
+.edit-this-pin {
+  font-size: 24px;
+  color: #111;
 }

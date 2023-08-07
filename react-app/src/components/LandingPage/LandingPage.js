@@ -52,9 +52,7 @@ function LandingPage() {
             <h2 className="signup1">Sign up to get your idea</h2>
           </div>
         </div>
-        <div className="right">
-          <SignupFormModal />
-        </div>
+        <div className="right">{/* <SignupFormModal /> */}</div>
       </section>
     </div>
   );
