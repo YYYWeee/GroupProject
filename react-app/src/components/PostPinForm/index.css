@@ -35,6 +35,8 @@
 }
 
 .saveButton-container {
+  padding-top: 20px;
+  margin-bottom: -10px;
   display: flex;
   justify-content: flex-end;
 }
@@ -59,7 +61,7 @@
   width: 100%;
   font-size: 20px;
   border: none;
-  padding-block: 20px;
+  padding-block: 15px;
   border-bottom: 1px solid rgb(189, 183, 183);
 }
 
@@ -77,7 +79,7 @@
   font-size: 36px;
   border: 0;
   height: 48px;
-  margin-top: 40px;
+  margin-top: 25px;
   box-sizing: border-box;
   border-bottom: 1px solid rgb(189, 183, 183);
 }

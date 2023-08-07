@@ -127,7 +127,7 @@ export default function EditBoard({ board }) {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Like:'Place to Go' or 'Recipes to Make"
+                  placeholder='Like: "Place to Go" or "Recipes to Make"'
                 ></input>
                 {errors.name && <div className="errors">{errors.name}</div>}
               </label>

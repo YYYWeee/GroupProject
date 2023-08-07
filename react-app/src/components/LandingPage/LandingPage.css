@@ -178,7 +178,7 @@ html {
 
 .explore {
   color: white;
-  background-color: red;
+  background-color: var(--pinterest-red);
   font-weight: 600;
   text-decoration: none;
   padding: 16px;

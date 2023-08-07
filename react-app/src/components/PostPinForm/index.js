@@ -123,7 +123,7 @@ function PostPinForm() {
           <div className="form-container">
             <div
               id="leftContainer"
-              className={noPicture ? "no-picture" : ""}
+              className={noPicture ? "no-picture cursor" : "cursor"}
               onClick={() => uploadInput.current.click()}
             >
               <input
