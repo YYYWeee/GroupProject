@@ -7,7 +7,7 @@ import { useModal } from "../../../context/Modal";
 import { deletePinThunk } from "../../../store/pins";
 import "./DeletePinModal.css";
 
-function DeletePinModal({pin}) {
+function DeletePinModal({ pin }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const history = useHistory();
@@ -21,8 +21,6 @@ function DeletePinModal({pin}) {
     closeModal();
     history.push(`/pins`);
   };
-
-
 
   return (
     <>
@@ -41,8 +39,7 @@ function DeletePinModal({pin}) {
         </div>
       </div>
     </>
-  )
+  );
 }
-
 
 export default DeletePinModal;

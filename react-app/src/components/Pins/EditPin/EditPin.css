@@ -74,7 +74,7 @@ input {
   flex-direction: row;
   justify-content: space-around;
   border-bottom: 1px solid rgb(189, 183, 183);
-  padding-bottom: 20px;
+  padding-bottom: 36px;
 }
 
 .right-container {
@@ -169,7 +169,7 @@ textarea {
   border-radius: 10px;
   box-sizing: border-box;
   background-color: white;
-  /* border: 2px solid red; */
+  border: 2px solid #111;
   padding-left: 8px;
   padding-top: 12px;
   outline: none;
@@ -179,6 +179,11 @@ textarea {
 .alt-input-box {
   height: 100px;
   width: 400px;
+  resize: none;
+}
+
+.text-input-box {
+  height: 200px;
 }
 
 #alt-text-textbox:focus {
@@ -212,6 +217,8 @@ textarea[name="altText"]::placeholder {
 
 .button-container {
   padding-top: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
   display: flex;
   justify-content: space-between;
 }
@@ -265,4 +272,5 @@ textarea[name="altText"]::placeholder {
 .edit-this-pin {
   font-size: 24px;
   color: #111;
+  padding-bottom: 16px;
 }

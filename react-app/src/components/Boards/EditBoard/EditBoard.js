@@ -204,7 +204,7 @@ export default function EditBoard({ board }) {
                   <EditBoardModalHelper
                     className="open-collaborator-invite"
                     itemText={
-                      <div className="edit-board-add-collaborator-button-container">
+                      <div className="edit-board-add-collaborator-button-container a85">
                         <i class="fa-solid fa-plus"></i>
                       </div>
                     }

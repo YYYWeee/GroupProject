@@ -87,7 +87,8 @@ function EditPin({ pin, setShowUpdateForm2 }) {
     history.push(`/pins/${targetPin.id}`);
   };
   const handleCancel = async (e) => {
-    history.push(`/pins/${targetPin.id}`);
+    setShowUpdateForm2(false);
+    // history.push(`/pins/${targetPin.id}`);
   };
 
   const handleCommentToggleChange = async (e) => {
@@ -206,34 +207,33 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                       </div>
                     </div>
                   </div>
-                  <div className="button-container">
-                    <div className="left-btn" ref={ulRef1}>
-                      <OpenModalButton
-                        buttonText="Delete"
-                        onItemClick={closeMenu}
-                        modalComponent={<DeletePinModal pin={targetPin} />}
-                      />
-                    </div>
-
-                    <div className="right-btn">
-                      <button
-                        className="cancel-button cursor a90"
-                        type="submit"
-                        onClick={handleCancel}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        className="save-button cursor a90"
-                        type="submit"
-                        onClick={handleSubmit}
-                        disabled={errors.length > 0}
-                      >
-                        Save
-                      </button>
-                    </div>
-                  </div>
                 </form>
+                <div className="button-container">
+                  <div className="left-btn" ref={ulRef1}>
+                    <OpenModalButton
+                      buttonText="Delete"
+                      onItemClick={closeMenu}
+                      modalComponent={<DeletePinModal pin={targetPin} />}
+                    />
+                  </div>
+
+                  <div className="right-btn">
+                    <button
+                      className="cancel-button cursor a90"
+                      onClick={handleCancel}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="save-button cursor a90"
+                      type="submit"
+                      onClick={handleSubmit}
+                      disabled={errors.length > 0}
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

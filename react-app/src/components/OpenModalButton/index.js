@@ -20,7 +20,7 @@ function OpenModalButton({
     btnClassName = "login cursor";
   } else if (buttonText === "Save") {
     btnClassName = "save cursor";
-  } else if (buttonText === "Sign Up") {
+  } else if (buttonText === "Sign Up" || buttonText === "Delete") {
     btnClassName = "signup cursor";
   } else {
     btnClassName = "edit cursor";
