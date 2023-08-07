@@ -14,7 +14,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 80;
   background-color: white;
 
   display: flex;
@@ -66,8 +66,8 @@
 }
 
 #navigation-title-img {
-  width: 27px;
-  height: 27px;
+  width: 36px;
+  height: 36px;
 }
 
 .sessionuser-img {

@@ -3,13 +3,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .log-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: center;
+  width: 80%;
 }
 
 .log-btn {
@@ -19,12 +21,16 @@
 .demo-btn {
   border-radius: 20px;
   background-color: white;
-  color: rgb(225, 22, 22);
-  border: rgb(225, 22, 22) solid 2px;
+  /* color: rgb(225, 22, 22);
+  border: rgb(225, 22, 22) solid 2px; */
+  color: var(--pinterest-red);
+  border: var(--pinterest-red) solid 2px;
+
   width: 11rem;
   padding: 10px;
   cursor: pointer;
   margin-bottom: 1rem;
+  align-self: center;
   /* box-shadow: 2px 2px gray; */
 }
 
@@ -37,6 +43,7 @@
   flex-direction: row;
   align-items: center;
   margin-bottom: 5px;
+  align-self: center;
 }
 
 .on-pinthis > button {

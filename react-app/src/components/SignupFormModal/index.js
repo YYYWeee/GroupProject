@@ -159,7 +159,7 @@ function SignupFormModal() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <div onClick={() => setVisible1(!visible1)} className="pwicon">
+          <div onClick={() => setVisible1(!visible1)} className="pwicon1">
             {visible1 ? (
               <i className="fa-regular fa-eye"></i>
             ) : (
@@ -185,7 +185,7 @@ function SignupFormModal() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          <div onClick={() => setVisible2(!visible2)} className="pwicon">
+          <div onClick={() => setVisible2(!visible2)} className="pwicon1">
             {visible2 ? (
               <i className="fa-regular fa-eye"></i>
             ) : (

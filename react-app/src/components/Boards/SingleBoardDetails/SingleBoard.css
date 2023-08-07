@@ -23,6 +23,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   position: relative;
 }
 
@@ -39,6 +40,12 @@
 .board-des {
   width: 100%;
   background-color: transparent;
+  align-self: center;
+  padding: 0 auto;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .board-description {

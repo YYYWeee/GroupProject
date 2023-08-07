@@ -1,8 +1,9 @@
 .sign-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  width: 80%;
 }
 
 .sign-wrap {
@@ -10,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   width: 27rem;
-  padding: 1rem;
+  padding: 32px;
   position: relative;
 }
 
@@ -25,7 +26,7 @@
   color: rgb(52, 50, 50);
   position: relative;
   align-items: flex-start;
-  margin-right: 4rem;
+  /* margin-right: 4rem; */
 }
 
 #modal-content {
@@ -42,6 +43,7 @@
   cursor: pointer;
   margin-bottom: 1rem;
   border: none;
+  align-self: center;
 }
 
 .continue-btn.inactive {
@@ -61,8 +63,9 @@
   margin-top: 10px;
   /* position: absolute; */
   z-index: 100;
-  color: #111;
+  color: rgb(51, 51, 51);
   opacity: 1;
+  font-weight: 600;
 }
 
 .new-ideas {
@@ -73,8 +76,8 @@
 .sign-input {
   border: lightgray 2px solid;
   border-radius: 10px;
-  width: 13rem;
-  height: 2rem;
+  width: 285px;
+  height: 48px;
 }
 
 .sign-input:focus {
@@ -91,8 +94,18 @@
 
 .pwicon {
   position: absolute;
-  top: 65%;
-  left: 11rem;
+  top: 60%;
+  right: 0;
+  left: 16rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.pwicon1 {
+  position: absolute;
+  top: 60%;
+  right: 0;
+  left: 16rem;
   transform: translateY(-50%);
   cursor: pointer;
 }
