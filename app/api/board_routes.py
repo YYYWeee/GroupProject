@@ -302,7 +302,8 @@ def remove_pin_from_board(boardId, pinId):
         # remove this pin to saved_board
         db.session.delete(pin_found_in_saved)
         db.session.commit()
-        return {"Response": "Successfully remove pin from this board"}
+        return jsonify({"message": "Successfully remove pin from this board"})
+    return jsonify({"message": "Pin not found in this board"}), 404
 
 
 # get all the favorite pins of a board

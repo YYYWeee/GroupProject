@@ -13,6 +13,7 @@ const DELETE_BOARD = "boards/DELETE_BOARD";
 
 const ADD_PINFAVORITE = "boards/ADD_PINFAVORITE";
 const DELETE_PINFAVORITE = "boards/DELETE_PINFAVORITE";
+const REMOVE_PINBOARD = "boards/REMOVE_PINBOARD";
 
 /**  Action Creators: */
 const addFavorite = (payload) => ({
@@ -54,6 +55,11 @@ export const addBoardCollaborator = (board) => ({
 export const deleteBoard = (boardId) => ({
   type: DELETE_BOARD,
   boardId,
+});
+
+export const removePinBoard = (payload) => ({
+  type: REMOVE_PINBOARD,
+  payload,
 });
 
 /** Thunk Action Creators: */
@@ -200,6 +206,21 @@ export const fetchAddFavoriteThunk = (boardId, pinId) => async (dispatch) => {
   }
 };
 
+export const removePinBoardThunk = (boardId, pinId) => async (dispatch) => {
+  const response = await fetch(`/api/boards/${boardId}/pins/${pinId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.ok) {
+    const pin = await response.json();
+    console.log("INSIDE DELETE PIN FROM BOARD THUNK");
+    dispatch(removePinBoard(pinId));
+    return pinId;
+  }
+};
+
 /** Boards Reducer: */
 const initialState = { allBoards: {}, singleBoard: {}, boardUser: {} };
 
@@ -270,7 +291,21 @@ const boardsReducer = (state = initialState, action) => {
       }
       return newState;
     }
+    case REMOVE_PINBOARD: {
+      // const newState = { ...state };
+      // const pinFavDeleted = newState.singleBoard.associated_pins.filter(
+      //   (pin) => pin.id !== action.payload.pinId
+      // );
+      // const newPins = [...pinFavDeleted];
 
+      // const pinIndexRemoved = newState.singleBoard.associated_pins.findIndex(
+      //   (obj) => obj.id === 29
+      // );
+      // if (pinIndexRemoved !== -1) {
+      //   newState.singleBoard.associated_pins.splice(pinIndexRemoved, 1);
+      // }
+      return { ...state };
+    }
     default:
       return state;
   }

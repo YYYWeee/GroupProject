@@ -77,7 +77,7 @@ function FavPinsList({ showFavs }) {
         "No favorited Pins in this board yet, but there's tons of potential"
       ) : (
         <div className="pin-container">
-          {pins.map((pin, index) => (
+          {pins?.map((pin, index) => (
             // <PinsListCard key={pin.id} pin={pin} />
             <PinCard
               key={index}
