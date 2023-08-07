@@ -80,13 +80,6 @@ function LoginFormModal() {
       />
       <div className="welcome-sign">Welcome to PinThis</div>
       <form className="log-form" onSubmit={handleSubmit}>
-        <div className="on-pinthis">
-          <div className="not-on">Not on PinThis yet?</div>
-          <OpenModalButton
-            buttonText="Sign Up"
-            modalComponent={<SignupFormModal />}
-          />
-        </div>
         <label className="sign-label">
           Email
           <input
@@ -138,6 +131,13 @@ function LoginFormModal() {
         <button className="demo-btn" onClick={demoUser}>
           Demo User
         </button>
+        <div className="on-pinthis">
+          <div className="not-on">Not on PinThis yet?</div>
+          <OpenModalButton
+            buttonText="Sign Up"
+            modalComponent={<SignupFormModal />}
+          />
+        </div>
       </form>
     </div>
   );

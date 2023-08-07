@@ -115,7 +115,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
         <div>
           <div className="form-page">
             <div className="update-form-container-including-title">
-              <h1>Edit this Pin</h1>
+              <h1 className="edit-this-pin">Edit this Pin</h1>
               <div className="update-form-container">
                 <form className="edit-pin" onSubmit={handleSubmit}>
                   <div className="big-container">
