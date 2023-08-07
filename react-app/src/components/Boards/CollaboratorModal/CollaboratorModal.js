@@ -16,9 +16,12 @@ function CollaboratorModal({ isOpen, onClose }) {
   });
   const sessionUser = useSelector((state) => state.session.user);
   const allUsers = useSelector((state) => state.session.allUsers?.users);
-  const owner = allUsers
-    ? allUsers.find((user) => user.id === board.owner_id)
-    : {};
+  // const owner = allUsers
+  //   ? allUsers.find((user) => user.id === board.owner_id)
+  //   : {};
+  const owner = board.collaborators.find(
+    (collaborator) => collaborator.id === board.owner_id
+  );
   const collaborators = board.collaborators.filter(
     (collaborator) => collaborator.id !== board.owner_id
   );
