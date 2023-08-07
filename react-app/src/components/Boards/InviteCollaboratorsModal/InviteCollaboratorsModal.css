@@ -92,6 +92,7 @@
 
 .collaborator-invite-button:hover {
   cursor: pointer;
+  background-color: var(--btn-red-hover);
 }
 
 .collaborator-invite-button:disabled {
