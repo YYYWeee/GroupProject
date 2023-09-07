@@ -65,18 +65,15 @@ export default function CurrentUser() {
   // sort all the boards: default board All pins always show at first,
   // then sort feature boards by updated_at
   if (sortBy === "sortlastupdates") {
-    console.log("sortlastupdates");
     boards?.sort(
       (a, b) =>
         b.is_default - a.is_default ||
         new Date(b.updated_at) - new Date(a.updated_at)
     );
   } else {
-    console.log("sortby board names");
     boards?.sort(
       (a, b) => b.is_default - a.is_default || a.name.localeCompare(b.name)
     );
-    console.log(boards);
   }
   // end for sorting dropdown
 

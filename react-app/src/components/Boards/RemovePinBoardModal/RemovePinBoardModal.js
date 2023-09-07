@@ -15,7 +15,6 @@ function RemovePinBoardModal({ targetPin }) {
   const currentUser = useSelector((state) => state.session.user);
   const targetBoard = useSelector((state) => state.boards.singleBoard);
   const deleteHandler = async () => {
-    console.log("inside remove pin from board handler");
     await dispatch(removePinBoardThunk(targetBoard.id, targetPin.id));
     await dispatch(fetchDeleteFavThunk(targetBoard.id, targetPin.id));
     await dispatch(fetchOneBoardThunk(targetBoard.id));

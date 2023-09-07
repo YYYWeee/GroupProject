@@ -36,7 +36,6 @@ export const fetchAllPinsThunk = () => async (dispatch) => {
     dispatch(loadAllPinsAction(pins));
   } else {
     const errors = await res.json();
-    console.log(errors);
     return errors;
   }
 };
@@ -58,16 +57,14 @@ export const createNewPinThunk = (pin) => async (dispatch) => {
     method: "POST",
     body: pin,
   });
-  console.log("RESPONSE FROM SERVER", response);
 
   if (response.ok) {
     const newPin = await response.json();
-    console.log("NEW PIN DATA", newPin);
     // dispatch(addPin(newPin));
     dispatch(loadOnePinAction(newPin));
     return newPin;
   } else {
-    console.log("There was an error making your pin!");
+    return "There was an error making your pin!";
   }
 };
 
@@ -91,7 +88,6 @@ export const updatePinThunk = (updatePin, id) => async (dispatch) => {
     // }),
   });
   let updatedPin = await response.json();
-  console.log("updated Pin", updatedPin);
   dispatch(loadOnePinAction(updatedPin)); //now
   return updatedPin;
 };
@@ -126,8 +122,6 @@ const pinsReducer = (state = initialState, action) => {
       return { ...state, singlePin: { ...action.pin } };
 
     case DELETE_PIN:
-      console.log("in the reducer", action);
-      console.log("in the reducer", action.pinId);
       const newState = { ...state };
       delete newState[action.pinId];
       return newState;

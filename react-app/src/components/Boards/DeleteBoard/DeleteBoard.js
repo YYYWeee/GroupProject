@@ -1,20 +1,17 @@
-import {useDispatch, useSelector} from "react-redux";
-import {fetchDeleteBoardThunk} from "../../../store/boards";
-import {useModal} from "../../../context/Modal";
-import {useHistory} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDeleteBoardThunk } from "../../../store/boards";
+import { useModal } from "../../../context/Modal";
+import { useHistory } from "react-router-dom";
 
 import "./DeleteBoard.css";
 
-export default function DeleteBoard({board}) {
+export default function DeleteBoard({ board }) {
   const dispatch = useDispatch();
-  const {closeModal} = useModal();
+  const { closeModal } = useModal();
   const history = useHistory();
   const currentUser = useSelector((state) => state.session.user);
 
-  console.log("this is current user", currentUser);
-
   const deleteHandler = async () => {
-    console.log("inside delete handler");
     await dispatch(fetchDeleteBoardThunk(board.id));
 
     closeModal();

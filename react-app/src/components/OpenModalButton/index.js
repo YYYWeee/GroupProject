@@ -14,7 +14,6 @@ function OpenModalButton({
     setModalContent(modalComponent);
     if (onButtonClick) onButtonClick();
   };
-  console.log(buttonText);
   let btnClassName;
   if (buttonText === "Log In") {
     btnClassName = "login cursor";

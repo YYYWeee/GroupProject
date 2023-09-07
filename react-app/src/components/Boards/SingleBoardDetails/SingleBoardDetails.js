@@ -48,8 +48,6 @@ export default function SingleBoardDetails() {
     return state.boards.boardUser;
   });
 
-  console.log("this is single board!@!!", singleBoard);
-
   useEffect(() => {
     dispatch(fetchOneBoardThunk(boardId));
   }, [dispatch, boardId]);

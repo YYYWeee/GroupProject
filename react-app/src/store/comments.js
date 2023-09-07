@@ -35,7 +35,6 @@ export const fetchAllCommentsThunk = (pinId) => async (dispatch) => {
     dispatch(loadAllCommentsAction(comments, pinId));
   } else {
     const errors = await response.json();
-    console.log(errors);
     return errors;
   }
 };

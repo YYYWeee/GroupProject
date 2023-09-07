@@ -11,7 +11,7 @@ export default function BoardCard({ board, boardUser }) {
   const collaborators = allUsers?.filter((user) =>
     board.membersId.includes(user.id)
   );
-  console.log("collaborators", collaborators);
+
   let payload;
   if (board.is_default) {
     payload = (

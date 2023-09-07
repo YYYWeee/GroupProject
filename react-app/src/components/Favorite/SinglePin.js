@@ -1,13 +1,13 @@
-import {useState, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   fetchAddFavoriteThunk,
   fetchAllFavoritesThunk,
 } from "../../store/favorites";
-import {fetchDeleteFavThunk} from "../../store/favorites";
+import { fetchDeleteFavThunk } from "../../store/favorites";
 
-function SinglePin({pin, boardId, favPinIds}) {
+function SinglePin({ pin, boardId, favPinIds }) {
   const dispatch = useDispatch();
   const [visible1, setVisible1] = useState(favPinIds?.includes(pin.id));
 
@@ -19,13 +19,10 @@ function SinglePin({pin, boardId, favPinIds}) {
       pinId: pin.id,
     };
 
-    console.log("fav data", favoriteData);
-
     if (visible1) {
       await dispatch(fetchDeleteFavThunk(boardId, pin.id));
       await dispatch(fetchAllFavoritesThunk(boardId));
     } else {
-      console.log("inside create fav");
       const newFav = await dispatch(fetchAddFavoriteThunk(boardId, pin.id));
       await dispatch(fetchAllFavoritesThunk(boardId));
     }

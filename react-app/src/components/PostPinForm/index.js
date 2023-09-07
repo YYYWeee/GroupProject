@@ -70,7 +70,6 @@ function PostPinForm() {
   if (photoUrl) preview = <img src={photoUrl} id="preview-pin-img" alt="" />;
 
   useEffect(() => {
-    console.log("in the useeffect", link);
     // setLink(link);
     setIsValidLink(isValidUrl(link));
   }, [link]);
@@ -79,7 +78,6 @@ function PostPinForm() {
     e.preventDefault();
     setHasSubmitted(true);
     if (link && !isValidLink) {
-      console.log("invalid link");
       setIsValidLink(false);
       return;
     }
@@ -101,7 +99,6 @@ function PostPinForm() {
     for (let [key, value] of formData.entries()) {
       formDataObject[key] = value;
     }
-    console.log("formData", formDataObject);
 
     const data = await dispatch(createNewPinThunk(formData));
 

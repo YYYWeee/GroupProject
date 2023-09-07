@@ -8,7 +8,6 @@ function SaveToBoardCard({ board, pinId }) {
   const [showAfterSaved, setShowAfterSaved] = useState(false);
   const [buttonText, setButtonText] = useState("Save");
   const handleClickSavePin = async (e) => {
-    console.log(board);
     await fetch(`/api/boards/${board?.id}/pins/${pinId}`, {
       method: "POST",
       headers: {

@@ -30,7 +30,6 @@ function CreateComment({ targetPin }) {
     const formData = {
       message: message,
     };
-    console.log("submit comment", formData);
     const createdComment = await dispatch(
       createCommentThunk(formData, targetPin.id)
     );
