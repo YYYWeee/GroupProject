@@ -13,6 +13,8 @@
   width: 27rem;
   padding: 32px;
   position: relative;
+  overflow-y: auto;
+  max-height: 85vh;
 }
 
 .the-errors {

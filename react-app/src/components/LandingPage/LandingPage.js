@@ -11,7 +11,6 @@ function LandingPage() {
   const handleExplore = async (e) => {
     e.preventDefault();
     history.push(`/pins`);
-    console.log("button");
   };
 
   return (

@@ -64,12 +64,10 @@ function EditPin({ pin, setShowUpdateForm2 }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title) {
-      console.log("no title");
       return;
     }
 
     if (link && !isValidUrl(link)) {
-      console.log("in the handle submit invalid link********************");
       setIsValidLink(false);
       return;
     }
@@ -93,7 +91,6 @@ function EditPin({ pin, setShowUpdateForm2 }) {
 
   const handleCommentToggleChange = async (e) => {
     setAllow_comment((allow_comment) => !allow_comment);
-    console.log("in handleCommentToggleChange", allow_comment);
     // Remember above may not show the updated value because it's happening synchronously right after the state update is scheduled, but the log in the useEffect hook on line 60 will show the correct value after the component re-renders.
   };
   // now (right)

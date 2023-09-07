@@ -9,7 +9,7 @@ def seed_pins():
         "owner_id": 1,
         "image_url": 'https://i.pinimg.com/564x/e8/03/5d/e8035dc96a35982877b0827e3e9e9a2d.jpg',
         "title": 'What\'s your interior design style?',
-        "description": 'What\'s your interior design style? Take my interior design quiz to find out! Do you love modern, mid century, farmhouse, traditional, rustic, glam, eclectic, or industrial? Or maybe you like a few styles...I can help you put a name to your unique decorating style! ',
+        "description": 'What\'s your interior design style? Take my interior design quiz to find out! Do you love modern, mid century, farmhouse, traditional, rustic, glam, eclectic, or industrial? Or maybe you like a few styles...I can help you put a name to your unique decorating style!',
         "link": 'https://nadinestay.com/blog/whats-your-style-quiz',
         "allow_comment": True,
         "show_shopping_recommendations": True,
@@ -28,7 +28,7 @@ def seed_pins():
         "title": 'Spring Tour: Part II-- Family Room — Design Loves Detail',
         "description": 'Finding your design style can be hard, but it doesn\'t have to be. Start by taking this design style quiz',
         "link": 'https://www.designlovesdetail.com/recentposts/spring-tour-part-ii-family-room/',
-        "allow_comment": False,
+        "allow_comment": True,
         "show_shopping_recommendations": True,
     },
         {  # 4 board7
@@ -190,7 +190,7 @@ def seed_pins():
         "description": 'Discover more beautiful color palettes in my page',
         "image_url": 'https://i.pinimg.com/564x/a7/59/2b/a7592bfb9129e36cc8542419435cb277.jpg',
         "link": 'https://designs.ai/colors?utm_source=pinterest&utm_medium=imagepost&utm_campaign=dsasm',
-        "allow_comment": True,
+        "allow_comment": False,
         "show_shopping_recommendations": True,
     },
         {  # 22 board12
@@ -235,7 +235,7 @@ def seed_pins():
         "description": 'Looking for something to make with fresh strawberries? Here are 10 easy and delicious strawberry recipes that you need to try! Lots of amazing options to choose from including breakfast, drinks, snacks and desserts. Some of these recipes are healthy, some super easy to make and all of them are incredibly delicious. The hardest part is deciding what to make first!',
         "image_url": 'https://i.pinimg.com/564x/06/8a/55/068a55e0910fbde239263d954690fcee.jpg',
         "link": 'https://www.mapleandmango.com/strawberry-recipes/',
-        "allow_comment": False,
+        "allow_comment": True,
         "show_shopping_recommendations": True,
     },
         {  # 27 board15
@@ -244,7 +244,7 @@ def seed_pins():
         "description": 'Looking for quick and easy dinner recipes to make for your family this summer that won’t keep you in the hot kitchen for hours? This list has all of our family’s favorites. You’re gonna love these summer dinner ideas for kids!',
         "image_url": 'https://i.pinimg.com/564x/96/ce/7a/96ce7a69941fd3ae7db0e62f9148b2cf.jpg',
         "link": 'https://simply-well-balanced.com/summer-dinner-ideas-kids/',
-        "allow_comment": True,
+        "allow_comment": False,
         "show_shopping_recommendations": True,
     },
         {  # 28 board15
@@ -280,7 +280,7 @@ def seed_pins():
         "description": 'Dollar Tree Farmhouse DIYs with Serious Style. ',
         "image_url": 'https://i.pinimg.com/564x/cb/e4/7e/cbe47eaafd6cfec5dc6183d31188f56b.jpg',
         "link": 'https://bogoten.com/dollar-store-farmhouse-diy/',
-        "allow_comment": False,
+        "allow_comment": True,
         "show_shopping_recommendations": True,
     },
     ]

@@ -41,7 +41,6 @@ function ProfileButton({ user }) {
 
   useEffect(() => {
     if (!showMenu) return;
-    console.log(ulRef1.current);
 
     // const closeMenu = (e) => {
     //   if (!ulRef1.current.contains(e.target)) {
@@ -72,6 +71,7 @@ function ProfileButton({ user }) {
               <img
                 className="nav-user-pic a85"
                 src="https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+                alt=""
               />
             )}
           </button>

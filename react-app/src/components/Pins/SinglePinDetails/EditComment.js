@@ -153,7 +153,7 @@ function EditComment({ comment, setShowEditCommentFormO }) {
               </button>
               <button
                 disabled={updatedMessage === comment.message}
-                className="follow-btn2 cursor"
+                className="follow-btn3 cursor"
               >
                 Save
               </button>

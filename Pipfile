@@ -29,6 +29,6 @@ boto3 = "*"
 email-validator = "*"
 
 [dev-packages]
-
+  
 [requires]
 python_version = "3.9"

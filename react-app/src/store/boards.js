@@ -146,7 +146,6 @@ export const fetchDeleteBoardThunk = (boardId) => async (dispatch) => {
 
   if (res.ok) {
     const board = await res.json();
-    console.log("INSIDE DELETE THUNK");
     dispatch(deleteBoard(boardId));
     return board;
   }
@@ -175,7 +174,6 @@ export const fetchDeleteFavThunk = (boardId, pinId) => async (dispatch) => {
     const res = await fetch(`/api/favorites/${boardId}/${pinId}`, {
       method: "DELETE",
     });
-    console.log("del fav thunk went to backend");
     if (res.ok) {
       const unfavorite = await res.json();
       dispatch(deleteFavorite(unfavorite));
@@ -196,7 +194,6 @@ export const fetchAddFavoriteThunk = (boardId, pinId) => async (dispatch) => {
 
     if (res.ok) {
       const favorite = await res.json();
-      console.log(favorite);
       dispatch(addFavorite(favorite));
     } else {
       console.log("Failed to add favorite pin");
@@ -215,7 +212,6 @@ export const removePinBoardThunk = (boardId, pinId) => async (dispatch) => {
   });
   if (response.ok) {
     const pin = await response.json();
-    console.log("INSIDE DELETE PIN FROM BOARD THUNK");
     dispatch(removePinBoard(pinId));
     return pinId;
   }

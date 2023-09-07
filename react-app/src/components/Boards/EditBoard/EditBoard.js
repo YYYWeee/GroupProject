@@ -26,13 +26,14 @@ export default function EditBoard({ board }) {
   );
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-
   const allUsers = useSelector((state) => state.session.allUsers?.users);
   const owner = allUsers
     ? allUsers.find((user) => user.id === board.owner_id)
     : {};
   const currentUser = useSelector((state) => state.session.user);
   const newest_board = useSelector((state) => state.boards.singleBoard);
+
+  const [boardData, setBoardData] = useState(newest_board);
 
   useEffect(() => {
     dispatch(fetchAllUsersThunk());
@@ -126,7 +127,13 @@ export default function EditBoard({ board }) {
                 <input
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    setBoardData((prev) => ({
+                      ...boardData,
+                      name: e.target.value,
+                    }));
+                  }}
                   placeholder='Like: "Place to Go" or "Recipes to Make"'
                 ></input>
                 {errors.name && <div className="errors">{errors.name}</div>}
@@ -138,7 +145,13 @@ export default function EditBoard({ board }) {
                 )}
                 <textarea
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                    setBoardData((prev) => ({
+                      ...boardData,
+                      description: e.target.value,
+                    }));
+                  }}
                   placeholder="What's your board about?"
                 ></textarea>
               </label>
@@ -146,7 +159,13 @@ export default function EditBoard({ board }) {
                 <input
                   type="checkbox"
                   checked={is_secret}
-                  onChange={(e) => setIs_secert(e.target.checked)}
+                  onChange={(e) => {
+                    setIs_secert(e.target.checked);
+                    setBoardData((prev) => ({
+                      ...boardData,
+                      is_secret: e.target.value,
+                    }));
+                  }}
                 ></input>
                 <div>
                   <p>Keep this board secret</p>
@@ -165,6 +184,7 @@ export default function EditBoard({ board }) {
                   <img
                     src={owner?.photo_url}
                     className="edit-board-user-image"
+                    alt=""
                   />
                 </div>
                 {collaborators.map((collaborator) => (
@@ -175,6 +195,7 @@ export default function EditBoard({ board }) {
                           ? collaborator.photo_url
                           : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
                       }
+                      alt=""
                       className="edit-board-user-image"
                     />
                   </div>
@@ -211,7 +232,10 @@ export default function EditBoard({ board }) {
                     modalComponent={
                       <InviteCollaborator
                         board={
-                          newest_board.id === board.id ? newest_board : board
+                          newest_board.id === board.id
+                            ? // ? newest_board
+                              boardData
+                            : board
                         }
                       />
                     }
