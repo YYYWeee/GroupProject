@@ -9,7 +9,7 @@ def seed_pins():
         "owner_id": 1,
         "image_url": 'https://i.pinimg.com/564x/e8/03/5d/e8035dc96a35982877b0827e3e9e9a2d.jpg',
         "title": 'What\'s your interior design style?',
-        "description": 'What\'s your interior design style? Take my interior design quiz to find out! Do you love modern, mid century, farmhouse, traditional, rustic, glam, eclectic, or industrial? Or maybe you like a few styles...I can help you put a name to your unique decorating style! ',
+        "description": 'What\'s your interior design style? Take my interior design quiz to find out! Do you love modern, mid century, farmhouse, traditional, rustic, glam, eclectic, or industrial? Or maybe you like a few styles...I can help you put a name to your unique decorating style!',
         "link": 'https://nadinestay.com/blog/whats-your-style-quiz',
         "allow_comment": True,
         "show_shopping_recommendations": True,
@@ -28,7 +28,7 @@ def seed_pins():
         "title": 'Spring Tour: Part II-- Family Room — Design Loves Detail',
         "description": 'Finding your design style can be hard, but it doesn\'t have to be. Start by taking this design style quiz',
         "link": 'https://www.designlovesdetail.com/recentposts/spring-tour-part-ii-family-room/',
-        "allow_comment": False,
+        "allow_comment": True,
         "show_shopping_recommendations": True,
     },
         {  # 4 board7
