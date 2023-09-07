@@ -270,7 +270,7 @@ def seed_comments():
         },
         {
             "pin_id": 12, "user_id": 1,
-            "message": "Ready to transform?😊🌟🏡�🌟🏡😊🌟🏡�💪💪💪",
+            "message": "Ready to transform?💪💪💪",
             "created_at": datetime(2023, 5, 15, 11, 00),
             "updated_at": datetime(2023, 5, 17, 13, 22),
         },
@@ -343,6 +343,272 @@ def seed_comments():
             "message": "Would you mind sharing the links to these fantastic recommendations? 🛍️ ",
             "created_at": datetime(2023, 6, 16, 11, 00),
             "updated_at": datetime(2023, 6, 25, 13, 22),
+        },
+
+        # pin 17
+        {
+            "pin_id": 17, "user_id": 3,
+            "message": "Considering a sunny Christmas on the beach this year! 🏝️🌞 Who else loves the idea of a tropical holiday season? 🎄⛱️",
+            "created_at": datetime(2023, 9, 6, 11, 00),
+            "updated_at": datetime(2023, 9, 6, 13, 22),
+        },
+        {
+            "pin_id": 17, "user_id": 1,
+            "message": "These charming Christmas towns are calling my name!❤️ ",
+            "created_at": datetime(2023, 6, 6, 11, 00),
+            "updated_at": datetime(2023, 6, 6, 13, 22),
+        },
+
+        # pin 18
+        {
+            "pin_id": 18, "user_id": 4,
+            "message": "Feeling festive already! 🎉❄️ This list of Christmas towns and travel ideas is a gift in itself. 🎁",
+            "created_at": datetime(2023, 8, 6, 11, 00),
+            "updated_at": datetime(2023, 8, 6, 13, 22),
+        },
+        {
+            "pin_id": 18, "user_id": 5,
+            "message": "Ready to jingle all the way to these awesome Christmas destinations! 🌆🎶 Thanks for the travel tips and ideas. 🧳❤️ ",
+            "created_at": datetime(2023, 8, 23, 11, 00),
+            "updated_at": datetime(2023, 8, 23, 13, 22),
+        },
+        {
+            "pin_id": 18, "user_id": 1,
+            "message": "Can't wait to explore these winter wonderlands.  Hey, friends, any suggestions on where to spend our Christmas this year? 🎄",
+            "created_at": datetime(2023, 8, 30, 11, 00),
+            "updated_at": datetime(2023, 8, 31, 13, 22),
+        },
+        {
+            "pin_id": 18, "user_id": 4,
+            "message": "Considering Key West sounds like a great idea! 🌴",
+            "created_at": datetime(2023, 9, 1, 11, 00),
+            "updated_at": datetime(2023, 9, 1, 13, 22),
+        },
+        {
+            "pin_id": 18, "user_id": 6,
+            "message": "A tropical Christmas? That could be amazing!",
+            "created_at": datetime(2023, 9, 2, 11, 00),
+            "updated_at": datetime(2023, 9, 2, 13, 22),
+        },
+        {
+            "pin_id": 18, "user_id": 2,
+            "message": "Ooh, love that idea! ",
+            "created_at": datetime(2023, 9, 3, 11, 00),
+            "updated_at": datetime(2023, 9, 3, 13, 22),
+        },
+
+        # pin 20
+        {
+            "pin_id": 20, "user_id": 1,
+            "message": "I've always been hesitant about wallpaper in the bathroom, but I'm open to new ideas. Looking forward to discovering the secret to making it work! 🚽",
+            "created_at": datetime(2023, 9, 6, 11, 00),
+            "updated_at": datetime(2023, 9, 6, 13, 22),
+        },
+        {
+            "pin_id": 20, "user_id": 3,
+            "message": "I absolutely need this in my life! It's unique and adds so much character to any space.",
+            "created_at": datetime(2023, 8, 16, 11, 00),
+            "updated_at": datetime(2023, 8, 16, 13, 22),
+        },
+        {
+            "pin_id": 20, "user_id": 5,
+            "message": "The devil is in the details, they say. I'm ready to embrace the charm of wallpaper in my bathroom. Share those secrets to make it work beautifully! 🚿",
+            "created_at": datetime(2023, 7, 16, 11, 00),
+            "updated_at": datetime(2023, 7, 16, 13, 22),
+        },
+
+        # pin 22
+        {
+            "pin_id": 22, "user_id": 1,
+            "message": "This item is now officially on my wishlist. 🤩🤩🤩",
+            "created_at": datetime(2023, 9, 6, 11, 00),
+            "updated_at": datetime(2023, 9, 6, 13, 22),
+        },
+
+        # pin 24
+        {
+            "pin_id": 24, "user_id": 2,
+            "message": "Such a moist and flavourful cake. I baked it in a 9\" x 9\" square pan, so it would be easier to slice into cute squares for Valentine's Day. My daughter and coworkers loved it.",
+            "created_at": datetime(2023, 2, 6, 11, 00),
+            "updated_at": datetime(2023, 2, 6, 13, 22),
+        },
+        {
+            "pin_id": 24, "user_id": 1,
+            "message": "Made it, looks yummy! Do I need to keep it for the fridge since it has yogurt in it? Also, can I freeze it?",
+            "created_at": datetime(2023, 6, 6, 11, 00),
+            "updated_at": datetime(2023, 6, 6, 13, 22),
+        },
+        {
+            "pin_id": 24, "user_id": 6,
+            "message": "Delicious! I made this with all purpose gluten free flour and it turned out well!",
+            "created_at": datetime(2023, 5, 14, 11, 00),
+            "updated_at": datetime(2023, 5, 16, 13, 22),
+        },
+        {
+            "pin_id": 24, "user_id": 6,
+            "message": "I love simple and tasty recipes like this! Perfect for spring and summer gatherings. Can't wait to try it out! 🌞🍰",
+            "created_at": datetime(2023, 5, 6, 11, 00),
+            "updated_at": datetime(2023, 5, 6, 13, 22),
+        },
+        {
+            "pin_id": 24, "user_id": 4,
+            "message": "So yummy and moist and not too sweet.",
+            "created_at": datetime(2023, 7, 6, 11, 00),
+            "updated_at": datetime(2023, 7, 6, 13, 22),
+        },
+        {
+            "pin_id": 24, "user_id": 3,
+            "message": "I tried this cake. Followed the recipe exactly. My cake fell. Don't understand why.",
+            "created_at": datetime(2023, 4, 6, 11, 00),
+            "updated_at": datetime(2023, 4, 6, 13, 22),
+        },
+        {
+            "pin_id": 24, "user_id": 5,
+            "message": "Love it! ❤ made it. what a wonderful recipe!🍓🍓🍓",
+            "created_at": datetime(2023, 9, 2, 11, 00),
+            "updated_at": datetime(2023, 9, 2, 13, 22),
+        },
+
+        # pin 25
+        {
+            "pin_id": 25, "user_id": 1,
+            "message": " I made this and it was amazing! Next time we will have to scoop vanilla ice cream and serve hot. It's good either way!😋",
+            "created_at": datetime(2023, 9, 6, 11, 00),
+            "updated_at": datetime(2023, 9, 6, 13, 22),
+        },
+        {
+            "pin_id": 25, "user_id": 2,
+            "message": "I couldn't open the link for the recipe. Could someone forward it to me?",
+            "created_at": datetime(2023, 3, 6, 11, 00),
+            "updated_at": datetime(2023, 3, 6, 13, 22),
+        },
+        {
+            "pin_id": 25, "user_id":3,
+            "message": "Easy to make! A huge hit. Loved having the \"jam\" taste but with fresh strawberries.",
+            "created_at": datetime(2023, 7, 6, 11, 00),
+            "updated_at": datetime(2023, 7, 6, 13, 22),
+        },
+
+        # pin 26
+        {
+            "pin_id": 26, "user_id": 1,
+            "message": "Strawberry season is the best! So many tasty options to choose from! 😋",
+            "created_at": datetime(2023, 9, 6, 11, 00),
+            "updated_at": datetime(2023, 9, 6, 13, 22),
+        },
+        {
+            "pin_id": 26, "user_id": 1,
+            "message": "Homemade strawberry ice cream is a must-try. 🍨",
+            "created_at": datetime(2023, 9, 6, 14, 00),
+            "updated_at": datetime(2023, 9, 6, 15, 22),
+        },
+        {
+            "pin_id": 26, "user_id": 4,
+            "message": "Strawberry shortcake is a timeless dessert. 🍰🍓",
+            "created_at": datetime(2023, 7, 6, 14, 00),
+            "updated_at": datetime(2023, 7, 6, 15, 22),
+        },
+        {
+            "pin_id": 26, "user_id": 6,
+            "message": "Strawberry jam sandwiches are my childhood favorite. 🥪 ",
+            "created_at": datetime(2023, 6, 6, 14, 00),
+            "updated_at": datetime(2023, 6, 6, 15, 22),
+        },
+
+        # pin 29
+        {
+            "pin_id": 29, "user_id": 1,
+            "message": "Nothing beats the taste of fresh peaches in a margarita. It's like sunshine in a sip! 🍹🍑 ",
+            "created_at": datetime(2023, 9, 1, 11, 00),
+            "updated_at": datetime(2023, 9, 1, 13, 22),
+        },
+        {
+            "pin_id": 29, "user_id": 5,
+            "message": "I kept it simple. No coconut and no extra peach on top. And it is still excellent.",
+            "created_at": datetime(2023, 9, 1, 11, 00),
+            "updated_at": datetime(2023, 9, 1, 13, 22),
+        },
+
+        # pin 30
+        {
+            "pin_id": 30, "user_id": 1,
+            "message": "A kitchen is a long-term investment, so it's great to see trends that emphasize quality and durability. These choices are spot on! 👌",
+            "created_at": datetime(2023, 7, 21, 11, 00),
+            "updated_at": datetime(2023, 7, 21, 13, 22),
+        },
+        {
+            "pin_id": 30, "user_id": 2,
+            "message": "I'm planning a kitchen remodel, and this list is a goldmine of inspiration. ",
+            "created_at": datetime(2023, 6, 21, 11, 00),
+            "updated_at": datetime(2023, 6, 21, 13, 22),
+        },
+        {
+            "pin_id": 30, "user_id": 6,
+            "message": "New year, new kitchen trends! These are definitely not just fast fashion fads. They're here to stay and elevate our homes. 🏠🍽️",
+            "created_at": datetime(2023, 1, 21, 11, 00),
+            "updated_at": datetime(2023, 1, 21, 13, 22),
+        },
+        {
+            "pin_id": 30, "user_id": 4,
+            "message": "The styling ideas are so chic and elegant. Love them!",
+            "created_at": datetime(2023, 8, 21, 11, 00),
+            "updated_at": datetime(2023, 8, 21, 13, 22),
+        },
+        {
+            "pin_id": 30, "user_id": 5,
+            "message": "Thanks for sharing these trends for 2023! 🏡👨‍🍳",
+            "created_at": datetime(2023, 2, 21, 11, 00),
+            "updated_at": datetime(2023, 2, 21, 13, 22),
+        },
+        {
+            "pin_id": 30, "user_id": 3,
+            "message": "I love how these trends combine modern style with classic elements. It's all about creating a kitchen that's both stylish and enduring. ",
+            "created_at": datetime(2023, 1, 21, 11, 00),
+            "updated_at": datetime(2023, 1, 21, 13, 22),
+        },
+
+        # pin 31
+        {
+            "pin_id": 31, "user_id": 1,
+            "message": "So nice,👍great 👍👍❤️",
+            "created_at": datetime(2023, 9, 2, 11, 00),
+            "updated_at": datetime(2023, 9, 4, 13, 22),
+        },
+        {
+            "pin_id": 31, "user_id": 4,
+            "message": "Farmhouse style doesn't have to cost a fortune. These Dollar Tree finds are a game-changer for anyone looking to revamp their decor affordably.💰",
+            "created_at": datetime(2023, 8, 2, 11, 00),
+            "updated_at": datetime(2023, 8, 4, 13, 22),
+        },
+        {
+            "pin_id": 31, "user_id": 5,
+            "message": "The charm of farmhouse decor is within reach, thanks to these clever Dollar Tree hacks. 🛠️",
+            "created_at": datetime(2023, 6, 2, 11, 00),
+            "updated_at": datetime(2023, 6, 4, 13, 22),
+        },
+        {
+            "pin_id": 31, "user_id": 6,
+            "message": "I love a good DIY project, especially when it's budget-friendly! ",
+            "created_at": datetime(2023, 5, 1, 11, 00),
+            "updated_at": datetime(2023, 5, 1, 13, 22),
+        },
+        {
+            "pin_id": 31, "user_id": 3,
+            "message": "DIY enthusiasts, rejoice! ",
+            "created_at": datetime(2023, 7, 30, 11, 00),
+            "updated_at": datetime(2023, 7, 30, 13, 22),
+        },
+        {
+            "pin_id": 31, "user_id": 6,
+            "message": "Everyone have fun with your DIY projects. 🌟🌟",
+            "created_at": datetime(2023, 5, 30, 11, 00),
+            "updated_at": datetime(2023, 5, 30, 13, 22),
+        },
+        {
+            "pin_id": 31, "user_id": 2,
+            "message": "I'm all about making my home cozy and stylish without overspending. These Dollar Tree Farmhouse DIYs are a must-try! ",
+            "created_at": datetime(2022, 1, 30, 11, 00),
+            "updated_at": datetime(2022, 1, 30, 13, 22),
         },
     ]
 
