@@ -34,6 +34,8 @@ function EditPin({ pin, setShowUpdateForm2 }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
+  const [titleError, setTitleError] = useState('')
+
 
   const [showMenu, setShowMenu] = useState(false);
   const ulRef1 = useRef();
@@ -106,6 +108,11 @@ function EditPin({ pin, setShowUpdateForm2 }) {
     }
     setErrors(errorsArray);
   }, [link]);
+  useEffect(() => {
+    if (!title.length) setTitleError('Title is required')
+    else setTitleError('')
+  }, [title])
+
 
   return (
     <>
@@ -120,13 +127,16 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                     <div className="left-container">
                       <div className="title-area error">
                         <label>Title</label>
-                        <input
-                          type="text"
-                          name="title"
-                          value={title}
-                          onChange={(e) => setTitle(e.target.value)}
-                          required
-                        />
+                        <div className="title-section">
+                          <input
+                            type="text"
+                            name="title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                          />
+                          {titleError && <div className='error-section-title'><i className="fa-solid fa-triangle-exclamation fa-xl"></i>{titleError}</div>}
+                        </div>
                       </div>
                       <div className="description-area">
                         <label>Description </label>
@@ -147,7 +157,7 @@ function EditPin({ pin, setShowUpdateForm2 }) {
                           name="link"
                           value={link}
                           onChange={(e) => setLink(e.target.value)}
-                          // onChange={handleLinkChange}
+                        // onChange={handleLinkChange}
                         />
                       </div>
                       <p className="errors">

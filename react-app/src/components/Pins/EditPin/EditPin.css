@@ -164,6 +164,7 @@ input {
   outline: none;
 }
 
+
 input,
 textarea {
   border-radius: 10px;
@@ -273,4 +274,16 @@ textarea[name="altText"]::placeholder {
   font-size: 24px;
   color: #111;
   padding-bottom: 16px;
+}
+
+
+.title-section{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.error-section-title{
+  color: #cc0000;
+  margin-bottom: 20px;
 }
