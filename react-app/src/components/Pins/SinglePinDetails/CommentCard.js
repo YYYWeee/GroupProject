@@ -50,8 +50,8 @@ function CommentCard({ comment }) {
           <div className="comment-stat-i">
             {calculatedTimePassed(comment?.updated_at)}
           </div>
-          <div className="comment-stat-i reply">Reply</div>
-          <i className="fa-regular fa-heart"></i>
+          {/* <div className="comment-stat-i reply">Reply</div> */}
+          {/* <i className="fa-regular fa-heart"></i> */}
           {sessionUser?.id === comment.user_id && (
             <div className="comment-stat-i reply cursor" onClick={handleToggle}>
               Edit

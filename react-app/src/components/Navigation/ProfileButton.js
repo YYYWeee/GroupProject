@@ -109,9 +109,9 @@ function ProfileButton({ user }) {
               <i className="fa-solid fa-check"></i>
             </div>
             <div className="user-menu-options">
-              <button onClick={() => alert("Feature coming soon!")}>
+              {/* <button onClick={() => alert("Feature coming soon!")}>
                 Settings
-              </button>
+              </button> */}
               <button onClick={handleLogout}>Log Out</button>
             </div>
           </ul>

@@ -36,7 +36,7 @@ function PinCard({
         {pin?.link && (
           <div className="img-link-container1 cursor">
             <i className="fa-solid fa-arrow-up-right-from-square"></i>
-            <a href={pin?.link} className="img-link1" onClick={handleClickLink}>
+            <a href={pin?.link} className="img-link1" onClick={handleClickLink} target="_blank">
               {pin?.link &&
                 (new URL(pin?.link).hostname.startsWith("www.")
                   ? new URL(pin?.link).hostname.split(".")[1]

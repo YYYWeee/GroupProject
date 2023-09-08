@@ -156,7 +156,7 @@ function SinglePinDetails() {
             {targetPin?.link && (
               <div className="img-link-container cursor">
                 <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                <a href={targetPin?.link} className="img-link">
+                <a href={targetPin?.link} className="img-link" target="_blank">
                   {linkHostname}
                 </a>
               </div>
