@@ -36,6 +36,10 @@ export default function EditBoard({ board }) {
   const [boardData, setBoardData] = useState(newest_board);
 
   useEffect(() => {
+    setBoardData(newest_board);
+  }, [newest_board]);
+
+  useEffect(() => {
     dispatch(fetchAllUsersThunk());
   }, []);
 
