@@ -90,8 +90,7 @@ html {
 } */
 
 #second-container {
-  background: url("https://s.pinimg.com/webapp/shop-bd0c8a04.png") no-repeat
-    center center;
+  background: url("https://s.pinimg.com/webapp/shop-bd0c8a04.png") no-repeat center center;
   background-size: cover;
   display: flex;
   flex-direction: row;
@@ -112,7 +111,7 @@ html {
 
 /* in case the text also get reduced opacity. */
 #third-container::before {
-  background-image: url("https://media.discordapp.net/attachments/1134270927769698500/1137080048885715026/Screenshot_2023-08-04_at_12.47.32_PM.png");
+  background-image: url("https://flavoreatsbucket.s3.us-west-2.amazonaws.com/Screenshot_2023-08-04_at_12.47.32_PM.png");
   background-size: cover;
   position: absolute;
   content: "";

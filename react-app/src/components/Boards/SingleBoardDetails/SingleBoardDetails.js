@@ -157,7 +157,7 @@ export default function SingleBoardDetails() {
                         src={
                           user.photo_url
                             ? user.photo_url
-                            : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+                            : "https://flavoreatsbucket.s3.us-west-2.amazonaws.com/profile-icon.jpeg"
                         }
                         alt="No pin preview"
                         className="creator-img2 "

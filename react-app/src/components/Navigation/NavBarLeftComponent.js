@@ -59,7 +59,7 @@ function NavBarLeftComponent({ user }) {
         <div className="header-left-container">
           <button onClick={handleClick} className="logo cursor">
             <img
-              src="https://cdn.discordapp.com/attachments/1134270927769698500/1136745653691764736/pinlogo_copy.png"
+              src="https://flavoreatsbucket.s3.us-west-2.amazonaws.com/pinlogo_copy.png"
               alt="PinThis"
               id="navigation-title-img1"
             />
@@ -95,7 +95,7 @@ function NavBarLeftComponent({ user }) {
         <div className="header-left-container">
           <button onClick={handleClickLanding} className="logo cursor">
             <img
-              src="https://cdn.discordapp.com/attachments/1134270927769698500/1136745653691764736/pinlogo_copy.png"
+              src="https://flavoreatsbucket.s3.us-west-2.amazonaws.com/pinlogo_copy.png"
               alt="PinThis"
               id="navigation-title-img1"
             />

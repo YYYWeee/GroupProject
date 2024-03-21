@@ -134,7 +134,7 @@ export default function CurrentUser() {
           src={
             boardUser.photo_url
               ? boardUser.photo_url
-              : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+              : "https://flavoreatsbucket.s3.us-west-2.amazonaws.com/profile-icon.jpeg"
           }
         />
 
@@ -211,9 +211,8 @@ export default function CurrentUser() {
               <button>
                 A to Z{"   "}
                 <i
-                  className={`fa-solid fa-check ${
-                    sortBy === "sortboardnames" ? "" : " hidden"
-                  }`}
+                  className={`fa-solid fa-check ${sortBy === "sortboardnames" ? "" : " hidden"
+                    }`}
                 ></i>
               </button>
             </div>
@@ -227,9 +226,8 @@ export default function CurrentUser() {
               <button className="">
                 Last saved to{"   "}
                 <i
-                  className={`fa-solid fa-check ${
-                    sortBy === "sortlastupdates" ? "" : " hidden"
-                  }`}
+                  className={`fa-solid fa-check ${sortBy === "sortlastupdates" ? "" : " hidden"
+                    }`}
                 ></i>
               </button>
             </div>

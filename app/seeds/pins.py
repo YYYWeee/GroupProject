@@ -42,7 +42,7 @@ def seed_pins():
     },
         {  # 5 board7
         "owner_id": 1,
-        "image_url": 'https://media.discordapp.net/attachments/1134270927769698500/1134703078436765777/5.jpg',
+        "image_url": 'https://flavoreatsbucket.s3.us-west-2.amazonaws.com/pinthis_bedroom.jpeg',
         "title": '54 Simple Dining Room Wall Decor Ideas | Displate Blog',
         "description": 'Here are some great ideas to make your snack room or dining room look stunning with some simple wall decor ideas.',
         "link": 'https://blog.displate.com/dining-room-wall-decor/?epik=dj0yJnU9c04yOU42RWNqWTdPeHZtczJxUlk4NTRYUFFLSHZVRE4mcD0wJm49dTIzd1l2cDNpaS0zeF9vc1VzSzcwUSZ0PUFBQUFBR1RCN3Z3',
