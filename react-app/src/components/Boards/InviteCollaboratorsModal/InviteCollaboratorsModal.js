@@ -20,9 +20,9 @@ export default function InviteCollaborator({ board, isInDetailPage }) {
   );
   const initialInvitedUsers = board.collaborators
     ? board.collaborators.reduce((acc, user) => {
-        acc[user.id] = true;
-        return acc;
-      }, {})
+      acc[user.id] = true;
+      return acc;
+    }, {})
     : {};
   const [InvitedUsers, setInvitedUsers] = useState(initialInvitedUsers);
   const allUsers = useSelector((state) => state.session.allUsers?.users);
@@ -93,7 +93,7 @@ export default function InviteCollaborator({ board, isInDetailPage }) {
               src={
                 owner?.photo_url
                   ? owner.photo_url
-                  : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+                  : "https://flavoreatsbucket.s3.us-west-2.amazonaws.com/profile-icon.jpeg"
               }
               alt={owner?.username}
               className="collaborator-user-image"
@@ -115,7 +115,7 @@ export default function InviteCollaborator({ board, isInDetailPage }) {
                   src={
                     user.photo_url
                       ? user.photo_url
-                      : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+                      : "https://flavoreatsbucket.s3.us-west-2.amazonaws.com/profile-icon.jpeg"
                   }
                   alt={user.username}
                   className="collaborator-user-image"

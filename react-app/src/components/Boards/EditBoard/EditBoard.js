@@ -20,8 +20,8 @@ export default function EditBoard({ board }) {
   const [collaborators, setCollaborators] = useState(
     board.collaborators
       ? board.collaborators.filter(
-          (collaborator) => collaborator.id !== board.owner_id
-        )
+        (collaborator) => collaborator.id !== board.owner_id
+      )
       : []
   );
   const [errors, setErrors] = useState({});
@@ -197,7 +197,7 @@ export default function EditBoard({ board }) {
                       src={
                         collaborator.photo_url
                           ? collaborator.photo_url
-                          : "https://cdn.discordapp.com/attachments/1134270927769698500/1136036638351425769/profile-icon.jpeg"
+                          : "https://flavoreatsbucket.s3.us-west-2.amazonaws.com/profile-icon.jpeg"
                       }
                       alt=""
                       className="edit-board-user-image"
@@ -238,7 +238,7 @@ export default function EditBoard({ board }) {
                         board={
                           newest_board.id === board.id
                             ? // ? newest_board
-                              boardData
+                            boardData
                             : board
                         }
                       />
